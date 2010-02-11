@@ -11,9 +11,10 @@ namespace TubesAI.Model
     {
         public struct ElemenAksi
         {
+            public int index_pelaku;
             public int index_sasaran;
             public Aksi aksi;
-            public string kenapa;
+            public Item item;
         }
 
         
