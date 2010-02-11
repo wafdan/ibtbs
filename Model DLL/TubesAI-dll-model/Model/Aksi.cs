@@ -5,7 +5,7 @@
         menyerang,
         bertahan,
         heal,
-        use_potion,
-        use_lifePotion,
+        use_item,
+        nothing
     }
 }
