@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TubesAI.Model;
 
-namespace KelompokGw
+namespace TubesAI
 {	
 	/*
 	   Jenis2 Set image:
@@ -18,8 +19,8 @@ namespace KelompokGw
     public class TeamController
     {
 		#region properties
-		//  Team Team1
-		//  Team Team2
+		  Team Team1;
+          Team Team2;
 		//  bool firstmove
 		//  AnimationController AC
 		#endregion
@@ -97,20 +98,74 @@ namespace KelompokGw
             //          	Set image untuk kasus ini
 			//		Jika life potion tidak ada,
 			//			Set image untuk kasus ini
+            // Jika do nothing,
+            //		Set image untuk kasus ini
         }
 
-		public void CalculationDamage() // Unit1, Unit2
+		public void CalculationDamage(int idx1, int idx2) // Unit1, Unit2
 		{
+            Unit satu = FindUnit(Team1, idx1);
+            Unit dua = FindUnit(Team2, idx2);
+            int damage = 200;
+
+            if (satu is Archer)
+            {
+                if (dua is Rider)//kelemahan
+                    damage /= 2;
+                else if ((dua is Swordsman)||(dua is Medic)) //kuat
+                    damage = (int)(damage * 1.5);
+            }
+            else if (satu is Swordsman)
+            {
+                if (dua is Archer)//kelemahan
+                    damage /= 2;
+                else if ((dua is Spearman)||(dua is Medic)) //kuat
+                    damage = (int)(damage * 1.5);
+            }
+            else if (satu is Spearman)
+            {
+                if (dua is Rider)//kelemahan
+                    damage /= 2;
+                else if ((dua is Rider)||(dua is Medic)) //kuat
+                    damage = (int)(damage * 1.5);
+            }
+            else if (satu is Rider)
+            {
+                if (dua is Spearman)//kelemahan
+                    damage /= 2;
+                else if ((dua is Archer)||(dua is Medic)) //kuat
+                    damage = (int)(damage * 1.5);
+            }
+            if (dua.isBertahan) damage /= 2;
+            dua.setHP(dua.getCurrentHP()-damage);
 		}
 		
-		public void CalculationHeal() // Unit1, Unit2
+		public void CalculationHeal(int idx1, int idx2) // Unit1, Unit2
 		{
+            Unit satu = FindUnit(Team1, idx1);
+            Unit dua = FindUnit(Team2, idx2);
+
+            dua.setHP(dua.getCurrentHP()+500);
+            if (dua.getCurrentHP() > dua.getMaxHP()) dua.setHP(dua.getMaxHP());
 		}
-		
-		public void CalculationLife() // Unit1, Unit2
+
+        public void CalculationLife(int idx1, int idx2) // Unit1, Unit2
 		{
+            Unit satu = FindUnit(Team1, idx1);
+            Unit dua = FindUnit(Team2, idx2);
+
+            dua.setHP((int)(0.5*dua.getMaxHP()));
 		}
-		
+
+        public Unit FindUnit(Team team, int index)
+        {
+            foreach (Unit un in team.listUnit)
+            {
+                if (team.listUnit.FindIndex(re => re==un) == index) return un;
+            }
+            return null;
+        }
+
 		#endregion
 		
     }
