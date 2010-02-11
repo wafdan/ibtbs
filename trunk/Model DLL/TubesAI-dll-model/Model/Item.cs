@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace TubesAI_dll_model
+namespace TubesAI.Model
 {
-    public class Class1
+    public enum Item
     {
+        life_potion,
+        potion,
     }
 }

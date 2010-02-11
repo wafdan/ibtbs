@@ -74,5 +74,12 @@
       <NewMemberFileName>Model\aksi.cs</NewMemberFileName>
     </TypeIdentifier>
   </Enum>
+  <Enum Name="TubesAI.Model.Item">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Item.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
