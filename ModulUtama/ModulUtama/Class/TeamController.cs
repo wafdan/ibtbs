@@ -16,16 +16,47 @@ namespace ModulUtama.Class
         AC.Win(int Team);
     */
 
+    /// <summary>
+    /// Controller yang mengatur giliran unit untuk melakukan aksi,
+    /// Kalkulasi setiap aksi, dan menyuruh Animation Controller untuk menggambar tampilan game
+    /// </summary>
     class TeamController
     {
         #region properties
+        /// <summary>
+        /// Animation Controller
+        /// </summary>
         private AnimationController AC;
-        private Team Team1;
-        private Team Team2;
+        /// <summary>
+        /// Team 1
+        /// </summary>
+        public Team Team1 {get; private set;}
+        /// <summary>
+        /// Team 2
+        /// </summary>
+        public Team Team2 { get; private set; }
+        /// <summary>
+        /// Jika bernilai true maka Team 1 menyerang dahulu, 
+        /// jika bernilai false maka Team 2 menyerang dahulu.
+        /// </summary>
         private bool FirstMove;
+        /// <summary>
+        /// Damage normal = 200 poin
+        /// </summary>
+        private const int Damage = 200;
+        /// <summary>
+        /// Heal normal = 500 poin
+        /// </summary>
+        private const int Heal = 500;
         #endregion
 
         #region constructors
+
+        /// <param name="firstMove">
+        /// boolean yang menentukan Team mana yang jalan duluan
+        /// jika bernilai true, Team 1 menyerang dahulu,
+        /// jika bernilai false, Team 2 menyerang dahulu.
+        /// </param>
         public TeamController(bool firstMove)
         {
             //Inisialisasi AC
@@ -38,18 +69,30 @@ namespace ModulUtama.Class
         #endregion
 
         #region methods
-        /*
-         * Output: semua status team penuh kembali.
-         */
+
+        /// <summary>
+        /// Me-restore semua Unit pada masing-masing Team.
+        /// Membekali masing-masing Team dengan 10 potion dan 10 life Potion.
+        /// </summary>
         public void ResetTeam()
         {
             // Fullkan HP seluruh unit pada Team 1 dan Team 2
-            // Bekali 10 potion dan 10 life potion
+            foreach (Unit un in Team1.listUnit)
+            {
+                un.setHP(un.getMaxHP());
+            }
+            foreach (Unit un in Team2.listUnit)
+            {
+                un.setHP(un.getMaxHP());
+            }
+            // beri 10 potion dan 10 life potion
+
         }
         
-        /*
-         * Output: Mengidentifikasi jika permainan sudah berakhir atau belum.
-         */
+        /// <summary>
+        /// Mengembalikan true jika ada team yang menang.
+        /// </summary>
+        /// <returns>boolean</returns>
         public bool isEndGame()
         {
             // Cek apakah ada team yang menang 
@@ -61,10 +104,13 @@ namespace ModulUtama.Class
             return true;
         }
 
-        /*
-         * Output: Memberikan Unit pada Team team dengan index ke-index. 
-         */
-        public Unit FindUnit(Team team, int index)
+        /// <summary>
+        /// Memberikan Unit pada Team team dengan index ke-index
+        /// </summary>
+        /// <param name="team">team Unit berada</param>
+        /// <param name="index">index unit dari 0-10</param>
+        /// <returns></returns>
+        public static Unit FindUnit(Team team, int index)
         {
             foreach (Unit un in team.listUnit)
             {
@@ -73,80 +119,78 @@ namespace ModulUtama.Class
             return null;
         }
 
-        /*
-         * Output: kalkulasi damage unit1 terhadap unit2.
-         */
-        public void CalculationDamage(int idx1, int idx2)
+        /// <summary>
+        /// Kalkulasi damage yang dihasilkan dari Unit satu kepada Unit dua
+        /// </summary>
+        /// <param name="satu">Unit yang menyerang</param>
+        /// <param name="dua">Unit yang diserang</param>
+        public void CalculationDamage(Unit satu,Unit dua)
         {
-            Unit satu = FindUnit(Team1, idx1);
-            Unit dua = FindUnit(Team2, idx2);
-            int damage = 200;
+            int DamageTaken = Damage;
 
             if (satu is Archer)
             {
                 if (dua is Rider)//kelemahan
-                    damage /= 2;
+                    DamageTaken /= 2;
                 else if ((dua is Swordsman) || (dua is Medic)) //kuat
-                    damage = (int)(damage * 1.5);
+                    DamageTaken = (int)(DamageTaken * 1.5);
             }
             else if (satu is Swordsman)
             {
                 if (dua is Archer)//kelemahan
-                    damage /= 2;
+                    DamageTaken /= 2;
                 else if ((dua is Spearman) || (dua is Medic)) //kuat
-                    damage = (int)(damage * 1.5);
+                    DamageTaken = (int)(DamageTaken * 1.5);
             }
             else if (satu is Spearman)
             {
-                if (dua is Rider)//kelemahan
-                    damage /= 2;
+                if (dua is Swordsman)//kelemahan
+                    DamageTaken /= 2;
                 else if ((dua is Rider) || (dua is Medic)) //kuat
-                    damage = (int)(damage * 1.5);
+                    DamageTaken = (int)(DamageTaken * 1.5);
             }
             else if (satu is Rider)
             {
                 if (dua is Spearman)//kelemahan
-                    damage /= 2;
+                    DamageTaken /= 2;
                 else if ((dua is Archer) || (dua is Medic)) //kuat
-                    damage = (int)(damage * 1.5);
+                    DamageTaken = (int)(DamageTaken * 1.5);
             }
-            if (dua.isBertahan) damage /= 2;
-            dua.setHP(dua.getCurrentHP() - damage);
+            if (dua.isBertahan) DamageTaken /= 2;
+            dua.setHP(dua.getCurrentHP() - DamageTaken);
         }
         
-        /*
-         * Output: kalkulasi heal unit1 terhadap unit2.
-         */
-        public void CalculationHeal(int idx1, int idx2)
+        /// <summary>
+        /// Kalkulasi Heal dari Unit satu kepada Unit dua
+        /// </summary>
+        /// <param name="satu">Unit yang heal</param>
+        /// <param name="dua">Unit yang diheal</param>
+        public void CalculationHeal(Unit satu,Unit dua)
         {
-            Unit satu = FindUnit(Team1, idx1);
-            Unit dua = FindUnit(Team2, idx2);
-
-            dua.setHP(dua.getCurrentHP() + 500);
+            dua.setHP(dua.getCurrentHP() + Heal);
             if (dua.getCurrentHP() > dua.getMaxHP()) dua.setHP(dua.getMaxHP());
         }
         
-        /*
-         * Output: kalkulasi life potion yang diberikan pada unit2.
-         */
-        public void CalculationLife(int idx1, int idx2)
+        /// <summary>
+        /// Kalkulasi Life potion yang diberikan dari Unit satu kepada Unit dua
+        /// </summary>
+        /// <param name="satu">Unit yang memberi life potion</param>
+        /// <param name="dua">Unit yang diberi life potion</param>
+        public void CalculationLife(Unit satu,Unit dua)
         {
-            Unit satu = FindUnit(Team1, idx1);
-            Unit dua = FindUnit(Team2, idx2);
-
             dua.setHP((int)(0.5 * dua.getMaxHP()));
         }
         
-        /*
-         * Output: mengatur urutan jalan.
-         */
-        public void AturGiliran(/*List<AksiAgent> actsTeam1, List<AksiAgent> actsTeam2*/)
+        /// <summary>
+        /// Mengatur giliran Unit mana dulu yang berjalan dahulu
+        /// </summary>
+        public void AturGiliran(/*List<ElemenAksi> actsTeam1, List<ElemenAksi> actsTeam2*/)
         {
             // Terima List<ElemenAksi> dari GameController
             // Hitung semua unit yang masih hidup dari Team 1 dan Team 2, dapet TotalUnit
             // Loop dari 1 hingga TotalUnit
-            // Pilih Unit yang akan dijalankan
-            //      Pilih seluruh unit yang bertahan untuk jalan dahulu
+            // Pilih Unit yang akan Pilih
+            //      dijalankan seluruh unit yang bertahan untuk jalan dahulu
             //      Setelah tidak ada unit yang bertahan yang dapat dipilih, mulai pilih dari yang tercepat hingga terlambat
             //      Setiap pemilihan unit, cek apakah unit masih hidup
             // Jalankan unit yang dipilih:
