@@ -29,10 +29,7 @@ namespace Algoritma
         {
             List<ElemenAksi> output = new List<ElemenAksi>(11);
 
-            output.Add(ActionManager.Attack(0, 0, 1));
-
-            Console.WriteLine("ini BFS");
-            return new List<ElemenAksi>();
+            return output;
         }
     }
 
@@ -54,8 +51,8 @@ namespace Algoritma
 
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
-            Console.WriteLine("ini DFS");
-            return new List<ElemenAksi>();
+            List<ElemenAksi> output = new List<ElemenAksi>(11);
+            return output;
         }
     }
 
@@ -77,8 +74,8 @@ namespace Algoritma
 
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
-            Console.WriteLine("ini UCS");
-            return new List<ElemenAksi>();
+            List<ElemenAksi> output = new List<ElemenAksi>(11);
+            return output;
         }
     }
 
@@ -100,8 +97,8 @@ namespace Algoritma
 
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
-            Console.WriteLine("ini Greedy");
-            return new List<ElemenAksi>();
+            List<ElemenAksi> output = new List<ElemenAksi>(11);
+            return output;
         }
     }
 
@@ -122,8 +119,8 @@ namespace Algoritma
 
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
-            Console.WriteLine("ini Astar");
-            return null;
+            List<ElemenAksi> output = new List<ElemenAksi>(11);
+            return output;
         }
     }
 
@@ -143,8 +140,8 @@ namespace Algoritma
                 
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
-            Console.WriteLine("ini CSP");
-            return new List<ElemenAksi>();
+            List<ElemenAksi> output = new List<ElemenAksi>(11);
+            return output;
         }
     }
 
