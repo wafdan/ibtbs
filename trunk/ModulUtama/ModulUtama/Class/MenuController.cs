@@ -23,7 +23,16 @@ namespace ModulUtama.Class
          */
         public bool flipcoin()
         {
-            return true;
+            Random rd = new Random();
+            int x = rd.Next() % 2;
+            if (x == 1)
+            {
+                return true;
+            }
+            else //x==0
+            {
+                return false;
+            }
         }
 
     }

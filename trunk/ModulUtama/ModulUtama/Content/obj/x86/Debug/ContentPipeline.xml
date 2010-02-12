@@ -7,18 +7,18 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\Aris.xnb</Output>
-      <Time>2010-02-11T22:50:48.9733149+07:00</Time>
+      <Output>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\Aris.xnb</Output>
+      <Time>2010-02-12T11:36:48.765625+07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\Content\</RootDirectory>
-      <LoggerRootDirectory>D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -46,8 +46,8 @@
         <Value>2009-05-28T00:16:06+07:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2010-02-10T22:37:33.413484+07:00</Value>
+        <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2009-11-11T10:32:46.96875+07:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
