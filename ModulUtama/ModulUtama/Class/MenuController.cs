@@ -18,7 +18,17 @@ namespace ModulUtama.Class
          */
         public MenuController(String dllPath1, String dllPath2, int[] komposisi1, int[] komposisi2, String typeAgent1, String typeAgent2)
         {
-            GC = new GameController(dllPath1, dllPath2, flipcoin(), komposisi1, komposisi2, typeAgent1, typeAgent2);
+            GC = new GameController(dllPath1, dllPath2, flipcoin(), countTeam(komposisi1), countTeam(komposisi2), typeAgent1, typeAgent2);
+        }
+
+        /*
+         * Input: Array team dalam format: 012340123401
+         * Output: Array team dalam ukuran 5 dalam format: <0-jmlArcher><1-jmlSwordsMan><2-jmlSpearman><3-jmlRider><4-jmlMedic>
+         */
+        private int[] countTeam(int[] komposisi)
+        {
+            int[] bufferTeam = new int[5];
+            return bufferTeam;
         }
 
         /*
