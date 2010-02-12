@@ -19,7 +19,7 @@ namespace TubesAI.Model
         /// Urutan penyerangan masing-masing unit
         /// </summary>
         protected int urutan;
-        public bool isBertahan;
+        public bool isBertahan { get; set; }
 
         public void setHP(int newHP)
         {
