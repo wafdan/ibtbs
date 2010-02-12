@@ -69,7 +69,7 @@ namespace ModulUtama.Class
             Team1 = te1;
             Team2 = te2;
             // Inisialisasi Animation Controller
-
+            
             //Inisialisasi atribut lainnya
             FirstMove = firstMove;
         }
