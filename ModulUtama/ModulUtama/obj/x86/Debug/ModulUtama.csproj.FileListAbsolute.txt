@@ -7,3 +7,12 @@ D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\obj\x
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\bin\x86\Debug\TubesAI-dll-model.dll
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\bin\x86\Debug\TubesAI-dll-model.pdb
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\Aris.xnb
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\obj\x86\Debug\ModulUtama.exe
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\Aris.xnb
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\ModulUtama.exe
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\ModulUtama.pdb
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\TubesAI-dll-model.dll
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\TubesAI-dll-model.pdb
+C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\obj\x86\Debug\ModulUtama.pdb
