@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ModulUtama.Class
 {
@@ -10,31 +13,15 @@ namespace ModulUtama.Class
         /*
          * Output: Path absolut hasil browse file DLL P1 (Perlu divalidasi?)
          */
-        public static String dload1()
+        public static String dload()
         {
             return new String('a', 10);
         }
 
         /*
-         * Output: Path absolut hasil browse file DLL P2 (Perlu divalidasi?)
-         */
-        public static String dload2()
-        {
-            return new String('b', 10);
-        }
-
-        /*
          * Output: Hasil parsing dari file komposisi P1 (Perlu divalidasi?)
          */
-        public static int[] kload1()
-        {
-            return new int[10];
-        }
-
-        /*
-         * Output: Hasil parsing dari file komposisi P2 (Perlu divalidasi?)
-         */
-        public static int[] kload2()
+        public static int[] kload()
         {
             return new int[10];
         }
