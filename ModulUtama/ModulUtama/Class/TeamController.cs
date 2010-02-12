@@ -56,16 +56,19 @@ namespace ModulUtama.Class
 
         #region constructors
 
+        /// <param name="te1">Team 1</param>
+        /// <param name="te2">Team 2</param>
         /// <param name="firstMove">
         /// boolean yang menentukan Team mana yang jalan duluan
         /// jika bernilai true, Team 1 menyerang dahulu,
         /// jika bernilai false, Team 2 menyerang dahulu.
         /// </param>
-        public TeamController(bool firstMove)
+        public TeamController(Team te1,Team te2,bool firstMove)
         {
-            //Inisialisasi AC
-
-            //Inisiaslisai Team
+            //Inisiaslisasi Team
+            Team1 = te1;
+            Team2 = te2;
+            // Inisialisasi Animation Controller
 
             //Inisialisasi atribut lainnya
             FirstMove = firstMove;
@@ -204,9 +207,18 @@ namespace ModulUtama.Class
         /// <param name="actsTeam2">List aksi Team 2</param>
         public void AturGiliran(List<ElemenAksi> actsTeam1, List<ElemenAksi> actsTeam2)
         {
-            // Terima List<ElemenAksi> dari GameController
-            // Hitung semua unit yang masih hidup dari Team 1 dan Team 2, dapet TotalUnit
-            // Loop dari 1 hingga TotalUnit
+            /*************************************************/
+            // Inisialisasi boolean unit yang melakukan aksi
+            bool[] team1 = new bool[11];
+            bool[] team2 = new bool[12];
+            int i = 0;
+            for (i = 0; i < 11; i++)
+            {
+                team1[i] = false;
+                team2[i] = false;
+            }
+            /*************************************************/
+
             // Pilih Unit yang akan Pilih
             //      dijalankan seluruh unit yang bertahan untuk jalan dahulu
             //      Setelah tidak ada unit yang bertahan yang dapat dipilih, mulai pilih dari yang tercepat hingga terlambat
