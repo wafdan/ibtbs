@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using ModulUtama.Class;
+using TubesAI.Model;
 
 namespace ModulUtama
 {
@@ -20,11 +21,14 @@ namespace ModulUtama
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        public SpriteBatch spriteBatch;
+        public static SpriteBatch spriteBatch;
         MenuController MC;
+        List<int> apa = new List<int>(11);
 
         public Game()
         {
+            apa.Add(12);
+            Console.WriteLine(apa.First());
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -37,8 +41,10 @@ namespace ModulUtama
         /// </summary>
         protected override void Initialize()
         {
+            // Inisialisasi gambar
+            Archer.texture = Content.Load<Texture2D>(@"Images/Aris");
+
             // TODO: Add your initialization logic here
-            MC = new MenuController("a", "b", new int[2], new int[2]);
             base.Initialize();
         }
 
@@ -50,6 +56,9 @@ namespace ModulUtama
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
+                                    @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
+                                    new int[2], new int[2], "BFS", "Astar");
 
             // TODO: use this.Content to load your game content here
         }
@@ -75,7 +84,6 @@ namespace ModulUtama
                 this.Exit();
 
             // TODO: Add your update logic here
-            MC.GC.GameLoop();
 
             base.Update(gameTime);
         }
@@ -89,7 +97,9 @@ namespace ModulUtama
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            
+
+            MC.GC.GameLoop();
+
             base.Draw(gameTime);
         }
     }
