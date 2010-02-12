@@ -47,6 +47,5 @@ namespace ModulUtama.Class
                 return false;
             }
         }
-
     }
 }

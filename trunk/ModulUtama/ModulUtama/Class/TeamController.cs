@@ -93,6 +93,22 @@ namespace ModulUtama.Class
         }
 
         /// <summary>
+        /// Memberikan ElemenAksi pada listelemenaksi pada index ke-index
+        /// </summary>
+        /// <param name="listelemenaksi">list of ElemenAksi</param>
+        /// <param name="index">integer index</param>
+        /// <returns></returns>
+        private static ElemenAksi FindElemenAksi(List<ElemenAksi> listelemenaksi,int index)
+        {
+            foreach (ElemenAksi el in listelemenaksi)
+            {
+                if (listelemenaksi.FindIndex(re => re == el) == index) return el;
+            }
+            return null;
+        }
+
+
+        /// <summary>
         /// Me-restore semua Unit pada masing-masing Team.
         /// Membekali masing-masing Team dengan 10 potion dan 10 life Potion.
         /// </summary>
@@ -121,19 +137,17 @@ namespace ModulUtama.Class
         public bool isEndGame()
         {
             // Cek apakah ada team yang menang 
+            int count = 0;
             foreach (Unit un in Team1.listUnit)
             {
                 if (!un.isDead())
                 {
-                    foreach (Unit unt in Team2.listUnit)
-                    {
-                        if (!unt.isDead()) return false;
-                    }
-                    //set image kemenangan team 1
-                    return true;
                 }
             }
-            //set image kemenangan team 2
+
+            foreach (Unit un in Team2.listUnit)
+            {
+            }
             return true;
         }
 
@@ -211,18 +225,42 @@ namespace ModulUtama.Class
             // Inisialisasi boolean unit yang melakukan aksi
             bool[] team1 = new bool[11];
             bool[] team2 = new bool[12];
+            Unit unitaktif,unitpasif;
+            ElemenAksi aksi;
             int i = 0;
+            int count = 0;
             for (i = 0; i < 11; i++)
             {
-                team1[i] = false;
-                team2[i] = false;
+                unitaktif = FindUnit(Team1, i);
+                aksi = FindElemenAksi(actsTeam1,i);
+                if (unitaktif.isDead())
+                    team1[i] = true;
+                else
+                {
+                     team1[i] = false;
+                     count++;
+                }
+
+                unitaktif = FindUnit(Team2, i);
+                if (unitaktif.isDead())
+                    team2[i] = true;
+                else
+                {
+                    team2[i] = false;
+                    count++;
+                }
             }
             /*************************************************/
 
             // Pilih Unit yang akan Pilih
-            //      dijalankan seluruh unit yang bertahan untuk jalan dahulu
-            //      Setelah tidak ada unit yang bertahan yang dapat dipilih, mulai pilih dari yang tercepat hingga terlambat
-            //      Setiap pemilihan unit, cek apakah unit masih hidup
+            for (i = 0; i <= count; i++)
+            {
+                
+                // Setelah tidak ada unit yang bertahan yang dapat dipilih, mulai pilih dari yang tercepat hingga terlambat
+                // Setiap pemilihan unit, cek apakah unit masih hidup
+                /*************************************************/
+            }
+            
             // Jalankan unit yang dipilih:
             //  Jika unit attack,
             //      Jika unit yang diattack belum mati
