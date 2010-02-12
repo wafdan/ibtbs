@@ -73,6 +73,5 @@ namespace TubesAI.Model
         {
             n_lifePotion = num;
         }
-
     }
 }
