@@ -43,7 +43,7 @@ namespace TubesAI.Model
 
         public Boolean isDead()
         {
-            return this.currentHP < 0;
+            return this.currentHP <= 0;
         }
     }
 }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AgentInterface.cs" />
     <Compile Include="Model\ActionManager.cs" />
+    <Compile Include="Model\AksiAgent.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Aksi.cs" />
     <Compile Include="Model\ElemenAksi.cs" />
