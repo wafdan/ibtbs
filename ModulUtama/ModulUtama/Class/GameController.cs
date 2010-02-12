@@ -26,7 +26,9 @@ namespace ModulUtama.Class
                                 int[] komposisi1, int[] komposisi2, String typeAgent1, String typeAgent2)
         {
             //Inisialisasi TeamController
-            TC = new TeamController(flipcoin);
+            Team buffTeam1 = new Team(komposisi1[0], komposisi1[3], komposisi1[2], komposisi1[1], komposisi1[4]);
+            Team buffTeam2 = new Team(komposisi2[0], komposisi2[3], komposisi2[2], komposisi2[1], komposisi2[4]);
+            TC = new TeamController(buffTeam1, buffTeam2, flipcoin);
 
             //Inisialisasi agen 1 dan 2
             Assembly asm1 = Assembly.LoadFile(dllpath1);
@@ -87,6 +89,10 @@ namespace ModulUtama.Class
             {
                 foreach (var iter_act in act)
                 {
+                    if (iter_act.index_pelaku < 0 || iter_act.index_pelaku > 10 || 
+                        iter_act.index_sasaran < 0 || iter_act.index_sasaran > 10 ||
+                        iter_act.tim_sasaran < 0 || iter_act.tim_sasaran > 1) 
+                        return false;
                     if (isMove[iter_act.index_pelaku] == true) return false;
                     if (!isActionValid(TeamController.FindUnit(team, iter_act.index_pelaku), iter_act)) return false;
                     else
@@ -95,6 +101,18 @@ namespace ModulUtama.Class
             }
 
             return true;
+        }
+
+        /*
+         * Fungsi untuk membuang aksi yang tidak valid
+         */
+        private void buangAksi(Team team, List<ElemenAksi> act)
+        {
+            foreach (var iter_act in act)
+            {
+                if (!isActionValid(TeamController.FindUnit(team, iter_act.index_pelaku), iter_act))
+                    ActionManager.doNothing(iter_act.index_pelaku);
+            }
         }
 
         /*
@@ -110,16 +128,18 @@ namespace ModulUtama.Class
                     Agent1Action = Agent1.Execute(TC.Team1, TC.Team2);
                     count++;
                 } while (!isListActionValid(TC.Team1, Agent1Action) && count < 3);
-                
+                buangAksi(TC.Team1, Agent1Action);
+
                 count = 0;
                 do
                 {
                     Agent2Action = Agent2.Execute(TC.Team2, TC.Team1);
                     count++;
                 } while (!isListActionValid(TC.Team2, Agent2Action) && count < 3);
-                
+                buangAksi(TC.Team2, Agent2Action);
+
                 Console.WriteLine(Agent1Action.First().tim_sasaran);
-                TC.AturGiliran();
+                TC.AturGiliran(Agent1Action, Agent2Action);
             }
         }
 
