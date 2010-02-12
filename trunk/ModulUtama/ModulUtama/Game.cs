@@ -23,12 +23,9 @@ namespace ModulUtama
         GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
         MenuController MC;
-        List<int> apa = new List<int>(11);
-
+        
         public Game()
         {
-            apa.Add(12);
-            Console.WriteLine(apa.First());
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -43,6 +40,8 @@ namespace ModulUtama
         {
             // Inisialisasi gambar
             Archer.texture = Content.Load<Texture2D>(@"Images/Aris");
+
+            ViewMenu.kload();
 
             // TODO: Add your initialization logic here
             base.Initialize();

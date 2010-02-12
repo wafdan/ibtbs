@@ -28,7 +28,6 @@ namespace Algoritma
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
             List<ElemenAksi> output = new List<ElemenAksi>(11);
-
             return output;
         }
     }
