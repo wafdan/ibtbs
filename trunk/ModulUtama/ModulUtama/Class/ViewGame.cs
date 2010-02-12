@@ -17,5 +17,15 @@ namespace ModulUtama.Class
             spritebatch.End();
         }
 
+        public static void draw(SpriteBatch spritebatch, Texture2D texture, Rectangle source, int index)
+        {
+            int x = 0; //nanti x dan y nya diset tergantung posisi si karakter ke-index.. mudah-mudahan :p
+            int y = 0;
+            Rectangle destination = new Rectangle(x, y, 50, 80);
+            spritebatch.Begin();
+            spritebatch.Draw(texture, destination, source, Color.White);
+            spritebatch.End();
+        }
+
     }
 }

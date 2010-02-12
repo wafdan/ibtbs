@@ -13,14 +13,17 @@ namespace ModulUtama.Class
     {
         private Rectangle[] Animate = new Rectangle[3];
 
-        public void Attack(ElemenAksi EA,int poin,bool miss)
+        public void Attack(ElemenAksi EA, int poin, bool miss)
         {
             Unit from = TeamController.FindUnit(EA.index_pelaku);
             Unit to = TeamController.FindUnit(EA.index_sasaran);
+            for (int i = 0; i < 4; i++)
+                Animate[i] = new Rectangle(i * 50, 160, 50, 60);
             
             //set gambar unit 1 menyerang
             if (from is Archer)
             {
+                ViewGame.draw(Game.spriteBatch, Archer.texture, Animate[i], EA.index_pelaku);
             }
             else if (from is Rider)
             {
