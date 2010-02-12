@@ -48,6 +48,10 @@ namespace ModulUtama.Class
         /// Heal normal = 500 poin
         /// </summary>
         private const int Heal = 500;
+        /// <summary>
+        /// Jumlah item normal = 10 item
+        /// </summary>
+        private const int numitem = 10;
         #endregion
 
         #region constructors
@@ -71,6 +75,21 @@ namespace ModulUtama.Class
         #region methods
 
         /// <summary>
+        /// Memberikan Unit pada Team team dengan index ke-index
+        /// </summary>
+        /// <param name="team">team Unit berada</param>
+        /// <param name="index">index unit dari 0-10</param>
+        /// <returns></returns>
+        public static Unit FindUnit(Team team, int index)
+        {
+            foreach (Unit un in team.listUnit)
+            {
+                if (team.listUnit.FindIndex(re => re == un) == index) return un;
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Me-restore semua Unit pada masing-masing Team.
         /// Membekali masing-masing Team dengan 10 potion dan 10 life Potion.
         /// </summary>
@@ -86,7 +105,10 @@ namespace ModulUtama.Class
                 un.setHP(un.getMaxHP());
             }
             // beri 10 potion dan 10 life potion
-
+            Team1.giveLifePotion(numitem);
+            Team1.givePotion(numitem);
+            Team2.giveLifePotion(numitem);
+            Team2.givePotion(numitem);
         }
         
         /// <summary>
@@ -96,28 +118,22 @@ namespace ModulUtama.Class
         public bool isEndGame()
         {
             // Cek apakah ada team yang menang 
-            // Jika ada,
-            //		Set image untuk kemenangan
-            //		return true
-            // Jika tidak ada,
-            //		return false
+            foreach (Unit un in Team1.listUnit)
+            {
+                if (!un.isDead())
+                {
+                    foreach (Unit unt in Team2.listUnit)
+                    {
+                        if (!unt.isDead()) return false;
+                    }
+                    //set image kemenangan team 1
+                    return true;
+                }
+            }
+            //set image kemenangan team 2
             return true;
         }
 
-        /// <summary>
-        /// Memberikan Unit pada Team team dengan index ke-index
-        /// </summary>
-        /// <param name="team">team Unit berada</param>
-        /// <param name="index">index unit dari 0-10</param>
-        /// <returns></returns>
-        public static Unit FindUnit(Team team, int index)
-        {
-            foreach (Unit un in team.listUnit)
-            {
-                if (team.listUnit.FindIndex(re => re == un) == index) return un;
-            }
-            return null;
-        }
 
         /// <summary>
         /// Kalkulasi damage yang dihasilkan dari Unit satu kepada Unit dua
@@ -184,7 +200,9 @@ namespace ModulUtama.Class
         /// <summary>
         /// Mengatur giliran Unit mana dulu yang berjalan dahulu
         /// </summary>
-        public void AturGiliran(/*List<ElemenAksi> actsTeam1, List<ElemenAksi> actsTeam2*/)
+        /// <param name="actsTeam1">List aksi Team 1</param>
+        /// <param name="actsTeam2">List aksi Team 2</param>
+        public void AturGiliran(List<ElemenAksi> actsTeam1, List<ElemenAksi> actsTeam2)
         {
             // Terima List<ElemenAksi> dari GameController
             // Hitung semua unit yang masih hidup dari Team 1 dan Team 2, dapet TotalUnit

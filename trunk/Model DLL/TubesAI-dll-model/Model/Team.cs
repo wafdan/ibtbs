@@ -64,5 +64,15 @@ namespace TubesAI.Model
             return n_potion > 0;
         }
 
+        public void givePotion(int num)
+        {
+            n_potion = num;
+        }
+
+        public void giveLifePotion(int num)
+        {
+            n_lifePotion = num;
+        }
+
     }
 }
