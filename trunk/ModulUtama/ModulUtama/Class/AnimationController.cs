@@ -11,12 +11,22 @@ namespace ModulUtama.Class
 {
     class AnimationController
     {
+        private Team Team1;
+        private Team Team2;
         private Rectangle[] Animate = new Rectangle[3];
-
+        /*
         public void Attack(ElemenAksi EA, int poin, bool miss)
         {
-            Unit from = TeamController.FindUnit(EA.index_pelaku);
-            Unit to = TeamController.FindUnit(EA.index_sasaran);
+            if (EA.index_pelaku < 11)
+            {
+                Unit from = TeamController.FindUnit(Team1, EA.index_pelaku);
+                Unit to = TeamController.FindUnit(EA.index_sasaran);
+            }
+            else
+            {
+                Unit from = TeamController.FindUnit(Team1, EA.index_pelaku);
+                Unit to = TeamController.FindUnit(EA.index_sasaran);
+            }
             for (int i = 0; i < 4; i++)
                 Animate[i] = new Rectangle(i * 50, 160, 50, 60);
             
@@ -259,6 +269,6 @@ namespace ModulUtama.Class
                     //set gambar unit ke-i jadi pose kalah
                 }
             }
-        }
+        }*/
     }
 }
