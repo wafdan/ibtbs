@@ -6,12 +6,15 @@ namespace TubesAI.Model
 {
     public class Team
     {
+        public int index { get; private set; }
         private int n_lifePotion;
         private int n_potion;
         public List<Unit> listUnit;
 
-        public Team(int n_archer, int n_rider, int n_spearman, int n_medic, int n_swordsman)
+        public Team(int n_archer, int n_rider, int n_spearman, int n_medic, int n_swordsman, int _index)
         {
+            index = _index;
+            int iter = 0;
             listUnit=new List<Unit>();
 
             n_lifePotion=10;
@@ -19,27 +22,27 @@ namespace TubesAI.Model
 
             for (int i = 0; i < n_archer; i++)
             {
-                listUnit.Add(new Archer());
+                listUnit.Add(new Archer(iter++));
             }
 
             for (int i = 0; i < n_swordsman; i++)
             {
-                listUnit.Add(new Swordsman());
+                listUnit.Add(new Swordsman(iter++));
             }
 
             for (int i = 0; i < n_spearman; i++)
             {
-                listUnit.Add(new Spearman());
+                listUnit.Add(new Spearman(iter++));
             }
 
             for (int i = 0; i < n_medic; i++)
             {
-                listUnit.Add(new Medic());
+                listUnit.Add(new Medic(iter++));
             }
             
             for (int i = 0; i < n_rider; i++)
             {
-                listUnit.Add(new Rider());
+                listUnit.Add(new Rider(iter++));
             }
 
         }

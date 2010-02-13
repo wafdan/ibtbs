@@ -28,6 +28,16 @@ namespace Algoritma
         public List<ElemenAksi> Execute(Team myTeam, Team enTeam)
         {
             List<ElemenAksi> output = new List<ElemenAksi>(11);
+            foreach (var unit in myTeam.listUnit)
+            {
+                Unit at_unit = enTeam.listUnit.First();
+                foreach (var enemy_unit in enTeam.listUnit)
+                {
+                    if (at_unit.getCurrentHP() > enemy_unit.getCurrentHP() && !enemy_unit.isDead())
+                        at_unit = enemy_unit;
+                }
+                output.Add(unit.Attack(at_unit.index, enTeam));
+            }
             return output;
         }
     }

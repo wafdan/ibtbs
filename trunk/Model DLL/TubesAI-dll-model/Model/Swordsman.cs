@@ -7,13 +7,14 @@ namespace TubesAI.Model
     public class Swordsman : Unit
     {
 
-        public Swordsman()
+        public Swordsman(int _index)
         {
-           //assignment atribut yang dasar di kelas ini.
+            //assignment atribut yang dasar di kelas ini.
+            index = _index;
             this.maxHP = 2000;
             this.currentHP = this.maxHP;
             this.urutan = 2;
-            isBertahan = false;
+isBertahan = false;
         }
     }
 }

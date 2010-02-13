@@ -28,6 +28,37 @@ namespace ModulUtama.Class
         private int[] countTeam(int[] komposisi)
         {
             int[] bufferTeam = new int[5];
+            foreach (var unit in komposisi)
+            {
+                switch (unit)
+                {
+                    case 0:
+                        {
+                            bufferTeam[0]++;
+                            break;
+                        }
+                    case 1:
+                        {
+                            bufferTeam[1]++;
+                            break;
+                        }
+                    case 2:
+                        {
+                            bufferTeam[2]++;
+                            break;
+                        }
+                    case 3:
+                        {
+                            bufferTeam[3]++;
+                            break;
+                        }
+                    case 4:
+                        {
+                            bufferTeam[4]++;
+                            break;
+                        }
+                }
+            }
             return bufferTeam;
         }
 

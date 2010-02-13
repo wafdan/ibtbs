@@ -41,8 +41,6 @@ namespace ModulUtama
             // Inisialisasi gambar
             Archer.texture = Content.Load<Texture2D>(@"Images/Aris");
 
-            ViewMenu.kload();
-
             // TODO: Add your initialization logic here
             base.Initialize();
         }
@@ -57,7 +55,7 @@ namespace ModulUtama
             spriteBatch = new SpriteBatch(GraphicsDevice);
             MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
                                     @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
-                                    new int[2], new int[2], "BFS", "Astar");
+                                    ViewMenu.kload(), ViewMenu.kload(), "BFS", "BFS");
 
             // TODO: use this.Content to load your game content here
         }
