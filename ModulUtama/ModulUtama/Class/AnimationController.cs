@@ -13,237 +13,221 @@ namespace ModulUtama.Class
     {
         private Team Team1;
         private Team Team2;
-        private Rectangle[] Animate = new Rectangle[3];
-        /*
+        int CurrentFrame = 0;
+        private Texture2D Sender;
+        private Texture2D Receiver;
+        private Rectangle[] Char1 = new Rectangle[7];
+        private Rectangle[] Char2 = new Rectangle[7];
+
+        public AnimationController(Team A, Team B)
+        {
+        }
+
+        public Team FindTeam(int index)
+        {
+            if (index < 11)
+                return Team1;
+            else
+                return Team2;
+        }
+
+        public void SetTexture (Unit U, Texture2D CharImg)
+        {
+            //gimana caranya nge set texture2d, bisa langsung di = kah? :p
+            if (U is Archer)
+            {
+                CharImg = Archer.texture;
+            }
+            else if (to is Rider)
+            {
+                CharImg = Rider.texture;
+            }
+            else if (to is Spearman)
+            {
+                CharImg = Spearman.texture;
+            }
+            else if (to is Medic)
+            {
+                CharImg = Medic.texture;
+            }
+            else
+            {
+                CharImg = Swordsman.texture;
+            }
+        }
+
         public void Attack(ElemenAksi EA, int poin, bool miss)
         {
-            if (EA.index_pelaku < 11)
+            Unit from = TeamController.FindUnit(FindTeam(EA.index_pelaku), EA.index_pelaku);
+            Unit to = TeamController.FindUnit(FindTeam(EA.index_sasaran), EA.index_sasaran);
+
+            SetTexture(from, Sender);
+            SetTexture(to, Receiver);
+
+            for (int i = 0; i <= 3; i++)
             {
-                Unit from = TeamController.FindUnit(Team1, EA.index_pelaku);
-                Unit to = TeamController.FindUnit(EA.index_sasaran);
+                Char1[i] = new Rectangle(CurrentFrame * 50, 160, 50, 80);
+                Char2[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
             }
-            else
+            for (int i = 4; i <= 7; i++)
             {
-                Unit from = TeamController.FindUnit(Team1, EA.index_pelaku);
-                Unit to = TeamController.FindUnit(EA.index_sasaran);
+                Char1[i] = new Rectangle((CurrentFrame - 3) * 50, 0, 50, 80);
+                if (miss == 1)
+                    Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 0, 50, 80);
+                else
+                    Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 240, 50, 80);
             }
-            for (int i = 0; i < 4; i++)
-                Animate[i] = new Rectangle(i * 50, 160, 50, 60);
-            
+
             //set gambar unit 1 menyerang
-            if (from is Archer)
-            {
-                ViewGame.draw(Game.spriteBatch, Archer.texture, Animate[i], EA.index_pelaku);
-            }
-            else if (from is Rider)
-            {
-            }
-            else if (from is Spearman)
-            {
-            }
-            else
-            {
-            } 
+            ViewGame.draw(Game.spriteBatch, Sender, Char1[CurrentFrame], EA.index_pelaku);
+            ViewGame.draw(Game.spriteBatch, Receiver, Char2[CurrentFrame], EA.index_sasaran);
+
             
             if (miss == 1)
-            {   
-                //set tulisan MISS untuk muncul
+            {
+                if (CurrentFrame > 3)
+                    ViewGame.DrawPoint(-1);
             }
             else
             {
-                //set gambar unit 2 menerima serangan
-                if (to is Archer)
-                {
+                if (CurrentFrame > 3)
+                    ViewGame.DrawPoint(poin);
+                if (CurrentFrame == 7)
+                {   
+                    UpdateHealth(EA.index_sasaran, poin * (-1));
+                    CurrentFrame = 0;
                 }
-                else if (to is Rider)
-                {
-                }
-                else if (to is Spearman)
-                {
-                }
-                else if (to is Medic)
-                {
-                }
-                else
-                {
-                }
-                //set tulisan besar damage
-                UpdateHealth(EA.index_sasaran, poin * (-1));
             }
         }
 
         public void Kill(ElemenAksi EA, int poin)
         {
-            Unit from = TeamController.FindUnit(EA.index_pelaku);
-            Unit to = TeamController.FindUnit(EA.index_sasaran);
-            
-            //set gambar unit 1 menyerang
-            if (from is Archer)
+            Unit from = TeamController.FindUnit(FindTeam(EA.index_pelaku), EA.index_pelaku);
+            Unit to = TeamController.FindUnit(FindTeam(EA.index_sasaran), EA.index_sasaran);
+
+            SetTexture(from, Sender);
+            SetTexture(to, Receiver);
+
+            for (int i = 0; i <= 3; i++)
             {
+                Char1[i] = new Rectangle(CurrentFrame * 50, 160, 50, 80);
+                Char2[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
             }
-            else if (from is Rider)
+            for (int i = 4; i <= 7; i++)
             {
-            }
-            else if (from is Spearman)
-            {
-            }
-            else
-            {
+                Char1[i] = new Rectangle((CurrentFrame - 3) * 50, 0, 50, 80);
+                Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 480, 50, 80);
             }
 
-            //set gambar unit 2 terkena serangan
-            if (to is Archer)
-            {
-            }
-            else if (to is Rider)
-            {
-            }
-            else if (to is Spearman)
-            {
-            }
-            else if (to is Medic)
-            {
-            }
-            else
-            {
-            }
+            ViewGame.draw(Game.spriteBatch, Sender, Char1[CurrentFrame], EA.index_pelaku);
+            ViewGame.draw(Game.spriteBatch, Receiver, Char2[CurrentFrame], EA.index_sasaran);
 
-            //set tulisan besar damage
-            //set gambar unit 2 mati
-            UpdateHealth(EA.index_sasaran, poin * (-1));
+            if (CurrentFrame > 3)
+                ViewGame.DrawPoint(poin);
+            if (CurrentFrame == 7)
+            {
+                UpdateHealth(EA.index_sasaran, poin * (-1));
+                CurrentFrame = 0;
+            }
         }
 
         public void Defend(ElemenAksi EA)
         {
-            Unit pelaku = TeamController.FindUnit(EA.index_pelaku);
-            //set gambar unit bertahan
-            if (pelaku is Archer)
-            {
-            }
-            else if (pelaku is Spearman)
-            {
-            }
-            else if (pelaku is Medic)
-            {
-            }
-            else if (pelaku is Rider)
-            {
-            }
-            else
-            {
-            }
+            Unit pelaku = TeamController.FindUnit(FindTeam(EA.index_pelaku), EA.index_pelaku);
+            SetTexture(pelaku, Sender);
+            for (int i = 0; i <= 3; i++)
+                Char1[i] = new Rectangle(CurrentFrame *50, 80, 50, 80);
+            ViewGame.draw(Game.spriteBatch, Receiver, Char1[CurrentFrame], EA.index_pelaku);
+            if (CurrentFrame == 3)
+                CurrentFrame = 0;
         }
 
         public void Heal(ElemenAksi EA, int poin, int miss)
         {
-            Unit from = TeamController.FindUnit(EA.index_pelaku);
-            Unit to = TeamController.FindUnit(EA.index_sasaran);
+            Unit from = TeamController.FindUnit(FindTeam(EA.index_pelaku), EA.index_pelaku);
+            Unit to = TeamController.FindUnit(FindTeam(EA.index_sasaran), EA.index_sasaran);
 
-            //set gambar unit 1 heal
+            SetTexture(from, Sender);
+            SetTexture(to, Receiver);
+
+            for (int i = 0; i <= 3; i++)
+            {
+                Char1[i] = new Rectangle(CurrentFrame * 50, 160, 50, 80);
+                Char2[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
+            }
+            for (int i = 4; i <= 7; i++)
+            {
+                Char1[i] = new Rectangle((CurrentFrame-3) * 50, 0, 50, 80);
+                if (miss == 1)
+                    Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 0, 50, 80);
+                else
+                    Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 320, 50, 80);
+            }
+
+            ViewGame.draw(Game.spriteBatch, Sender, Char1[CurrentFrame], EA.index_pelaku);
+            ViewGame.draw(Game.spriteBatch, Receiver, Char2[CurrentFrame], EA.index_sasaran);
+
             if (miss == 1)
             {
-                //set tulisan MISS untuk muncul
+                if (CurrentFrame > 3)
+                    ViewGame.DrawPoint(-1);
             }
             else
             {
-                //set gambar unit 2 terkena heal
-                if (to is Archer)
+                if (CurrentFrame > 3)
+                    ViewGame.DrawPoint(poin);
+                if (CurrentFrame == 7)
                 {
+                    UpdateHealth(EA.index_sasaran, poin);
+                    CurrentFrame = 0;
                 }
-                else if (to is Rider)
-                {
-                }
-                else if (to is Spearman)
-                {
-                }
-                else if (to is Medic)
-                {
-                }
-                else
-                {
-                }
-                //set tulisan besar heal point
-                UpdateHealth(EA.index_sasaran, poin);
             }
         }
 
         public void UseItem(ElemenAksi EA, int poin, int miss)
         {
-            Unit from = TeamController.FindUnit(EA.index_pelaku);
-            Unit to = TeamController.FindUnit(EA.index_sasaran);
+            Unit from = TeamController.FindUnit(FindTeam(EA.index_pelaku), EA.index_pelaku);
+            Unit to = TeamController.FindUnit(FindTeam(EA.index_sasaran), EA.index_sasaran);
 
-            //set gambar unit 1 mengeluarkan item
-            if (from is Archer)
+            SetTexture(from, Sender);
+            SetTexture(to, Receiver);
+
+            for (int i = 0; i <= 3; i++)
             {
+                if (EA.Item == Item.potion)
+                    Char1[i] = new Rectangle(CurrentFrame * 50, 560, 50, 80);
+                else
+                    Char1[i] = new Rectangle(CurrentFrame * 50, 640, 50, 80);
+                Char2[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
             }
-            else if (from is Spearman)
+            for (int i = 4; i <= 7; i++)
             {
+                Char1[i] = new Rectangle((CurrentFrame - 3) * 50, 0, 50, 80);
+                if (miss == 1)
+                    Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 0, 50, 80);
+                else
+                    if (EA.Item == Item.potion)
+                        Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 320, 50, 80);
+                    else
+                        Char2[i] = new Rectangle((CurrentFrame - 3) * 50, 400, 50, 80);
             }
-            else if (from is Medic)
+
+            ViewGame.draw(Game.spriteBatch, Sender, Char1[CurrentFrame], EA.index_pelaku);
+            ViewGame.draw(Game.spriteBatch, Receiver, Char2[CurrentFrame], EA.index_sasaran);
+
+            if (miss == 1)
             {
+                if (CurrentFrame > 3)
+                    ViewGame.DrawPoint(-1);
             }
             else
             {
-            }
-
-            if (EA.Item == Item.life_potion)
-            {
-                if (miss == 1)
+                if ((CurrentFrame > 3) && (EA.item==Item.potion))
+                    ViewGame.DrawPoint(poin);
+                if (CurrentFrame == 7)
                 {
-                    //set gambar life potion
-                    //set tulisan MISS untuk muncul
-                }
-                else
-                {
-                    //set gambar life potion
-                    //set gambar unit 2 hidup kembali
-                    if (to is Archer)
-                    {
-                    }
-                    else if (to is Rider)
-                    {
-                    }
-                    else if (to is Spearman)
-                    {
-                    }
-                    else if (to is Medic)
-                    {
-                    }
-                    else
-                    {
-                    }
-
                     UpdateHealth(EA.index_sasaran, poin);
-                }
-            }
-            else if (EA.Item == Item.potion)
-            {
-                if (miss == 1)
-                {
-                    //set gambar potion
-                    //set tulisan MISS untuk muncul
-                }
-                else
-                {
-                    //set gambar potion
-                    //set gambar unit 2 terkena heal
-                    if (to is Archer)
-                    {
-                    }
-                    else if (to is Rider)
-                    {
-                    }
-                    else if (to is Spearman)
-                    {
-                    }
-                    else if (to is Medic)
-                    {
-                    }
-                    else
-                    {
-                    }
-
-                    UpdateHealth(EA.index_sasaran, poin);
+                    CurrentFrame = 0;
                 }
             }
         }
@@ -269,6 +253,6 @@ namespace ModulUtama.Class
                     //set gambar unit ke-i jadi pose kalah
                 }
             }
-        }*/
+        }
     }
 }
