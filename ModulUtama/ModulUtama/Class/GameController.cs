@@ -26,8 +26,8 @@ namespace ModulUtama.Class
                                 int[] komposisi1, int[] komposisi2, String typeAgent1, String typeAgent2)
         {
             //Inisialisasi TeamController
-            Team buffTeam1 = new Team(komposisi1[0], komposisi1[3], komposisi1[2], komposisi1[1], komposisi1[4]);
-            Team buffTeam2 = new Team(komposisi2[0], komposisi2[3], komposisi2[2], komposisi2[1], komposisi2[4]);
+            Team buffTeam1 = new Team(komposisi1[0], komposisi1[3], komposisi1[2], komposisi1[1], komposisi1[4], 0);
+            Team buffTeam2 = new Team(komposisi2[0], komposisi2[3], komposisi2[2], komposisi2[1], komposisi2[4], 1);
             TC = new TeamController(buffTeam1, buffTeam2, flipcoin);
 
             //Inisialisasi agen 1 dan 2
@@ -35,7 +35,6 @@ namespace ModulUtama.Class
             Agent1 = (AgentInterface)asm1.CreateInstance("Algoritma." + typeAgent1);
             Assembly asm2 = Assembly.LoadFile(dllpath2);
             Agent2 = (AgentInterface)asm1.CreateInstance("Algoritma." + typeAgent2);
-            
         }
 
         /*
@@ -62,7 +61,6 @@ namespace ModulUtama.Class
             {
                 if (act.aksi == Aksi.heal || act.aksi == Aksi.use_item)
                 {
-                    Console.WriteLine("Rider Heal");
                     return false;
                 }
             }
@@ -120,7 +118,7 @@ namespace ModulUtama.Class
          */
         public void GameLoop()
         {
-            if (!TC.isEndGame())
+            if (TC.isEndGame())
             {
                 count = 0;
                 do
@@ -138,7 +136,6 @@ namespace ModulUtama.Class
                 } while (!isListActionValid(TC.Team2, Agent2Action) && count < 3);
                 buangAksi(TC.Team2, Agent2Action);
 
-                Console.WriteLine(Agent1Action.First().tim_sasaran);
                 TC.AturGiliran(Agent1Action, Agent2Action);
             }
         }

@@ -11,9 +11,10 @@ namespace TubesAI.Model
         /// </summary>
         private int avalaibleCuring;
 
-        public Medic()
+        public Medic(int _index)
         {
             //assignment atribut yang dasar di kelas ini.
+            index = _index;
             this.maxHP = 2000;
             this.currentHP = this.maxHP;
             this.urutan = 4;

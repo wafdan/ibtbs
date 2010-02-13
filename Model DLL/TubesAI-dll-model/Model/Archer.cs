@@ -9,9 +9,10 @@ namespace TubesAI.Model
     {
         public static Texture2D texture;
 
-        public Archer()
+        public Archer(int _index)
         {
             //assignment atribut yang dasar di kelas ini.
+            index = _index;
             this.maxHP = 1500;
             this.currentHP = this.maxHP;
             this.urutan = 1;
