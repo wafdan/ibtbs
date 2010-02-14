@@ -33,6 +33,8 @@ namespace Algoritma
                 Unit at_unit = enTeam.listUnit.First();
                 foreach (var enemy_unit in enTeam.listUnit)
                 {
+                    if (at_unit.isDead())
+                        at_unit = enemy_unit;
                     if (at_unit.getCurrentHP() > enemy_unit.getCurrentHP() && !enemy_unit.isDead())
                         at_unit = enemy_unit;
                 }

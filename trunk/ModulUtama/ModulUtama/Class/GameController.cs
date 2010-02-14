@@ -67,7 +67,10 @@ namespace ModulUtama.Class
             else if (unit is Medic)
             {
                 if (act.aksi == Aksi.menyerang)
+                {
+                    Console.WriteLine("Medic attack");
                     return false;
+                }
             }
             return true;
         }
@@ -92,7 +95,7 @@ namespace ModulUtama.Class
                         iter_act.tim_sasaran < 0 || iter_act.tim_sasaran > 1) 
                         return false;
                     if (isMove[iter_act.index_pelaku] == true) return false;
-                    if (!isActionValid(TeamController.FindUnit(team, iter_act.index_pelaku), iter_act)) return false;
+                    if (!isActionValid(team.FindUnit(iter_act.index_pelaku), iter_act)) return false;
                     else
                         isMove[iter_act.index_pelaku] = true;
                 }
@@ -108,8 +111,10 @@ namespace ModulUtama.Class
         {
             foreach (var iter_act in act)
             {
-                if (!isActionValid(TeamController.FindUnit(team, iter_act.index_pelaku), iter_act))
-                    ActionManager.doNothing(iter_act.index_pelaku);
+                if (!isActionValid(team.FindUnit(iter_act.index_pelaku), iter_act))
+                {
+                    iter_act.aksi = Aksi.nothing;
+                }
             }
         }
 
@@ -118,12 +123,14 @@ namespace ModulUtama.Class
          */
         public void GameLoop()
         {
-            if (TC.isEndGame())
+            if (!TC.isEndGame())
             {
+                Team bufTeam1 = new Team(TC.Team1);
+                Team bufTeam2 = new Team(TC.Team2);
                 count = 0;
                 do
                 {
-                    Agent1Action = Agent1.Execute(TC.Team1, TC.Team2);
+                    Agent1Action = Agent1.Execute(bufTeam1, bufTeam2);
                     count++;
                 } while (!isListActionValid(TC.Team1, Agent1Action) && count < 3);
                 buangAksi(TC.Team1, Agent1Action);
@@ -131,7 +138,7 @@ namespace ModulUtama.Class
                 count = 0;
                 do
                 {
-                    Agent2Action = Agent2.Execute(TC.Team2, TC.Team1);
+                    Agent2Action = Agent2.Execute(bufTeam2, bufTeam1);
                     count++;
                 } while (!isListActionValid(TC.Team2, Agent2Action) && count < 3);
                 buangAksi(TC.Team2, Agent2Action);
