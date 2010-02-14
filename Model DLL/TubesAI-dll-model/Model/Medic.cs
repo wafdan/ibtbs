@@ -7,7 +7,8 @@ namespace TubesAI.Model
 {
     public class Medic : Unit
     {
-        public static Texture2D texture;
+        public static Texture2D textureL;
+        public static Texture2D textureR;
 
         /// <summary>
         /// Angka maksinal si medic masih bisa melakukan healing

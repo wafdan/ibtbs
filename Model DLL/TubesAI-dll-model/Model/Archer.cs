@@ -7,7 +7,8 @@ namespace TubesAI.Model
 {
     public class Archer : Unit
     {
-        public static Texture2D texture;
+        public static Texture2D textureL;
+        public static Texture2D textureR;
 
         public Archer(int _index)
         {

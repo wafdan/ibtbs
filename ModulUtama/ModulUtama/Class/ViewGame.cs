@@ -50,7 +50,6 @@ namespace ModulUtama.Class
             {
                 toDraw FList;
                 toPoint CurrPoint;
-                spritebatch.Begin();
                 while (DList.Count > 0 && (DList.First().sourceDraw.Y == 0 //Wait
                         || DList.First().sourceDraw.Y == 6 * 80 //Dead
                         || DList.First().sourceDraw.Y == 3 * 80) //Attacked
@@ -62,16 +61,14 @@ namespace ModulUtama.Class
                 if (DList.Count > 0)
                 {
                     FList = DList.Dequeue();
-                    CurrPoint = PList.Dequeue();
+                    //CurrPoint = PList.Dequeue();
                     spritebatch.Draw(FList.textDraw, places[FList.indexDraw], FList.sourceDraw, Color.White);
-                    if (CurrPoint.point > 0)
-                        spritebatch.DrawString(spritefont, "" + CurrPoint.point, places[CurrPoint.indexDraw], Color.RoyalBlue);
-                    else
-                        spritebatch.DrawString(spritefont, "MISS", places[CurrPoint.indexDraw], Color.RoyalBlue);
+                    //if (CurrPoint.point > 0)
+                    //    spritebatch.DrawString(spritefont, "" + CurrPoint.point, places[CurrPoint.indexDraw], Color.RoyalBlue);
+                    //else
+                    //    spritebatch.DrawString(spritefont, "MISS", places[CurrPoint.indexDraw], Color.RoyalBlue);
                     Console.WriteLine(FList.indexDraw);
                 }
-                spritebatch.End();
-                
             }
         }
 
