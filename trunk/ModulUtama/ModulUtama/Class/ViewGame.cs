@@ -11,6 +11,7 @@ namespace ModulUtama.Class
     public static class ViewGame
     {
         public static Vector2[] places = new Vector2[22];
+        private static Queue<toPoint> PList = new Queue<toPoint>();
         private static Queue<toDraw> DList = new Queue<toDraw>();
         public static int waitFrame;
 
@@ -28,14 +29,27 @@ namespace ModulUtama.Class
             }
         }
 
+        private class toPoint
+        {
+            public int point;
+            public int indexDraw;
+
+            public toPoint(int _point, int _indexDraw)
+            {
+                point= _point;
+                indexDraw = _indexDraw;
+            }
+        }
+
         /// <summary>
         /// looping draw for game
         /// </summary>
-        public static void draw(SpriteBatch spritebatch)
+        public static void draw(SpriteBatch spritebatch, SpriteFont spritefont)
         {
             if (DList.Count > 0)
             {
                 toDraw FList;
+                toPoint CurrPoint;
                 spritebatch.Begin();
                 while (DList.Count > 0 && (DList.First().sourceDraw.Y == 0 //Wait
                         || DList.First().sourceDraw.Y == 6 * 80 //Dead
@@ -48,7 +62,12 @@ namespace ModulUtama.Class
                 if (DList.Count > 0)
                 {
                     FList = DList.Dequeue();
+                    CurrPoint = PList.Dequeue();
                     spritebatch.Draw(FList.textDraw, places[FList.indexDraw], FList.sourceDraw, Color.White);
+                    if (CurrPoint.point > 0)
+                        spritebatch.DrawString(spritefont, "" + CurrPoint.point, places[CurrPoint.indexDraw], Color.RoyalBlue);
+                    else
+                        spritebatch.DrawString(spritefont, "MISS", places[CurrPoint.indexDraw], Color.RoyalBlue);
                     Console.WriteLine(FList.indexDraw);
                 }
                 spritebatch.End();
@@ -64,10 +83,9 @@ namespace ModulUtama.Class
             DList.Enqueue(new toDraw(texture, source, index));
         }
 
-        public static void DrawPoint(int poin)
+        public static void DrawPoint(int poin, int index)
         {
-            //buat prosedur untuk ngegambar point di koordinat yang tetap
-            //kalo pointnya minus berarti miss
+            PList.Enqueue(new toPoint (poin, index));
         }
 
     }
