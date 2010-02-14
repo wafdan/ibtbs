@@ -24,6 +24,7 @@ namespace ModulUtama
         SpriteBatch spriteBatch;
         MenuController MC;
         int drawingdelay;
+        int elapsedtime = 0;
         
         public Game()
         {
@@ -121,9 +122,15 @@ namespace ModulUtama
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            //if (Keyboard.GetState().IsKeyDown(Keys.A) && elapsedtime > 500)
+            //{
+                //Console.WriteLine("HALOO");
+                // TODO: Add your update logic here
+                MC.GC.GameLoop();
+                //elapsedtime = 0;
+            //}
 
-            // TODO: Add your update logic here
-            MC.GC.GameLoop();
+            //elapsedtime += gameTime.ElapsedGameTime.Milliseconds;
 
             base.Update(gameTime);
         }
@@ -136,7 +143,7 @@ namespace ModulUtama
         {
 
             // TODO: Add your drawing code here
-            if (drawingdelay > 100)
+            if (drawingdelay > 600)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 ViewGame.draw(spriteBatch);

@@ -11,6 +11,35 @@ namespace TubesAI.Model
         private int n_potion;
         public List<Unit> listUnit;
 
+        /// <summary>
+        /// Memberikan Unit pada Team team dengan index ke-index
+        /// </summary>
+        /// <param name="team">team Unit berada</param>
+        /// <param name="index">index unit dari 0-10</param>
+        /// <returns></returns>
+        public Unit FindUnit(int index)
+        {
+            foreach (Unit un in listUnit)
+            {
+                if (listUnit.FindIndex(re => re == un) == index) return un;
+            }
+            return null;
+        }
+
+        public Team(Team copyTeam)
+        {
+            index = copyTeam.index;
+            listUnit = new List<Unit>();
+
+            n_lifePotion = 10;
+            n_potion = 10;
+
+            foreach (var unit in copyTeam.listUnit)
+            {
+                listUnit.Add(unit);
+            }
+        }
+
         public Team(int n_archer, int n_rider, int n_spearman, int n_medic, int n_swordsman, int _index)
         {
             index = _index;

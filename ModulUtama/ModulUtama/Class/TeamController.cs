@@ -79,30 +79,15 @@ namespace ModulUtama.Class
 
         #region methods
 
-        /// <summary>
-        /// Memberikan Unit pada Team team dengan index ke-index
-        /// </summary>
-        /// <param name="team">team Unit berada</param>
-        /// <param name="index">index unit dari 0-10</param>
-        /// <returns></returns>
-        public static Unit FindUnit(Team team, int index)
-        {
-            foreach (Unit un in team.listUnit)
-            {
-                if (team.listUnit.FindIndex(re => re == un) == index) return un;
-            }
-            return null;
-        }
-
         private Unit FindUnit(int index)
         {
             if (index < 11)
             {
-                return FindUnit(Team1, index);
+                return Team1.FindUnit(index);
             }
             else
             {
-                return FindUnit(Team2, index - 11);
+                return Team2.FindUnit(index - 11);
             }
         }
 
@@ -151,18 +136,25 @@ namespace ModulUtama.Class
         public bool isEndGame()
         {
             // Cek apakah ada team yang menang 
-            int count = 0;
+            int count1 = 0;
+            int count2 = 0;
             foreach (Unit un in Team1.listUnit)
             {
-                if (!un.isDead())
+                if (un.isDead())
                 {
+                    count1++;
                 }
             }
 
             foreach (Unit un in Team2.listUnit)
             {
+                if (un.isDead())
+                {
+                    count2++;
+                }
             }
-            return true;
+            
+            return (count1 == 11 || count2 == 11);
         }
 
 
@@ -233,7 +225,7 @@ namespace ModulUtama.Class
         private void AddAction(Unit attacker, Unit defender, ElemenAksi action, int team)
         {
             int _subject = attacker.index + (team * 11);
-            int _object = defender.index + (action.tim_sasaran * 11);
+            int _object = defender.index + ((1 - action.tim_sasaran) % 2 * 11);
             switch (action.aksi)
             {
                 case Aksi.menyerang:
@@ -312,11 +304,6 @@ namespace ModulUtama.Class
         public void AturGiliran(List<ElemenAksi> actsTeam1, List<ElemenAksi> actsTeam2)
         {
             /*************************************************/
-            // Inisialisasi boolean unit yang melakukan aksi
-            Unit unitaktif;
-            ElemenAksi aksi;
-            int i = 0;
-            int count = 0;
             /*************************************************/
 
             // Animasi unit yang mati
@@ -363,7 +350,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
                         
                     if (attacker is Archer && !attacker.isDead())
                     {
@@ -373,7 +360,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Archer && !attacker.isDead())
                     {
@@ -387,7 +374,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Archer  && !attacker.isDead())
                     {
@@ -397,7 +384,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Archer  && !attacker.isDead())
                     {
@@ -416,7 +403,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Swordsman && !attacker.isDead())
                     {
@@ -426,7 +413,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Swordsman && !attacker.isDead())
                     {
@@ -440,7 +427,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Swordsman && !attacker.isDead())
                     {
@@ -450,7 +437,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Swordsman && !attacker.isDead())
                     {
@@ -469,7 +456,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Spearman && !attacker.isDead())
                     {
@@ -479,7 +466,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Spearman && !attacker.isDead())
                     {
@@ -493,7 +480,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Spearman && !attacker.isDead())
                     {
@@ -503,7 +490,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Spearman && !attacker.isDead())
                     {
@@ -522,7 +509,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Medic && !attacker.isDead())
                     {
@@ -532,7 +519,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Medic && !attacker.isDead())
                     {
@@ -546,7 +533,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Medic && !attacker.isDead())
                     {
@@ -556,7 +543,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Medic && !attacker.isDead())
                     {
@@ -575,7 +562,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Rider && !attacker.isDead())
                     {
@@ -585,7 +572,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Rider && !attacker.isDead())
                     {
@@ -599,7 +586,7 @@ namespace ModulUtama.Class
             {
                 foreach (var action in actsTeam2)
                 {
-                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+                    Unit attacker = Team2.FindUnit(action.index_pelaku);
 
                     if (attacker is Rider && !attacker.isDead())
                     {
@@ -609,7 +596,7 @@ namespace ModulUtama.Class
                 }
                 foreach (var action in actsTeam1)
                 {
-                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                    Unit attacker = Team1.FindUnit(action.index_pelaku);
 
                     if (attacker is Rider && !attacker.isDead())
                     {
