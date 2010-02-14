@@ -14,6 +14,9 @@ namespace ModulUtama.Class
         /*
          * Output: Path absolut hasil browse file DLL P1 (Perlu divalidasi?)
          */
+        public static String DLL_P1;
+        public static String DLL_P2;
+
         public static String dload()
         {
             System.Windows.Forms.OpenFileDialog file = new System.Windows.Forms.OpenFileDialog();
