@@ -9,15 +9,40 @@ using TubesAI.Model;
 
 namespace ModulUtama.Class
 {
+    /// <summary>
+    /// Controller yang menentukan gambar-gambar yang diperlukan
+    /// untuk menampilkan animasi aksi unit dalam battle
+    /// </summary>
     class AnimationController
     {
         #region properties
+        /// <summary>
+        /// Team 1
+        /// </summary>
         private Team Team1;
+        /// <summary>
+        /// Team 2
+        /// </summary>
         private Team Team2;
+        /// <summary>
+        /// Mengatur posisi frame animasi saat ini (untuk environment)
+        /// </summary>
         public static int CurrentFrame = 0;
+        /// <summary>
+        /// Menyimpan gambar semua unit
+        /// </summary>
         private Texture2D[] Textures = new Texture2D[22];
+        /// <summary>
+        /// Array posisi gambar untuk keperluan animasi karakter 1
+        /// </summary>
         private Rectangle[] Char1 = new Rectangle[5];
+        /// <summary>
+        /// Array posisi gambar untuk keperluan animasi karakter 2
+        /// </summary>
         private Rectangle[] Char2 = new Rectangle[5];
+        /// <summary>
+        /// Array posisi gambar untuk keperluan animasi karakter yang tidak beraksi
+        /// </summary>
         private Rectangle[] CharEnvi = new Rectangle[5];
         #endregion
 
@@ -105,9 +130,9 @@ namespace ModulUtama.Class
             {
                 if (unit.index != _subject - 11)
                     if (!unit.isDead())
-                        doNothing(unit.index);
+                        doNothing(unit.index+11);
                     else
-                        Dead(unit.index);
+                        Dead(unit.index+11);
             }
         }
 
@@ -121,14 +146,33 @@ namespace ModulUtama.Class
                     else
                         Dead(unit.index);
             }
+
             foreach (var unit in Team2.listUnit)
             {
                 if (unit.index != _subject - 11 && unit.index != _object - 11)
                     if (!unit.isDead())
-                        doNothing(unit.index);
+                        doNothing(unit.index+11);
                     else
-                        Dead(unit.index);
+                        Dead(unit.index+11);
             }
+        }
+
+        public void doNothing(int _subject)
+        {
+            for (int i = 0; i <= 3; i++)
+                CharEnvi[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
+            ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
+            if (CurrentFrame == 3)
+                CurrentFrame = 0;
+        }
+
+        public void Dead(int _subject)
+        {
+            for (int i = 0; i <= 3; i++)
+                CharEnvi[i] = new Rectangle(CurrentFrame * 50, 480, 50, 80);
+            ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
+            if (CurrentFrame == 3)
+                CurrentFrame = 0;
         }
 
         public void Attack(int _subject, int _object, int poin, bool miss)
@@ -185,6 +229,7 @@ namespace ModulUtama.Class
                 Char2[i] = new Rectangle((i-1) * 50, 480, 50, 80);
             }
 
+            enviView(_subject, _object);
             ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
             ViewGame.QDList(Textures[_object], Char2[CurrentFrame], _object);
 
@@ -201,30 +246,15 @@ namespace ModulUtama.Class
         {
             for (int i = 0; i <= 3; i++)
                 Char1[i] = new Rectangle(CurrentFrame * 50, 80, 50, 80);
-            ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
+
+            enviView(_subject);
+                ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
+            
             if (CurrentFrame == 3)
                 CurrentFrame = 0;
         }
 
-        public void doNothing(int _subject)
-        {
-            for (int i = 0; i <= 3; i++)
-                CharEnvi[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
-            ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
-            if (CurrentFrame == 3)
-                CurrentFrame = 0;
-        }
-
-        public void Dead(int _subject)
-        {
-            for (int i = 0; i <= 3; i++)
-                CharEnvi[i] = new Rectangle(CurrentFrame * 50, 480, 50, 80);
-            ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
-            if (CurrentFrame == 3)
-                CurrentFrame = 0;
-        }
-
-        public void Heal(int _subject, int _object, int poin, int miss)
+        public void Heal(int _subject, int _object, int poin, bool miss)
         {
             Char1[0] = new Rectangle(0, 160, 50, 80);
             Char2[0] = new Rectangle(0, 0, 50, 80);
@@ -240,10 +270,11 @@ namespace ModulUtama.Class
                     Char2[i] = new Rectangle((i - 1) * 50, 320, 50, 80);
             }
 
+            enviView(_subject, _object);
             ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
             ViewGame.QDList(Textures[_object], Char2[CurrentFrame], _object);
 
-            if (miss == 1)
+            if (miss)
             {
                 if (CurrentFrame > 1)
                     ViewGame.DrawPoint(-1);
@@ -260,9 +291,9 @@ namespace ModulUtama.Class
             }
         }
 
-        public void UseItem(int _subject, int _object, Item _item, int poin, int miss)
+        public void UseItem(int _subject, int _object, Item _item, int poin, bool miss)
         {
-            if (_item = Item.potion)
+            if (_item == Item.potion)
                 Char1[0] = new Rectangle(0, 560, 50, 80);
             else
                 Char1[0] = new Rectangle(0, 640, 50, 80);
@@ -282,10 +313,11 @@ namespace ModulUtama.Class
                         Char2[i] = new Rectangle((i - 1) * 50, 400, 50, 80);
             }
 
+            enviView(_subject, _object);
             ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
             ViewGame.QDList(Textures[_object], Char2[CurrentFrame], _object);
 
-            if (miss == 1)
+            if (miss)
             {
                 if (CurrentFrame > 1)
                     ViewGame.DrawPoint(-1);
