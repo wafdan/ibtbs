@@ -22,7 +22,9 @@ namespace ModulUtama
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
         MenuController MC;
+        Texture2D BG;
         int drawingdelay;
         int elapsedtime = 0;
         
@@ -41,11 +43,17 @@ namespace ModulUtama
         protected override void Initialize()
         {
             // Inisialisasi gambar
-            Archer.texture = Content.Load<Texture2D>(@"Images/template");
-            Swordsman.texture = Content.Load<Texture2D>(@"Images/template");
-            Spearman.texture = Content.Load<Texture2D>(@"Images/template");
-            Rider.texture = Content.Load<Texture2D>(@"Images/template");
-            Medic.texture = Content.Load<Texture2D>(@"Images/template");
+            Archer.textureL = Content.Load<Texture2D>(@"Images/S-ArcherL");
+            Archer.textureR = Content.Load<Texture2D>(@"Images/S-ArcherR");
+            Swordsman.textureL = Content.Load<Texture2D>(@"Images/S-SwordsmanL");
+            Swordsman.textureR = Content.Load<Texture2D>(@"Images/S-SwordsmanR");
+            Spearman.textureL = Content.Load<Texture2D>(@"Images/S-SpearmanL");
+            Spearman.textureR = Content.Load<Texture2D>(@"Images/S-SpearmanR");
+            Rider.textureL = Content.Load<Texture2D>(@"Images/S-RiderL");
+            Rider.textureR = Content.Load<Texture2D>(@"Images/S-RiderR");
+            Medic.textureL = Content.Load<Texture2D>(@"Images/S-MedicL");
+            Medic.textureR = Content.Load<Texture2D>(@"Images/S-MedicR");
+            BG = Content.Load<Texture2D>(@"Images/bg_battle");
 
             /* Inisialisasi letak karakter
              * Letak KARAKTER berdasarkan index:
@@ -96,6 +104,7 @@ namespace ModulUtama
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteFont = Content.Load<SpriteFont>("Info");
             MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
                                     @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
                                     ViewMenu.kload(), ViewMenu.kload(), "BFS", "BFS");
@@ -125,12 +134,12 @@ namespace ModulUtama
             //if (Keyboard.GetState().IsKeyDown(Keys.A) && elapsedtime > 500)
             //{
                 //Console.WriteLine("HALOO");
-                // TODO: Add your update logic here
+                //TODO: Add your update logic here
                 MC.GC.GameLoop();
                 //elapsedtime = 0;
             //}
 
-            //elapsedtime += gameTime.ElapsedGameTime.Milliseconds;
+            elapsedtime += gameTime.ElapsedGameTime.Milliseconds;
 
             base.Update(gameTime);
         }
@@ -143,10 +152,13 @@ namespace ModulUtama
         {
 
             // TODO: Add your drawing code here
-            if (drawingdelay > 600)
+            if (drawingdelay > 300)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
-                ViewGame.draw(spriteBatch);
+                spriteBatch.Begin();
+                spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
+                ViewGame.draw(spriteBatch, spriteFont);
+                spriteBatch.End();
                 drawingdelay = 0;
             }
 
