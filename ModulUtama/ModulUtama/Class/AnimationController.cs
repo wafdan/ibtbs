@@ -27,7 +27,7 @@ namespace ModulUtama.Class
         /// <summary>
         /// Mengatur posisi frame animasi saat ini (untuk environment)
         /// </summary>
-        public static int CurrentFrame = 0;
+        public static int CurrentFrame;
         /// <summary>
         /// Menyimpan gambar semua unit
         /// </summary>
@@ -55,6 +55,7 @@ namespace ModulUtama.Class
         }
         #endregion
 
+        #region methods
         public Team FindTeam(int index)
         {
             if (index < 11)
@@ -162,8 +163,6 @@ namespace ModulUtama.Class
             for (int i = 0; i <= 3; i++)
                 CharEnvi[i] = new Rectangle(CurrentFrame * 50, 0, 50, 80);
             ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
-            if (CurrentFrame == 3)
-                CurrentFrame = 0;
         }
 
         public void Dead(int _subject)
@@ -194,6 +193,11 @@ namespace ModulUtama.Class
             //set gambar unit 1 menyerang
             for (int i = 0; i < 5; i++)
             {
+                if (CurrentFrame == 3)
+                    CurrentFrame = 0;
+                else
+                    CurrentFrame++;
+
                 enviView(_subject, _object);
                 ViewGame.QDList(Textures[_object], Char2[i], _object);
                 ViewGame.QDList(Textures[_subject], Char1[i], _subject);
@@ -229,9 +233,17 @@ namespace ModulUtama.Class
                 Char2[i] = new Rectangle((i-1) * 50, 480, 50, 80);
             }
 
-            enviView(_subject, _object);
-            ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
-            ViewGame.QDList(Textures[_object], Char2[CurrentFrame], _object);
+            for (int i = 0; i < 5; i++)
+            {
+                if (CurrentFrame == 3)
+                    CurrentFrame = 0;
+                else
+                    CurrentFrame++;
+
+                enviView(_subject, _object);
+                ViewGame.QDList(Textures[_object], Char2[i], _object);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+            }
 
             if (CurrentFrame > 3)
                 ViewGame.DrawPoint(poin);
@@ -247,8 +259,16 @@ namespace ModulUtama.Class
             for (int i = 0; i <= 3; i++)
                 Char1[i] = new Rectangle(CurrentFrame * 50, 80, 50, 80);
 
-            enviView(_subject);
-                ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
+            for (int i = 0; i < 5; i++)
+            {
+                if (CurrentFrame == 3)
+                    CurrentFrame = 0;
+                else
+                    CurrentFrame++;
+
+                enviView(_subject);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+            }
             
             if (CurrentFrame == 3)
                 CurrentFrame = 0;
@@ -270,9 +290,17 @@ namespace ModulUtama.Class
                     Char2[i] = new Rectangle((i - 1) * 50, 320, 50, 80);
             }
 
-            enviView(_subject, _object);
-            ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
-            ViewGame.QDList(Textures[_object], Char2[CurrentFrame], _object);
+            for (int i = 0; i < 5; i++)
+            {
+                if (CurrentFrame == 3)
+                    CurrentFrame = 0;
+                else
+                    CurrentFrame++;
+
+                enviView(_subject, _object);
+                ViewGame.QDList(Textures[_object], Char2[i], _object);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+            }
 
             if (miss)
             {
@@ -298,6 +326,7 @@ namespace ModulUtama.Class
             else
                 Char1[0] = new Rectangle(0, 640, 50, 80);
             Char2[0] = new Rectangle(0, 0, 50, 80);
+
             for (int i = 1; i < 5; i++)
             {
                 if (_item == Item.potion)
@@ -313,9 +342,17 @@ namespace ModulUtama.Class
                         Char2[i] = new Rectangle((i - 1) * 50, 400, 50, 80);
             }
 
-            enviView(_subject, _object);
-            ViewGame.QDList(Textures[_subject], Char1[CurrentFrame], _subject);
-            ViewGame.QDList(Textures[_object], Char2[CurrentFrame], _object);
+            for (int i = 0; i < 5; i++)
+            {
+                if (CurrentFrame == 3)
+                    CurrentFrame = 0;
+                else
+                    CurrentFrame++;
+
+                enviView(_subject, _object);
+                ViewGame.QDList(Textures[_object], Char2[i], _object);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+            }
 
             if (miss)
             {
@@ -345,16 +382,41 @@ namespace ModulUtama.Class
             {
                 if (Team == 0)
                 {
+                    foreach (var unit in Team1.listUnit)
+                    {
+                        for (int i = 0; i <= 3; i++)
+                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
+                        ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame],unit.index);
+                    }
+                    foreach (var unit in Team2.listUnit)
+                    {
+                        for (int i = 0; i <= 3; i++)
+                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
+                        ViewGame.QDList(Textures[unit.index+11], CharEnvi[CurrentFrame], unit.index+11);
+                    }
                     //set gambar unit ke-i jadi pose menang
                     //set gambar unit ke-(i+11) jadi pose kalah 
                 }
                 else
                 {
-
+                    foreach (var unit in Team1.listUnit)
+                    {
+                        for (int i = 0; i <= 3; i++)
+                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
+                        ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame], unit.index);
+                    }
+                    foreach (var unit in Team2.listUnit)
+                    {
+                        for (int i = 0; i <= 3; i++)
+                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
+                        ViewGame.QDList(Textures[unit.index + 11], CharEnvi[CurrentFrame], unit.index + 11);
+                    }
                     //set gambar unit ke-(i+11) jadi pose menang
                     //set gambar unit ke-i jadi pose kalah
                 }
             }
         }
+
+        #endregion
     }
 }
