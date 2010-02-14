@@ -72,46 +72,46 @@ namespace ModulUtama.Class
             {
                 if (unit is Archer)
                 {
-                    Textures[unit.index] = Archer.texture;
+                    Textures[unit.index] = Archer.textureL;
                 }
                 else if (unit is Swordsman)
                 {
-                    Textures[unit.index] = Swordsman.texture;
+                    Textures[unit.index] = Swordsman.textureL;
                 }
                 else if (unit is Spearman)
                 {
-                    Textures[unit.index] = Spearman.texture;
+                    Textures[unit.index] = Spearman.textureL;
                 }
                 else if (unit is Rider)
                 {
-                    Textures[unit.index] = Rider.texture;
+                    Textures[unit.index] = Rider.textureL;
                 }
                 else if (unit is Medic)
                 {
-                    Textures[unit.index] = Medic.texture;
+                    Textures[unit.index] = Medic.textureL;
                 }
             }
             foreach (var unit in Team2.listUnit)
             {
                 if (unit is Archer)
                 {
-                    Textures[unit.index + 11] = Archer.texture;
+                    Textures[unit.index + 11] = Archer.textureR;
                 }
                 else if (unit is Swordsman)
                 {
-                    Textures[unit.index + 11] = Swordsman.texture;
+                    Textures[unit.index + 11] = Swordsman.textureR;
                 }
                 else if (unit is Spearman)
                 {
-                    Textures[unit.index + 11] = Spearman.texture;
+                    Textures[unit.index + 11] = Spearman.textureR;
                 }
                 else if (unit is Rider)
                 {
-                    Textures[unit.index + 11] = Rider.texture;
+                    Textures[unit.index + 11] = Rider.textureR;
                 }
                 else if (unit is Medic)
                 {
-                    Textures[unit.index + 11] = Medic.texture;
+                    Textures[unit.index + 11] = Medic.textureR;
                 }
             }
             #endregion
@@ -206,13 +206,11 @@ namespace ModulUtama.Class
             
             if (miss)
             {
-                if (CurrentFrame > 1)
-                    ViewGame.DrawPoint(-1);
+                ViewGame.DrawPoint(-1, _object);
             }
             else
             {
-                if (CurrentFrame > 1)
-                    ViewGame.DrawPoint(poin);
+                ViewGame.DrawPoint(poin, _object);
                 if (CurrentFrame == 4)
                 {   
                     UpdateHealth(_object, poin * (-1));
@@ -246,8 +244,7 @@ namespace ModulUtama.Class
                 ViewGame.QDList(Textures[_subject], Char1[i], _subject);
             }
 
-            if (CurrentFrame > 3)
-                ViewGame.DrawPoint(poin);
+            ViewGame.DrawPoint(poin, _object);
             if (CurrentFrame == 7)
             {
                 UpdateHealth(_object, poin * (-1));
@@ -305,13 +302,11 @@ namespace ModulUtama.Class
 
             if (miss)
             {
-                if (CurrentFrame > 1)
-                    ViewGame.DrawPoint(-1);
+                ViewGame.DrawPoint(-1, _object);
             }
             else
             {
-                if (CurrentFrame > 1)
-                    ViewGame.DrawPoint(poin);
+                ViewGame.DrawPoint(poin, _object);
                 if (CurrentFrame == 4)
                 {
                     UpdateHealth(_object, poin);
@@ -357,13 +352,11 @@ namespace ModulUtama.Class
 
             if (miss)
             {
-                if (CurrentFrame > 1)
-                    ViewGame.DrawPoint(-1);
+                ViewGame.DrawPoint(-1, _object);
             }
             else
             {
-                if ((CurrentFrame > 1) && (_item==Item.potion))
-                    ViewGame.DrawPoint(poin);
+                ViewGame.DrawPoint(poin, _object);
                 if (CurrentFrame == 4)
                 {
                     UpdateHealth(_object, poin);
@@ -374,49 +367,42 @@ namespace ModulUtama.Class
 
         public void UpdateHealth(int index, int poin)
         {
-            //tambahkan panjang healthbar sesuai jumlah poin
+
         }
-        /*
+        
         public void Win(int Team)
         {
-            for (int i = 0; i < 11; i++)
+            if (Team == 0)
             {
-                if (Team == 0)
+                foreach (var unit in Team1.listUnit)
                 {
-                    foreach (var unit in Team1.listUnit)
-                    {
-                        for (int i = 0; i <= 3; i++)
-                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
-                        ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame],unit.index);
-                    }
-                    foreach (var unit in Team2.listUnit)
-                    {
-                        for (int i = 0; i <= 3; i++)
-                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
-                        ViewGame.QDList(Textures[unit.index+11], CharEnvi[CurrentFrame], unit.index+11);
-                    }
-                    //set gambar unit ke-i jadi pose menang
-                    //set gambar unit ke-(i+11) jadi pose kalah 
+                    for (int i = 0; i <= 3; i++)
+                        CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
+                    ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame],unit.index);
                 }
-                else
+                foreach (var unit in Team2.listUnit)
                 {
-                    foreach (var unit in Team1.listUnit)
-                    {
-                        for (int i = 0; i <= 3; i++)
-                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
-                        ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame], unit.index);
-                    }
-                    foreach (var unit in Team2.listUnit)
-                    {
-                        for (int i = 0; i <= 3; i++)
-                            CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
-                        ViewGame.QDList(Textures[unit.index + 11], CharEnvi[CurrentFrame], unit.index + 11);
-                    }
-                    //set gambar unit ke-(i+11) jadi pose menang
-                    //set gambar unit ke-i jadi pose kalah
+                    for (int i = 0; i <= 3; i++)
+                        CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
+                    ViewGame.QDList(Textures[unit.index+11], CharEnvi[CurrentFrame], unit.index+11);
+                } 
+            }
+            else
+            {
+                foreach (var unit in Team1.listUnit)
+                {
+                    for (int i = 0; i <= 3; i++)
+                        CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
+                    ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame], unit.index);
+                }
+                foreach (var unit in Team2.listUnit)
+                {
+                    for (int i = 0; i <= 3; i++)
+                        CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
+                    ViewGame.QDList(Textures[unit.index + 11], CharEnvi[CurrentFrame], unit.index + 11);
                 }
             }
-        }*/
+        }
 
         #endregion
     }
