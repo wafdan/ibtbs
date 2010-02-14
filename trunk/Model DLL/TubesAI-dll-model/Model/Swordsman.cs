@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TubesAI.Model
 {
     public class Swordsman : Unit
     {
+        public static Texture2D texture;
 
         public Swordsman(int _index)
         {
@@ -14,7 +16,7 @@ namespace TubesAI.Model
             this.maxHP = 2000;
             this.currentHP = this.maxHP;
             this.urutan = 2;
-isBertahan = false;
+            isBertahan = false;
         }
     }
 }
