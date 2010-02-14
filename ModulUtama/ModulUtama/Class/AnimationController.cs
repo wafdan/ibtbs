@@ -15,8 +15,8 @@ namespace ModulUtama.Class
         private Team Team2;
         int CurrentFrame = 0;
         private Texture2D[] Textures = new Texture2D[22];
-        private Rectangle[] Char1 = new Rectangle[7];
-        private Rectangle[] Char2 = new Rectangle[7];
+        private Rectangle[] Char1 = new Rectangle[5];
+        private Rectangle[] Char2 = new Rectangle[5];
         private Rectangle[] CharEnvi = new Rectangle[7];
 
         public AnimationController(Team A, Team B)
@@ -118,25 +118,23 @@ namespace ModulUtama.Class
 
         public void Attack(int _subject, int _object, int poin, bool miss)
         {
-            for (int i = 0; i <= 3; i++)
+            Char1[0] = new Rectangle(0, 160, 50, 80);
+            Char2[0] = new Rectangle(0, 0, 50, 80);
+            for (int i = 1; i < 5; i++)
             {
-                Char1[i] = new Rectangle(i * 50, 160, 50, 80);
-                Char2[i] = new Rectangle(i * 50, 0, 50, 80);
-            }
-            for (int i = 4; i < 7; i++)
-            {
-                Char1[i] = new Rectangle((i - 3) * 50, 0, 50, 80);
+                if(i < 4)
+                    Char1[i] = new Rectangle(i * 50, 160, 50, 80);
                 if (miss)
-                    Char2[i] = new Rectangle((i - 3) * 50, 0, 50, 80);
+                    Char2[i] = new Rectangle((i % 4) * 50, 0, 50, 80);
                 else
-                    Char2[i] = new Rectangle((i - 3) * 50, 240, 50, 80);
+                    Char2[i] = new Rectangle((i - 1) * 50, 240, 50, 80);
             }
 
             //set gambar unit 1 menyerang
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 enviView(_subject, _object);
-                ViewGame.QDList(Textures[_object], Char2[i+3], _object);
+                ViewGame.QDList(Textures[_object], Char2[i], _object);
                 ViewGame.QDList(Textures[_subject], Char1[i], _subject);
             }
             
