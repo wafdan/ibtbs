@@ -32,6 +32,7 @@ namespace ModulUtama
         int absis, ordinat;
         Boolean pressed, up_pressed, down_pressed;
         Boolean dll_p1_hovered, komp_p1_hovered, dll_p2_hovered, komp_p2_hovered, go_hovered, slide_finished;
+        Boolean start_hovered, help_hovered, exit_hovered;
 
         int elapsedTime;
 
@@ -73,6 +74,7 @@ namespace ModulUtama
             graphics.ApplyChanges();
             ScreenState = 0;
             pressed = false; up_pressed = false; down_pressed = false;
+            start_hovered = false; help_hovered = false; exit_hovered = false;
             slide_finished = false;
             player_index = 1;
             char_index = 1;
@@ -81,7 +83,7 @@ namespace ModulUtama
             drawingdelay = 0;
             elapsedTime = 0; 
             
-            Archer.textureL = Content.Load<Texture2D>(@"Images/S-ArcherL");
+            /*Archer.textureL = Content.Load<Texture2D>(@"Images/S-ArcherL");
             Archer.textureR = Content.Load<Texture2D>(@"Images/S-ArcherR");
             Swordsman.textureL = Content.Load<Texture2D>(@"Images/S-SwordsmanL");
             Swordsman.textureR = Content.Load<Texture2D>(@"Images/S-SwordsmanR");
@@ -91,7 +93,7 @@ namespace ModulUtama
             Rider.textureR = Content.Load<Texture2D>(@"Images/S-RiderR");
             Medic.textureL = Content.Load<Texture2D>(@"Images/S-MedicL");
             Medic.textureR = Content.Load<Texture2D>(@"Images/S-MedicR");
-            BG = Content.Load<Texture2D>(@"Images/bg_battle");
+            BG = Content.Load<Texture2D>(@"Images/bg_battle");*/
 
             /* Inisialisasi letak karakter
              * Letak KARAKTER berdasarkan index:
@@ -142,14 +144,14 @@ namespace ModulUtama
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteFont = Content.Load<SpriteFont>("Info");
+            /*spriteFont = Content.Load<SpriteFont>("Info");
             MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
                                     @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
-                                    ViewMenu.kload(), ViewMenu.kload(), "BFS", "BFS");
+                                    ViewMenu.kload(), ViewMenu.kload(), "BFS", "BFS");*/
 
             // TODO: use this.Content to load your game content here
             Screen = new Texture2D[6];
-            Screen[0] = Content.Load<Texture2D>("Resource\\TitleScreen");
+            Screen[0] = Content.Load<Texture2D>("Resource\\mainmenu");
             Screen[2] = Content.Load<Texture2D>("Resource\\player1deck");
             Screen[3] = Content.Load<Texture2D>("Resource\\player2deck");
             Screen[4] = Content.Load<Texture2D>("Resource\\player1mask");
@@ -159,7 +161,7 @@ namespace ModulUtama
             Symbol[0] = Content.Load<Texture2D>("Resource\\unit-sprite");
             Symbol[1] = Content.Load<Texture2D>("Resource\\cursor");
 
-            Button = new Texture2D[13];
+            Button = new Texture2D[19];
             Button[0] = Content.Load<Texture2D>("Resource\\StartButton");
             Button[1] = Content.Load<Texture2D>("Resource\\arrow-up");
             Button[2] = Content.Load<Texture2D>("Resource\\arrow-down");
@@ -173,6 +175,12 @@ namespace ModulUtama
             Button[10] = Content.Load<Texture2D>("Resource\\load-dll-p2");
             Button[11] = Content.Load<Texture2D>("Resource\\load-comp-p2");
             Button[12] = Content.Load<Texture2D>("Resource\\go-hover");
+            Button[13] = Content.Load<Texture2D>("Resource\\mainmenu_start1");
+            Button[14] = Content.Load<Texture2D>("Resource\\mainmenu_start2");
+            Button[15] = Content.Load<Texture2D>("Resource\\mainmenu_help1");
+            Button[16] = Content.Load<Texture2D>("Resource\\mainmenu_help2");
+            Button[17] = Content.Load<Texture2D>("Resource\\mainmenu_exit1");
+            Button[18] = Content.Load<Texture2D>("Resource\\mainmenu_exit2");
 
             spriteSheet = Content.Load<Texture2D>("Resource\\coin-flip");
             destinationRect = new Rectangle(300, 200, spriteWidth, spriteHeight);
@@ -204,22 +212,42 @@ namespace ModulUtama
 
             if (ScreenState == 0)
             {
+                // Start
+                if (absis >= 400 - (Button[13].Width / 2) && absis <= 400 + (Button[13].Width / 2) && ordinat >= 350 && ordinat <= 350 + Button[13].Height)
+                {
+                    start_hovered = true;
+                }
+                // Help
+                else if (absis >= 400 - (Button[15].Width / 2) && absis <= 400 + (Button[15].Width / 2) && ordinat >= (350 + Button[15].Height + 10) && ordinat <= (350 + Button[15].Height + 10) + Button[15].Height)
+                {
+                    help_hovered = true;
+                }
+                // Exit
+                else if (absis >= 400 - (Button[17].Width / 2) && absis <= 400 + (Button[17].Width / 2) && ordinat >= (350 + 2 * (Button[17].Height + 10)) && ordinat <= (350 + 2 * (Button[17].Height + 10)) + Button[17].Height)
+                {
+                    exit_hovered = true;
+                }
+                else
+                {
+                    start_hovered = false; help_hovered = false; exit_hovered = false;
+                }
+
                 if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && !pressed)
                 {
                     pressed = true;
 
                     // Start
-                    if (absis >= 330 && absis <= 470 && ordinat >= 310 && ordinat <= 360)
+                    if (absis >= 400 - (Button[13].Width / 2) && absis <= 400 + (Button[13].Width / 2) && ordinat >= 350 && ordinat <= 350 + Button[13].Height)
                     {
                         ScreenState = 1;
                     }
                     // Help
-                    else if (absis >= 305 && absis <= 495 && ordinat >= 390 && ordinat <= 440)
+                    else if (absis >= 400 - (Button[15].Width / 2) && absis <= 400 + (Button[15].Width / 2) && ordinat >= (350 + Button[15].Height + 10) && ordinat <= (350 + Button[15].Height + 10) + Button[15].Height)
                     {
                         // display Help
                     }
                     // Exit
-                    else if (absis >= 285 && absis <= 515 && ordinat >= 480 && ordinat <= 530)
+                    else if (absis >= 400 - (Button[17].Width / 2) && absis <= 400 + (Button[17].Width / 2) && ordinat >= (350 + 2*(Button[17].Height + 10)) && ordinat <= (350 + 2*(Button[17].Height + 10)) + Button[17].Height)
                     {
                         this.Exit();
                     }
@@ -388,16 +416,34 @@ namespace ModulUtama
         {
 
             // TODO: Add your drawing code here
-            if (drawingdelay > 300)
-            {
+            // if (drawingdelay > 300)
+            if (drawingdelay > 0)
+                {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 spriteBatch.Begin();
-                spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
+                // spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
                 ViewGame.draw(spriteBatch, spriteFont);
                 if (ScreenState == 0)
                 {
                     spriteBatch.Draw(Screen[0], new Rectangle(0, 0, Screen[0].Width, Screen[0].Height), Color.White);
-                    spriteBatch.Draw(Button[0], new Rectangle(328, 305, 144, 52), Color.White);
+                    // Start Button
+                    if (start_hovered)
+                    {
+                        spriteBatch.Draw(Button[14], new Rectangle(400 - (Button[14].Width / 2), 350, Button[14].Width, Button[14].Height), Color.White);
+                    }
+                    else spriteBatch.Draw(Button[13], new Rectangle(400 - (Button[13].Width / 2), 350, Button[13].Width, Button[13].Height), Color.White);
+                    // Help Button
+                    if (help_hovered)
+                    {
+                        spriteBatch.Draw(Button[16], new Rectangle(400 - (Button[16].Width / 2), 350 + Button[16].Height + 10, Button[16].Width, Button[16].Height), Color.White);
+                    }
+                    else spriteBatch.Draw(Button[15], new Rectangle(400 - (Button[15].Width / 2), 350 + Button[15].Height + 10, Button[15].Width, Button[15].Height), Color.White);
+                    // Exit Button
+                    if (exit_hovered)
+                    {
+                        spriteBatch.Draw(Button[18], new Rectangle(400 - (Button[18].Width / 2), 350 + 2 * (Button[18].Height + 10), Button[18].Width, Button[18].Height), Color.White);
+                    }
+                    else spriteBatch.Draw(Button[17], new Rectangle(400 - (Button[17].Width / 2), 350 + 2 * (Button[17].Height + 10), Button[17].Width, Button[17].Height), Color.White);
                 }
                 else if (ScreenState == 1)
                 {
