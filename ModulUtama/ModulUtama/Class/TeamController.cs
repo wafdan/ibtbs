@@ -94,6 +94,18 @@ namespace ModulUtama.Class
             return null;
         }
 
+        private Unit FindUnit(int index)
+        {
+            if (index < 11)
+            {
+                return FindUnit(Team1, index);
+            }
+            else
+            {
+                return FindUnit(Team2, index - 11);
+            }
+        }
+
         /// <summary>
         /// Memberikan ElemenAksi pada listelemenaksi pada index ke-index
         /// </summary>
@@ -159,7 +171,7 @@ namespace ModulUtama.Class
         /// </summary>
         /// <param name="satu">Unit yang menyerang</param>
         /// <param name="dua">Unit yang diserang</param>
-        public void CalculationDamage(Unit satu,Unit dua)
+        public int CalculationDamage(Unit satu,Unit dua)
         {
             int DamageTaken = Damage;
 
@@ -193,6 +205,8 @@ namespace ModulUtama.Class
             }
             if (dua.isBertahan) DamageTaken /= 2;
             dua.setHP(dua.getCurrentHP() - DamageTaken);
+
+            return DamageTaken;
         }
         
         /// <summary>
@@ -215,7 +229,81 @@ namespace ModulUtama.Class
         {
             dua.setHP((int)(0.5 * dua.getMaxHP()));
         }
-        
+
+        private void AddAction(Unit attacker, Unit defender, ElemenAksi action, int team)
+        {
+            int _subject = attacker.index + (team * 11);
+            int _object = defender.index + (action.tim_sasaran * 11);
+            switch (action.aksi)
+            {
+                case Aksi.menyerang:
+                    {
+                        //Aksi dijalankan!
+                        //unit yang diserang belum mati
+                        if (!defender.isDead())
+                        {
+                            int Damage = CalculationDamage(attacker, defender);
+                            AC.Attack(_subject, _object, Damage, false);
+                        }
+                        //unit sudah mati
+                        else
+                        {
+                            AC.Attack(_subject, _object, 0, true);
+                        }
+                        break;
+                    }
+                case Aksi.heal:
+                    {
+                        //Aksi dijalankan!
+                        //unit yang disembuhkan belum mati
+                        if (!defender.isDead())
+                        {
+                            CalculationHeal(attacker, defender);
+                            AC.Heal(_subject, _object, Heal, false);
+                        }
+                        //unit sudah mati
+                        else
+                        {
+                            AC.Heal(_subject, _object, 0, true);
+                        }
+                        break;
+                    }
+                case Aksi.use_item:
+                    {
+                        switch (action.item)
+                        {
+                            case Item.potion:
+                                {
+                                    if (!defender.isDead())
+                                    {
+                                        CalculationHeal(attacker, defender);
+                                        AC.UseItem(_subject, _object, Item.potion, Heal, false);
+                                    }
+                                    else
+                                    {
+                                        AC.UseItem(_subject, _object, Item.potion, 0, true);
+                                    }
+                                    break;
+                                }
+                            case Item.life_potion:
+                                {
+                                    if (!defender.isDead())
+                                    {
+                                        CalculationLife(attacker, defender);
+                                        AC.UseItem(_subject, _object, Item.life_potion, (defender.getMaxHP() / 2), false);
+                                    }
+                                    else
+                                    {
+                                        AC.UseItem(_subject, _object, Item.life_potion, 0, true);
+                                    }
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+            }
+        }
+
         /// <summary>
         /// Mengatur giliran Unit mana dulu yang berjalan dahulu
         /// </summary>
@@ -225,44 +313,314 @@ namespace ModulUtama.Class
         {
             /*************************************************/
             // Inisialisasi boolean unit yang melakukan aksi
-            bool[] team1 = new bool[11];
-            bool[] team2 = new bool[12];
-            Unit unitaktif,unitpasif;
+            Unit unitaktif;
             ElemenAksi aksi;
             int i = 0;
             int count = 0;
-            for (i = 0; i < 11; i++)
-            {
-                unitaktif = FindUnit(Team1, i);
-                aksi = FindElemenAksi(actsTeam1,i);
-                if (unitaktif.isDead())
-                    team1[i] = true;
-                else
-                {
-                     team1[i] = false;
-                     count++;
-                }
-
-                unitaktif = FindUnit(Team2, i);
-                if (unitaktif.isDead())
-                    team2[i] = true;
-                else
-                {
-                    team2[i] = false;
-                    count++;
-                }
-            }
             /*************************************************/
 
-            // Pilih Unit yang akan Pilih
-            for (i = 0; i <= count; i++)
+            // Animasi unit yang mati
+            foreach (var unit in Team1.listUnit)
             {
-                
-                // Setelah tidak ada unit yang bertahan yang dapat dipilih, mulai pilih dari yang tercepat hingga terlambat
-                // Setiap pemilihan unit, cek apakah unit masih hidup
-                /*************************************************/
+                if (unit.isDead())
+                {
+                    AC.Dead(unit.index);
+                }
             }
-            
+            foreach (var unit in Team2.listUnit)
+            {
+                if (unit.isDead())
+                {
+                    AC.Dead(unit.index + 11);
+                }
+            }
+
+            // Animasi unit yang bertahan
+            foreach (var action in actsTeam1)
+            {
+                if (action.aksi == Aksi.bertahan)
+                {
+                    AC.Defend(action.index_pelaku);
+                }
+            }
+            foreach (var action in actsTeam2)
+            {
+                if (action.aksi == Aksi.bertahan)
+                {
+                    AC.Defend(action.index_pelaku + 11);
+                }
+            }
+
+            // Pilih Unit yang akan Pilih
+            // Setelah tidak ada unit yang bertahan yang dapat dipilih, mulai pilih dari yang tercepat hingga terlambat
+            // Setiap pemilihan unit, cek apakah unit masih hidup
+            /*************************************************/
+
+            #region Masukkan Archer
+
+            // TEAM1
+            if (FirstMove == true)
+            {
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+                        
+                    if (attacker is Archer && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Archer && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+            // TEAM2
+            else
+            {
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Archer  && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Archer  && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Masukkan Swordsman
+
+            // TEAM1
+            if (FirstMove == true)
+            {
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Swordsman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Swordsman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+            // TEAM2
+            else
+            {
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Swordsman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Swordsman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Masukkan Spearman
+
+            // TEAM1
+            if (FirstMove == true)
+            {
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Spearman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Spearman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+            // TEAM2
+            else
+            {
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Spearman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Spearman && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Masukkan Medic
+
+            // TEAM1
+            if (FirstMove == true)
+            {
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Medic && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Medic && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+            // TEAM2
+            else
+            {
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Medic && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Medic && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Masukkan Rider
+
+            // TEAM1
+            if (FirstMove == true)
+            {
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Rider && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Rider && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+            // TEAM2
+            else
+            {
+                foreach (var action in actsTeam2)
+                {
+                    Unit attacker = FindUnit(Team2, action.index_pelaku);
+
+                    if (attacker is Rider && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 0);
+                    }
+                }
+                foreach (var action in actsTeam1)
+                {
+                    Unit attacker = FindUnit(Team1, action.index_pelaku);
+
+                    if (attacker is Rider && !attacker.isDead())
+                    {
+                        Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
+                        AddAction(attacker, defender, action, 1);
+                    }
+                }
+            }
+
+            #endregion
+
             // Jalankan unit yang dipilih:
             //  Jika unit attack,
             //      Jika unit yang diattack belum mati
@@ -303,13 +661,6 @@ namespace ModulUtama.Class
             // Jika do nothing,
             //		Set image untuk kasus ini
 
-            int iter = 0;
-            foreach (var unit in actsTeam1)
-            {
-                iter %= 11;
-                AC.Attack(unit.index_pelaku, iter + 11, 0, false);
-                iter++;
-            }
         }
 
         #endregion

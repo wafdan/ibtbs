@@ -136,7 +136,7 @@ namespace ModulUtama
         {
 
             // TODO: Add your drawing code here
-            if (drawingdelay > 200)
+            if (drawingdelay > 100)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 ViewGame.draw(spriteBatch);
