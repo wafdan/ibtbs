@@ -68,8 +68,10 @@ namespace ModulUtama.Class
             //Inisiaslisasi Team
             Team1 = te1;
             Team2 = te2;
-            // Inisialisasi Animation Controller
             
+            // Inisialisasi Animation Controller
+            AC = new AnimationController(Team1, Team2);
+
             //Inisialisasi atribut lainnya
             FirstMove = firstMove;
         }
@@ -300,6 +302,14 @@ namespace ModulUtama.Class
             //			Set image untuk kasus ini
             // Jika do nothing,
             //		Set image untuk kasus ini
+
+            int iter = 0;
+            foreach (var unit in actsTeam1)
+            {
+                iter %= 11;
+                AC.Attack(unit.index_pelaku, iter + 11, 0, false);
+                iter++;
+            }
         }
 
         #endregion

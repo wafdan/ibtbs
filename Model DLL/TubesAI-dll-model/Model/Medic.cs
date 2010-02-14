@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TubesAI.Model
 {
     public class Medic : Unit
     {
+        public static Texture2D texture;
+
         /// <summary>
         /// Angka maksinal si medic masih bisa melakukan healing
         /// </summary>

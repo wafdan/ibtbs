@@ -54,7 +54,6 @@ namespace TubesAI.Model
         /// <param name="sasaran">Index dari tim yang akan diserang (0 = tim sendiri; 1 = tim lain). </param>
         public ElemenAksi Attack(int i_sasaran, Team tim_sasaran)
         {
-            Console.WriteLine("SERANG!");
             return new ElemenAksi(index, Aksi.menyerang, i_sasaran, tim_sasaran.index);
         }
 

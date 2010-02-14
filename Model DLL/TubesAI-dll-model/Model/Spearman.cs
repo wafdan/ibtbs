@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TubesAI.Model
 {
     public class Spearman : Unit
     {
+        public static Texture2D texture;
 
         public Spearman(int _index)
         {
