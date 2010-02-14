@@ -146,6 +146,8 @@ namespace ModulUtama.Class
                         doNothing(unit.index);
                     else
                         Dead(unit.index);
+                if (unit.index == _object && unit.isDead())
+                    Dead(unit.index);
             }
 
             foreach (var unit in Team2.listUnit)
@@ -154,7 +156,9 @@ namespace ModulUtama.Class
                     if (!unit.isDead())
                         doNothing(unit.index+11);
                     else
-                        Dead(unit.index+11);
+                        Dead(unit.index + 11);
+                if (unit.index == _object - 11 && unit.isDead())
+                    Dead(unit.index + 11);
             }
         }
 
@@ -184,9 +188,6 @@ namespace ModulUtama.Class
                     Char1[i] = new Rectangle(i * 50, 160, 50, 80);
                 else
                     Char1[i] = new Rectangle(0, 0, 50, 80);
-                if (miss)
-                    Char2[i] = new Rectangle((i % 4) * 50, 0, 50, 80);
-                else
                     Char2[i] = new Rectangle((i - 1) * 50, 240, 50, 80);
             }
 
@@ -199,7 +200,7 @@ namespace ModulUtama.Class
                     CurrentFrame++;
 
                 enviView(_subject, _object);
-                ViewGame.QDList(Textures[_object], Char2[i], _object);
+                if(!miss)ViewGame.QDList(Textures[_object], Char2[i], _object);
                 ViewGame.QDList(Textures[_subject], Char1[i], _subject);
             }
             
@@ -375,7 +376,7 @@ namespace ModulUtama.Class
         {
             //tambahkan panjang healthbar sesuai jumlah poin
         }
-
+        /*
         public void Win(int Team)
         {
             for (int i = 0; i < 11; i++)
@@ -415,7 +416,7 @@ namespace ModulUtama.Class
                     //set gambar unit ke-i jadi pose kalah
                 }
             }
-        }
+        }*/
 
         #endregion
     }
