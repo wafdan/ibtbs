@@ -15,8 +15,8 @@ namespace ModulUtama.Class
         public TeamController TC { get; private set; }
         private AgentInterface Agent1;
         private AgentInterface Agent2;
-        private List<ElemenAksi> Agent1Action;
-        private List<ElemenAksi> Agent2Action;
+        private List<ElemenAksi> Agent1Action = new List<ElemenAksi>();
+        private List<ElemenAksi> Agent2Action = new List<ElemenAksi>();
         private int count;
 
         /*

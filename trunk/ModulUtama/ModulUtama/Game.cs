@@ -147,7 +147,7 @@ namespace ModulUtama
             Medic.textureL = Content.Load<Texture2D>(@"Images/S-MedicL");
             Medic.textureR = Content.Load<Texture2D>(@"Images/S-MedicR");
             BG = Content.Load<Texture2D>(@"Images/bg_battle");
-            Bar = Content.Load<Texture2D>(@"Images/bg_battle");
+            Bar = Content.Load<Texture2D>(@"Resource/load-p2");
 
             /* Inisialisasi letak karakter
              * Letak KARAKTER berdasarkan index:
@@ -442,9 +442,8 @@ namespace ModulUtama
                 {
                     // aksi flip coin
                     ScreenState = 3;
-                    MC = new MenuController(
-                        "D:\\Study\\6th-Semester\\IF3054 - AI\\Tubes\\Tubes1\\IBTBS\\ModulUtama\\ModulUtama\\bin\\x86\\Debug\\Algoritma\\Algoritma.dll"
-                        , "D:\\Study\\6th-Semester\\IF3054 - AI\\Tubes\\Tubes1\\IBTBS\\ModulUtama\\ModulUtama\\bin\\x86\\Debug\\Algoritma\\Algoritma.dll"
+                    MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll"//ViewMenu.DLL_P1
+                        , @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll"//ViewMenu.DLL_P2
                         , composition_p1, composition_p2, "BFS", "BFS");
                     // tentukan player mana yang jalan terlebih dahulu
                 }
@@ -452,6 +451,15 @@ namespace ModulUtama
             else if (ScreenState == 3)
             {
                 MC.GC.GameLoop();
+            }
+
+            if (play)
+            {
+                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
+                {
+                    ScreenState = 0;
+                    play = false;
+                }
             }
 
             elapsedtime += gameTime.ElapsedGameTime.Milliseconds;
@@ -465,15 +473,14 @@ namespace ModulUtama
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (drawingdelay > 0)
-            {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
+                //GraphicsDevice.Clear(Color.CornflowerBlue);
                 spriteBatch.Begin();
                 // spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
                 ViewGame.draw(spriteBatch, spriteFont, this);
                 if (ScreenState == 0)
                 {
                     spriteBatch.Draw(Screen[0], new Rectangle(0, 0, Screen[0].Width, Screen[0].Height), Color.White);
+
                     // Start Button
                     if (start_hovered)
                     {
@@ -550,14 +557,14 @@ namespace ModulUtama
                     }
                     else spriteBatch.Draw(Button[7], new Rectangle(475 + Button[7].Width + 10, 310, Button[7].Width, Button[7].Height), Color.White);
 
-                    /* if (player_index == 1)
+                    if (player_index == 1)
                     {
                         spriteBatch.Draw(Screen[5], new Rectangle(0, 600 - Screen[2].Height, Screen[2].Width, Screen[2].Height), Color.White);
                     }
                     else if (player_index == 2)
                     {
                         spriteBatch.Draw(Screen[4], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
-                    } */
+                    }
 
                     // tombol go
                     if (go_hovered)
@@ -566,16 +573,27 @@ namespace ModulUtama
                         // go_hovered = false;
                     }
                     else spriteBatch.Draw(Button[3], new Rectangle(360, 260, Button[3].Width, Button[3].Height), Color.White);
+                    /*
+                    for (int i = 0; i < 11; i++ )
+                    {
+                        if (composition_p1[i] == 0)
+                        {
+                            spriteBatch.Draw(Archer.textureL, new Vector2((i * 50) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p1[i] == 2)
+                        {
+                        }
+                    }*/
                 }
                 else if (ScreenState == 2)
                 {
                     GraphicsDevice.Clear(Color.TransparentWhite);
                     // Tes flip-coin
-                    if (countFlip < 10)
-                    {
+                    /*if (countFlip < 10)
+                    {*/
                         spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
                         countFlip++;
-                    }
+                    //}
                     //
                     if (slide_finished == false)
                     {
@@ -586,42 +604,38 @@ namespace ModulUtama
                     }
 
                 }
-                spriteBatch.End();
-                drawingdelay = 0;
-            }
-            else if (ScreenState == 3)
-            {
-                if (isGameOver == 0 || ViewGame.drawcount > 50)
+                else if (ScreenState == 3)
                 {
-                    // TODO: Add your drawing code here
-                    if (drawingdelay > 150)
+                    if (isGameOver == 0 || ViewGame.drawcount > 40)
                     {
-                        GraphicsDevice.Clear(Color.CornflowerBlue);
-                        spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
-                        ViewGame.drawBar(spriteBatch, Bar);
-                        ViewGame.draw(spriteBatch, spriteFont, this);
-                        drawingdelay = 0;
-                    }
+                        // TODO: Add your drawing code here
+                        if (drawingdelay > 150)
+                        {
+                            GraphicsDevice.Clear(Color.CornflowerBlue);
+                            spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
+                            ViewGame.drawBar(spriteBatch, Bar);
+                            ViewGame.draw(spriteBatch, spriteFont, this);
+                            drawingdelay = 0;
+                        }
 
-                    drawingdelay += gameTime.ElapsedGameTime.Milliseconds;
-                }
-                else
-                {
-                    if (!play)
-                    {
-                        sound.BGM_main(this);
-                        play = true;
+                        drawingdelay += gameTime.ElapsedGameTime.Milliseconds;
                     }
-                    spriteBatch.Begin();
-                    if (isGameOver == 1)
+                    else
                     {
-                        spriteBatch.DrawString(spriteFont, "TEAM 1 WINS!", new Vector2(100, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
+                        if (!play)
+                        {
+                            sound.BGM_main(this);
+                            play = true;
+                        }
+                        if (isGameOver == 1)                        
+                            spriteBatch.DrawString(spriteFont, "TEAM 1 WINS!", new Vector2(100, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
+                        else if (isGameOver == 2)
+                            spriteBatch.DrawString(spriteFont, "TEAM 2 WINS!", new Vector2(500, 300), Color.Yellow, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(300, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
                     }
-                    else if (isGameOver == 2)
-                        spriteBatch.DrawString(spriteFont, "TEAM 2 WINS!", new Vector2(500, 300), Color.Yellow, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
-                    spriteBatch.End();
                 }
-            }
+
+                spriteBatch.End();
             drawingdelay += gameTime.ElapsedGameTime.Milliseconds;
             base.Draw(gameTime);
         }
