@@ -437,6 +437,7 @@ namespace ModulUtama
             {
                 if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && !pressed)
                 {
+                    bool abal = udahpilih;
                     pressed = true;
                     if (absis >= 100 && absis <= 350)
                     {
@@ -503,8 +504,8 @@ namespace ModulUtama
                             }
                             else algorithm_p2 = 6;
                         }
-                        if(udahpilih)ScreenState = 3;
                     }
+                    if (abal) ScreenState = 3;
                 }
                 else if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
                 {
@@ -735,7 +736,7 @@ namespace ModulUtama
                             spriteBatch.DrawString(spriteFont, "TEAM 1 WINS!", new Vector2(100, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
                         else if (isGameOver == 2)
                             spriteBatch.DrawString(spriteFont, "TEAM 2 WINS!", new Vector2(500, 300), Color.Yellow, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
-                        spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(300, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(100, 450), Color.SteelBlue, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
                     }
                 }
 
