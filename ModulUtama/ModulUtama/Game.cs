@@ -34,6 +34,7 @@ namespace ModulUtama
         Boolean pressed, up_pressed, down_pressed;
         Boolean dll_p1_hovered, komp_p1_hovered, dll_p2_hovered, komp_p2_hovered, go_hovered, slide_finished;
         Boolean start_hovered, help_hovered, exit_hovered;
+        Boolean dll_p1_selected, dll_p2_selected;
 
         int elapsedTime;
 
@@ -77,6 +78,7 @@ namespace ModulUtama
             pressed = false; up_pressed = false; down_pressed = false;
             start_hovered = false; help_hovered = false; exit_hovered = false;
             slide_finished = false;
+            dll_p1_selected = false; dll_p2_selected = false;
             player_index = 1;
             char_index = 1;
             composition_p1 = new int[11];
@@ -313,6 +315,7 @@ namespace ModulUtama
                     {
                         ViewMenu.DLL_P1 = ViewMenu.dload();
                         System.Console.Out.WriteLine(ViewMenu.DLL_P1);
+                        if(String.Compare(ViewMenu.DLL_P1, "") == 0) dll_p1_selected = true;
                         // dll_p1_hovered = true;
                     }
                     // Load Komposisi P1
@@ -328,7 +331,8 @@ namespace ModulUtama
                     {
                         ViewMenu.DLL_P2 = ViewMenu.dload();
                         System.Console.Out.WriteLine(ViewMenu.DLL_P2);
-                        dll_p2_hovered = true;
+                        if(String.Compare(ViewMenu.DLL_P2, "") == 0) dll_p2_selected = true;
+                        // dll_p2_hovered = true;
                     }
                     // Load Komposisi P2
                     else if (absis >= 475 + Button[9].Width + 10 && absis <= 475 + 2 * Button[9].Width + 10 && ordinat >= 310 && ordinat <= 310 + Button[9].Height)
