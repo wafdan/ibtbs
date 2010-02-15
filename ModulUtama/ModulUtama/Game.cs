@@ -28,7 +28,8 @@ namespace ModulUtama
         Texture2D[] Symbol;
         int ScreenState;
         int player_index, char_index;
-        int[] unit_index;
+        int[] composition_p1;
+        int[] composition_p2;
         int absis, ordinat;
         Boolean pressed, up_pressed, down_pressed;
         Boolean dll_p1_hovered, komp_p1_hovered, dll_p2_hovered, komp_p2_hovered, go_hovered, slide_finished;
@@ -78,8 +79,13 @@ namespace ModulUtama
             slide_finished = false;
             player_index = 1;
             char_index = 1;
-            unit_index = new int[11];
-            for (int i = 0; i < 11; i++) unit_index[i] = 0;
+            composition_p1 = new int[11];
+            composition_p2 = new int[11];
+            for (int i = 0; i < 11; i++)
+            {
+                composition_p1[i] = 0;
+                composition_p2[i] = 0;
+            }
             drawingdelay = 0;
             elapsedTime = 0; 
             
@@ -313,6 +319,7 @@ namespace ModulUtama
                     else if (absis >= 25 + Button[8].Width + 10 && absis <= 25 + 2 * Button[8].Width + 10 && ordinat >= 260 && ordinat <= 260 + Button[8].Height)
                     {
                         int[] K_P1 = new int[11];
+                        composition_p1 = ViewMenu.kload();
                         K_P1 = ViewMenu.kload();
                         // komp_p1_hovered = true;
                     }
@@ -327,6 +334,7 @@ namespace ModulUtama
                     else if (absis >= 475 + Button[9].Width + 10 && absis <= 475 + 2 * Button[9].Width + 10 && ordinat >= 310 && ordinat <= 310 + Button[9].Height)
                     {
                         int[] K_P2 = new int[11];
+                        composition_p2 = ViewMenu.kload();
                         K_P2 = ViewMenu.kload();
                         // komp_p2_hovered = true;
                     }
@@ -355,15 +363,31 @@ namespace ModulUtama
                 // Archer = 1, Swordsman = 2, Spearman = 3, Rider = 4, Medic = 5
                 else if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down) && elapsedTime >= 150)
                 {
-                    unit_index[char_index - 1]--;
-                    if (unit_index[char_index - 1] < 1) unit_index[char_index - 1] = 5;
+                    if (player_index == 1)
+                    {
+                        composition_p1[char_index - 1]--;
+                        if (composition_p1[char_index - 1] < 1) composition_p1[char_index - 1] = 5;
+                    }
+                    else if (player_index == 2)
+                    {
+                        composition_p2[char_index - 1]--;
+                        if (composition_p2[char_index - 1] < 1) composition_p2[char_index - 1] = 5;
+                    }
                     down_pressed = true;
                     elapsedTime = 0;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up) && elapsedTime >= 150)
                 {
-                    unit_index[char_index - 1]++;
-                    if (unit_index[char_index - 1] > 5) unit_index[char_index - 1] = 1;
+                    if (player_index == 1)
+                    {
+                        composition_p1[char_index - 1]++;
+                        if (composition_p1[char_index - 1] > 5) composition_p1[char_index - 1] = 1;
+                    }
+                    else if (player_index == 2)
+                    {
+                        composition_p2[char_index - 1]++;
+                        if (composition_p2[char_index - 1] > 5) composition_p2[char_index - 1] = 1;
+                    }
                     up_pressed = true;
                     elapsedTime = 0;
                 }
@@ -501,16 +525,16 @@ namespace ModulUtama
                         // komp_p2_hovered = false;
                     }
                     else spriteBatch.Draw(Button[7], new Rectangle(475 + Button[7].Width + 10, 310, Button[7].Width, Button[7].Height), Color.White);
-                    /*
-                    if (player_index == 1)
+                    
+                    /* if (player_index == 1)
                     {
                         spriteBatch.Draw(Screen[5], new Rectangle(0, 600 - Screen[2].Height, Screen[2].Width, Screen[2].Height), Color.White);
                     }
                     else if (player_index == 2)
                     {
                         spriteBatch.Draw(Screen[4], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
-                    }
-                    */
+                    } */
+                    
                     // tombol go
                     if (go_hovered)
                     {
