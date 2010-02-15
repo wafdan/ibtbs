@@ -68,7 +68,6 @@ namespace ModulUtama.Class
             {
                 if (act.aksi == Aksi.menyerang)
                 {
-                    Console.WriteLine("Medic attack");
                     return false;
                 }
             }

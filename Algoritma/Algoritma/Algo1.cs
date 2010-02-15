@@ -39,6 +39,7 @@ namespace Algoritma
                         at_unit = enemy_unit;
                 }
                 output.Add(unit.Attack(at_unit.index, enTeam));
+                //else output.Add(unit.useItem(2, myTeam, Item.potion));
             }
             return output;
         }
