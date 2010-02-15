@@ -48,8 +48,8 @@ namespace ModulUtama
         bool dll_p1_selected, dll_p2_selected;
         bool udahpilih = false;
 
-        int algorithm_p1;
-        int algorithm_p2;
+        String algorithm_p1;
+        String algorithm_p2;
 
         Texture2D spriteSheet;
         float timer = 0f;
@@ -94,8 +94,8 @@ namespace ModulUtama
             char_index = 1;
             composition_p1 = new int[11];
             composition_p2 = new int[11];
-            algorithm_p1 = 0;
-            algorithm_p2 = 0;
+            algorithm_p1 = null;
+            algorithm_p2 = null;
             for (int i = 0; i < 11; i++)
             {
                 composition_p1[i] = 0;
@@ -394,12 +394,12 @@ namespace ModulUtama
                     if (player_index == 1)
                     {
                         composition_p1[char_index - 1]--;
-                        if (composition_p1[char_index - 1] < 1) composition_p1[char_index - 1] = 5;
+                        if (composition_p1[char_index - 1] < 0) composition_p1[char_index - 1] = 4;
                     }
                     else if (player_index == 2)
                     {
                         composition_p2[char_index - 1]--;
-                        if (composition_p2[char_index - 1] < 1) composition_p2[char_index - 1] = 5;
+                        if (composition_p2[char_index - 1] < 0) composition_p2[char_index - 1] = 4;
                     }
                     down_pressed = true;
                     elapsedtime = 0;
@@ -409,12 +409,12 @@ namespace ModulUtama
                     if (player_index == 1)
                     {
                         composition_p1[char_index - 1]++;
-                        if (composition_p1[char_index - 1] > 5) composition_p1[char_index - 1] = 1;
+                        if (composition_p1[char_index - 1] > 4) composition_p1[char_index - 1] = 0;
                     }
                     else if (player_index == 2)
                     {
                         composition_p2[char_index - 1]++;
-                        if (composition_p2[char_index - 1] > 5) composition_p2[char_index - 1] = 1;
+                        if (composition_p2[char_index - 1] > 4) composition_p2[char_index - 1] = 0;
                     }
                     up_pressed = true;
                     elapsedtime = 0;
@@ -446,30 +446,30 @@ namespace ModulUtama
                             // klik BFS
                             if (!udahpilih)
                             {
-                                algorithm_p1 = 1;
+                                algorithm_p1 = "BFS";
                                 udahpilih = true;
                             }
-                            else algorithm_p2 = 1;
+                            else algorithm_p2 = "BFS";
                         }
                         else if (ordinat >= 325 && ordinat <= 425)
                         {
                             // klik DFS
                             if (!udahpilih)
                             {
-                                algorithm_p1 = 2;
+                                algorithm_p1 = "DFS";
                                 udahpilih = true;
                             }
-                            else algorithm_p2 = 2;
+                            else algorithm_p2 = "DFS";
                         }
                         else if (ordinat >= 450 && ordinat <= 550)
                         {
                             // klik UCS
                             if (!udahpilih)
                             {
-                                algorithm_p1 = 3;
+                                algorithm_p1 = "UCS";
                                 udahpilih = true;
                             }
-                            else algorithm_p2 = 3;
+                            else algorithm_p2 = "UCS";
                         }
                     }
                     else if (absis >= 450 && absis <= 700)
@@ -479,30 +479,30 @@ namespace ModulUtama
                             // klik Greedy
                             if (!udahpilih)
                             {
-                                algorithm_p1 = 4;
+                                algorithm_p1 = "Greedy";
                                 udahpilih = true;
                             }
-                            else algorithm_p2 = 4;
+                            else algorithm_p2 = "Greedy";
                         }
                         else if (ordinat >= 325 && ordinat <= 425)
                         {
                             // klik A*
                             if (!udahpilih)
                             {
-                                algorithm_p1 = 5;
+                                algorithm_p1 = "Astar";
                                 udahpilih = true;
                             }
-                            else algorithm_p2 = 5;
+                            else algorithm_p2 = "Astar";
                         }
                         else if (ordinat >= 450 && ordinat <= 550)
                         {
                             // klik CSP
                             if (!udahpilih)
                             {
-                                algorithm_p1 = 6;
+                                algorithm_p1 = "CSP";
                                 udahpilih = true;
                             }
-                            else algorithm_p2 = 6;
+                            else algorithm_p2 = "CSP";
                         }
                     }
                     if (abal) ScreenState = 3;
@@ -534,9 +534,9 @@ namespace ModulUtama
                 {
                     // aksi flip coin
                     ScreenState = 4;
-                    MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll"//ViewMenu.DLL_P1
-                        , @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll"//ViewMenu.DLL_P2
-                        , composition_p1, composition_p2, "BFS", "BFS");
+                    MC = new MenuController(ViewMenu.DLL_P1
+                        , ViewMenu.DLL_P2
+                        , composition_p1, composition_p2, algorithm_p1, algorithm_p2);
                     // tentukan player mana yang jalan terlebih dahulu
                 }
             }
@@ -665,17 +665,61 @@ namespace ModulUtama
                         // go_hovered = false;
                     }
                     else spriteBatch.Draw(Button[3], new Rectangle(360, 260, Button[3].Width, Button[3].Height), Color.White);
-                    /*
-                    for (int i = 0; i < 11; i++ )
+                    
+                    // WOIIIIIIIIIIIIIIIII
+                    // WOIIIIIIIIIIIIIIIIII
+                    if (player_index == 1)
                     {
-                        if (composition_p1[i] == 0)
+                        for (int i = 0; i < 11; i++)
                         {
-                            spriteBatch.Draw(Archer.textureL, new Vector2((i * 50) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                            if (composition_p1[i] == 0)
+                            {
+                                spriteBatch.Draw(Archer.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p1[i] == 1)
+                            {
+                                spriteBatch.Draw(Medic.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p1[i] == 2)
+                            {
+                                spriteBatch.Draw(Spearman.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p1[i] == 3)
+                            {
+                                spriteBatch.Draw(Rider.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p1[i] == 4)
+                            {
+                                spriteBatch.Draw(Swordsman.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
                         }
-                        else if (composition_p1[i] == 2)
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 11; i++)
                         {
+                            if (composition_p2[i] == 0)
+                            {
+                                spriteBatch.Draw(Archer.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p2[i] == 1)
+                            {
+                                spriteBatch.Draw(Medic.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p2[i] == 2)
+                            {
+                                spriteBatch.Draw(Spearman.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p2[i] == 3)
+                            {
+                                spriteBatch.Draw(Rider.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
+                            else if (composition_p2[i] == 4)
+                            {
+                                spriteBatch.Draw(Swordsman.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                            }
                         }
-                    }*/
+                    }
                 }
 
                 else if (ScreenState == 2)
@@ -688,6 +732,18 @@ namespace ModulUtama
                     spriteBatch.Draw(Button[22], new Rectangle(450, 200, 300, 100), Color.White);
                     spriteBatch.Draw(Button[23], new Rectangle(450, 325, 300, 100), Color.White);
                     spriteBatch.Draw(Button[24], new Rectangle(450, 450, 300, 100), Color.White);
+
+                    if (udahpilih)
+                    {
+                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 2", new Vector2(102, 52), Color.Black, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 2", new Vector2(100, 50), Color.Yellow, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 1", new Vector2(102, 52), Color.Black, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 1", new Vector2(100, 50), Color.Green, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                    }
+
                 }
 
                 else if (ScreenState == 3)
