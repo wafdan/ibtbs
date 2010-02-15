@@ -57,6 +57,10 @@ namespace ModulUtama
         Rectangle sourceRect;
         Rectangle destinationRect;
 
+        /** Coin Flip **/
+        int countFlip = 0;
+        /** Coin Flip **/
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -127,7 +131,7 @@ namespace ModulUtama
             Button[17] = Content.Load<Texture2D>("Resource\\mainmenu_exit1");
             Button[18] = Content.Load<Texture2D>("Resource\\mainmenu_exit2");
 
-            spriteSheet = Content.Load<Texture2D>(@"Resource\go-hover");//coin-flip");
+            spriteSheet = Content.Load<Texture2D>(@"Resource\coin-flip");
             //*** yang lama *** destinationRect = new Rectangle(300, 200, spriteWidth, spriteHeight);
             destinationRect = new Rectangle(400 - (spriteWidth / 2), 300 - (spriteHeight / 2), spriteWidth, spriteHeight);
 
@@ -430,7 +434,9 @@ namespace ModulUtama
                     }
                     timer = 0f;
                 }
-                sourceRect = new Rectangle(currentFrame * spriteWidth, 0, spriteWidth, spriteHeight);
+                // untuk Flip Coin
+                sourceRect = new Rectangle((currentFrame % 11)* spriteWidth, (currentFrame / 11) * spriteHeight, spriteWidth, spriteHeight);
+                //
                 //
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
                 {
@@ -565,7 +571,11 @@ namespace ModulUtama
                 {
                     GraphicsDevice.Clear(Color.TransparentWhite);
                     // Tes flip-coin
-                    spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
+                    if (countFlip < 10)
+                    {
+                        spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
+                        countFlip++;
+                    }
                     //
                     if (slide_finished == false)
                     {
