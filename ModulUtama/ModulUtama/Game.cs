@@ -52,8 +52,8 @@ namespace ModulUtama
         float interval = 1000f / 25f;
         int frameCount = 22;
         int currentFrame = 0;
-        int spriteWidth = 200;
-        int spriteHeight = 200;
+        int spriteWidth = 100;
+        int spriteHeight = 100;
         Rectangle sourceRect;
         Rectangle destinationRect;
 
@@ -127,9 +127,10 @@ namespace ModulUtama
             Button[17] = Content.Load<Texture2D>("Resource\\mainmenu_exit1");
             Button[18] = Content.Load<Texture2D>("Resource\\mainmenu_exit2");
 
-            //spriteSheet = new Texture2D(graphics, 4384, 199);
-            spriteSheet = Content.Load<Texture2D>(@"Resource\coin-blue");
-            destinationRect = new Rectangle(300, 200, spriteWidth, spriteHeight);
+            spriteSheet = Content.Load<Texture2D>(@"Resource\go-hover");//coin-flip");
+            //*** yang lama *** destinationRect = new Rectangle(300, 200, spriteWidth, spriteHeight);
+            destinationRect = new Rectangle(400 - (spriteWidth / 2), 300 - (spriteHeight / 2), spriteWidth, spriteHeight);
+
             //GAMBAR UNIT
             Archer.textureL = Content.Load<Texture2D>(@"Images/S-ArcherL");
             Archer.textureR = Content.Load<Texture2D>(@"Images/S-ArcherR");
