@@ -71,6 +71,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -91,6 +92,7 @@
     <Compile Include="Class\AnimationController.cs" />
     <Compile Include="Class\GameController.cs" />
     <Compile Include="Class\MenuController.cs" />
+    <Compile Include="Class\Sound.cs" />
     <Compile Include="Class\TeamController.cs" />
     <Compile Include="Class\ViewGame.cs" />
     <Compile Include="Class\ViewMenu.cs" />
