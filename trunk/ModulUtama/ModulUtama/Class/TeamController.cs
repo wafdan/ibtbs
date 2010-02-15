@@ -136,7 +136,6 @@ namespace ModulUtama.Class
         public bool isEndGame()
         {
             // Cek apakah ada team yang menang 
-            /*
             int count1 = 0;
             int count2 = 0;
             foreach (Unit un in Team1.listUnit)
@@ -146,6 +145,7 @@ namespace ModulUtama.Class
                     count1++;
                 }
             }
+            if (count1 == 11) Game.isGameOver = 2;
 
             foreach (Unit un in Team2.listUnit)
             {
@@ -154,24 +154,9 @@ namespace ModulUtama.Class
                     count2++;
                 }
             }
-            
+            if (count2 == 11) Game.isGameOver = 1;
+
             return (count1 == 11 || count2 == 11);
-             */
-            foreach(Unit un1 in Team1.listUnit)
-            {
-                if (!un1.isDead())
-                {
-                    foreach (Unit un2 in Team2.listUnit)
-                    {
-                        if (!un2.isDead())
-                        { return false; }
-                    }
-                    // Set image kemenangan Team 1
-                    return true;
-                }
-            }
-            // Set image kemenangan Team 2
-            return true;
         }
 
 
@@ -239,10 +224,11 @@ namespace ModulUtama.Class
             dua.setHP((int)(0.5 * dua.getMaxHP()));
         }
 
-        private void AddAction(Unit attacker, Unit defender, ElemenAksi action, int team)
+        private void AddAction(Unit attacker, Unit defender, ElemenAksi action, Team team)
         {
-            int _subject = attacker.index + (team * 11);
-            int _object = defender.index + ((1 - action.tim_sasaran) % 2 * 11);
+            int _subject = attacker.index + (team.index * 11);
+            int _object = defender.index + (action.tim_sasaran * 11);
+
             switch (action.aksi)
             {
                 case Aksi.menyerang:
@@ -252,10 +238,7 @@ namespace ModulUtama.Class
                         if (!defender.isDead())
                         {
                             int Damage = CalculationDamage(attacker, defender);
-                            if (!defender.isDead()) // Attack tidak mati
-                                AC.Attack(_subject, _object, Damage, false);
-                            else // Attack mati
-                                AC.Kill(_subject, _object, Damage);
+                            AC.Attack(_subject, _object, Damage, false);
                         }
                         //unit sudah mati
                         else
@@ -286,77 +269,31 @@ namespace ModulUtama.Class
                         {
                             case Item.potion:
                                 {
-                                    if (team == 0)
+                                    if (!defender.isDead() && team.isPotionRunOut())
                                     {
-                                        if (Team1.isPotionRunOut())
-                                        {
-                                            if (!defender.isDead())
-                                            {
-                                                CalculationHeal(attacker, defender);
-                                                AC.UseItem(_subject, _object, Item.potion, Heal, false);
-                                            }
-                                            else
-                                            {
-                                                AC.UseItem(_subject, _object, Item.potion, 0, true);
-                                            }
-                                            Team1.usePotion();
-                                        }
-                                        // Pasang Gambar untuk Potion RunOut
+                                        CalculationHeal(attacker, defender);
+                                        AC.UseItem(_subject, _object, Item.potion, Heal, false);
+                                        team.usePotion();
                                     }
-                                    else if (team == 1)
+                                    else
                                     {
-                                        if (Team2.isPotionRunOut())
-                                        {
-                                            if (!defender.isDead())
-                                            {
-                                                CalculationHeal(attacker, defender);
-                                                AC.UseItem(_subject, _object, Item.potion, Heal, false);
-                                            }
-                                            else
-                                            {
-                                                AC.UseItem(_subject, _object, Item.potion, 0, true);
-                                            }
-                                            Team2.usePotion();
-                                        }
-                                        // Pasang Gambar untuk Potion RunOut
+                                        AC.UseItem(_subject, _object, Item.potion, 0, true);
+                                        team.usePotion();
                                     }
                                     break;
                                 }
                             case Item.life_potion:
                                 {
-                                    if (team == 0)
+                                    if (!defender.isDead() && team.isLifePotionRunOut())
                                     {
-                                        if (Team1.isLifePotionRunOut())
-                                        {
-                                            if (!defender.isDead())
-                                            {
-                                                CalculationLife(attacker, defender);
-                                                AC.UseItem(_subject, _object, Item.life_potion, (defender.getMaxHP() / 2), false);
-                                            }
-                                            else
-                                            {
-                                                AC.UseItem(_subject, _object, Item.life_potion, 0, true);
-                                            }
-                                            Team1.useLifePotion();
-                                        }
-                                        // Pasang Gambar untuk LifePotionRunOut
+                                        CalculationLife(attacker, defender);
+                                        AC.UseItem(_subject, _object, Item.life_potion, (defender.getMaxHP() / 2), false);
+                                        team.useLifePotion();
                                     }
-                                    else if (team == 1)
+                                    else
                                     {
-                                        if (Team2.isLifePotionRunOut())
-                                        {
-                                            if (!defender.isDead())
-                                            {
-                                                CalculationLife(attacker, defender);
-                                                AC.UseItem(_subject, _object, Item.life_potion, (defender.getMaxHP() / 2), false);
-                                            }
-                                            else
-                                            {
-                                                AC.UseItem(_subject, _object, Item.life_potion, 0, true);
-                                            }
-                                            Team2.useLifePotion();
-                                        }
-                                        // Pasang Gambar untuk LifePotionRunOut
+                                        AC.UseItem(_subject, _object, Item.life_potion, 0, true);
+                                        team.useLifePotion();
                                     }
                                     break;
                                 }
@@ -376,35 +313,19 @@ namespace ModulUtama.Class
             /*************************************************/
             /*************************************************/
 
-            // Animasi unit yang mati
-            foreach (var unit in Team1.listUnit)
-            {
-                if (unit.isDead())
-                {
-                    AC.Dead(unit.index);
-                }
-            }
-            foreach (var unit in Team2.listUnit)
-            {
-                if (unit.isDead())
-                {
-                    AC.Dead(unit.index + 11);
-                }
-            }
-
             // Animasi unit yang bertahan
             foreach (var action in actsTeam1)
             {
                 if (action.aksi == Aksi.bertahan)
                 {
-                    AC.Defend(action.index_pelaku);
+                    Team1.FindUnit(action.index_pelaku).isBertahan = true;
                 }
             }
             foreach (var action in actsTeam2)
             {
                 if (action.aksi == Aksi.bertahan)
                 {
-                    AC.Defend(action.index_pelaku + 11);
+                    Team2.FindUnit(action.index_pelaku).isBertahan = true;
                 }
             }
 
@@ -425,7 +346,7 @@ namespace ModulUtama.Class
                     if (attacker is Archer && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
                 foreach (var action in actsTeam2)
@@ -435,7 +356,7 @@ namespace ModulUtama.Class
                     if (attacker is Archer && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
             }
@@ -449,7 +370,7 @@ namespace ModulUtama.Class
                     if (attacker is Archer  && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
                 foreach (var action in actsTeam1)
@@ -459,7 +380,7 @@ namespace ModulUtama.Class
                     if (attacker is Archer  && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
             }
@@ -478,7 +399,7 @@ namespace ModulUtama.Class
                     if (attacker is Swordsman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
                 foreach (var action in actsTeam2)
@@ -488,7 +409,7 @@ namespace ModulUtama.Class
                     if (attacker is Swordsman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
             }
@@ -502,7 +423,7 @@ namespace ModulUtama.Class
                     if (attacker is Swordsman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
                 foreach (var action in actsTeam1)
@@ -512,7 +433,7 @@ namespace ModulUtama.Class
                     if (attacker is Swordsman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
             }
@@ -531,7 +452,7 @@ namespace ModulUtama.Class
                     if (attacker is Spearman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
                 foreach (var action in actsTeam2)
@@ -541,7 +462,7 @@ namespace ModulUtama.Class
                     if (attacker is Spearman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
             }
@@ -555,7 +476,7 @@ namespace ModulUtama.Class
                     if (attacker is Spearman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
                 foreach (var action in actsTeam1)
@@ -565,7 +486,7 @@ namespace ModulUtama.Class
                     if (attacker is Spearman && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
             }
@@ -584,7 +505,7 @@ namespace ModulUtama.Class
                     if (attacker is Medic && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
                 foreach (var action in actsTeam2)
@@ -594,7 +515,7 @@ namespace ModulUtama.Class
                     if (attacker is Medic && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
             }
@@ -608,7 +529,7 @@ namespace ModulUtama.Class
                     if (attacker is Medic && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
                 foreach (var action in actsTeam1)
@@ -618,7 +539,7 @@ namespace ModulUtama.Class
                     if (attacker is Medic && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
             }
@@ -637,7 +558,7 @@ namespace ModulUtama.Class
                     if (attacker is Rider && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
                 foreach (var action in actsTeam2)
@@ -647,7 +568,7 @@ namespace ModulUtama.Class
                     if (attacker is Rider && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
             }
@@ -661,7 +582,7 @@ namespace ModulUtama.Class
                     if (attacker is Rider && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 1);
+                        AddAction(attacker, defender, action, Team2);
                     }
                 }
                 foreach (var action in actsTeam1)
@@ -671,7 +592,7 @@ namespace ModulUtama.Class
                     if (attacker is Rider && !attacker.isDead())
                     {
                         Unit defender = FindUnit(action.tim_sasaran * 11 + action.index_sasaran);
-                        AddAction(attacker, defender, action, 0);
+                        AddAction(attacker, defender, action, Team1);
                     }
                 }
             }

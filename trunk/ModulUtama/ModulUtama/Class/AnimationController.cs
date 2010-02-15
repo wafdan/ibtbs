@@ -51,6 +51,16 @@ namespace ModulUtama.Class
         {
             Team1 = A;
             Team2 = B;
+            foreach (var unit in Team1.listUnit)
+            {
+                ViewGame.health[unit.index] = unit.getMaxHP();
+                ViewGame.maxhealth[unit.index] = unit.getMaxHP();
+            } 
+            foreach (var unit in Team2.listUnit)
+            {
+                ViewGame.health[unit.index + 11] = unit.getMaxHP();
+                ViewGame.maxhealth[unit.index + 11] = unit.getMaxHP();
+            }
             setTexture();
         }
         #endregion
@@ -117,33 +127,15 @@ namespace ModulUtama.Class
             #endregion
         }
 
-        private void enviView(int _subject)
-        {
-            foreach (var unit in Team1.listUnit)
-            {
-                if (unit.index != _subject)
-                    if (!unit.isDead())
-                        doNothing(unit.index);
-                    else
-                        Dead(unit.index);
-            }
-            foreach (var unit in Team2.listUnit)
-            {
-                if (unit.index != _subject - 11)
-                    if (!unit.isDead())
-                        doNothing(unit.index+11);
-                    else
-                        Dead(unit.index+11);
-            }
-        }
-
         private void enviView(int _subject, int _object)
         {
             foreach (var unit in Team1.listUnit)
             {
                 if (unit.index != _subject && unit.index != _object)
-                    if (!unit.isDead())
+                    if (!unit.isDead() && !unit.isBertahan)
                         doNothing(unit.index);
+                    else if (!unit.isDead() && unit.isBertahan)
+                        Defend(unit.index);
                     else
                         Dead(unit.index);
                 if (unit.index == _object && unit.isDead())
@@ -153,8 +145,13 @@ namespace ModulUtama.Class
             foreach (var unit in Team2.listUnit)
             {
                 if (unit.index != _subject - 11 && unit.index != _object - 11)
-                    if (!unit.isDead())
-                        doNothing(unit.index+11);
+
+                    if (!unit.isDead() && !unit.isBertahan)
+                        doNothing(unit.index + 11);
+                    else if (!unit.isDead() && unit.isBertahan)
+                    {
+                        Defend(unit.index + 11);
+                    }
                     else
                         Dead(unit.index + 11);
                 if (unit.index == _object - 11 && unit.isDead())
@@ -174,8 +171,6 @@ namespace ModulUtama.Class
             for (int i = 0; i <= 3; i++)
                 CharEnvi[i] = new Rectangle(CurrentFrame * 50, 480, 50, 80);
             ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
-            if (CurrentFrame == 3)
-                CurrentFrame = 0;
         }
 
         public void Attack(int _subject, int _object, int poin, bool miss)
@@ -194,29 +189,19 @@ namespace ModulUtama.Class
             //set gambar unit 1 menyerang
             for (int i = 0; i < 5; i++)
             {
+                enviView(_subject, _object);
+                if (!miss) ViewGame.QDList(Textures[_object], Char2[i], _object);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+
                 if (CurrentFrame == 3)
                     CurrentFrame = 0;
                 else
                     CurrentFrame++;
+            }
 
-                enviView(_subject, _object);
-                if(!miss)ViewGame.QDList(Textures[_object], Char2[i], _object);
-                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
-            }
-            
-            if (miss)
-            {
-                ViewGame.DrawPoint(-1, _object);
-            }
-            else
-            {
+            for (int i = 0; i < 4; i++ )
                 ViewGame.DrawPoint(poin, _object);
-                if (CurrentFrame == 4)
-                {   
-                    UpdateHealth(_object, poin * (-1));
-                    CurrentFrame = 0;
-                }
-            }
+
         }
 
         public void Kill(int _subject, int _object, int poin)
@@ -244,32 +229,16 @@ namespace ModulUtama.Class
                 ViewGame.QDList(Textures[_subject], Char1[i], _subject);
             }
 
-            ViewGame.DrawPoint(poin, _object);
-            if (CurrentFrame == 7)
-            {
-                UpdateHealth(_object, poin * (-1));
-                CurrentFrame = 0;
-            }
+            for (int i = 0; i < 4; i++)
+                ViewGame.DrawPoint(poin, _object);
+
         }
 
         public void Defend(int _subject)
         {
             for (int i = 0; i <= 3; i++)
-                Char1[i] = new Rectangle(CurrentFrame * 50, 80, 50, 80);
-
-            for (int i = 0; i < 5; i++)
-            {
-                if (CurrentFrame == 3)
-                    CurrentFrame = 0;
-                else
-                    CurrentFrame++;
-
-                enviView(_subject);
-                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
-            }
-            
-            if (CurrentFrame == 3)
-                CurrentFrame = 0;
+                CharEnvi[i] = new Rectangle(CurrentFrame * 50, 80, 50, 80);
+            ViewGame.QDList(Textures[_subject], CharEnvi[CurrentFrame], _subject);
         }
 
         public void Heal(int _subject, int _object, int poin, bool miss)
@@ -282,37 +251,25 @@ namespace ModulUtama.Class
                     Char1[i] = new Rectangle(i * 50, 160, 50, 80);
                 else
                     Char1[i] = new Rectangle(0, 0, 50, 80);
-                if (miss)
-                    Char2[i] = new Rectangle((i % 4) * 50, 0, 50, 80);
-                else
-                    Char2[i] = new Rectangle((i - 1) * 50, 320, 50, 80);
+                Char2[i] = new Rectangle((i - 1) * 50, 4 * 80, 50, 80);
             }
 
+            //set gambar unit 1 menyerang
             for (int i = 0; i < 5; i++)
             {
+                enviView(_subject, _object);
+                if (!miss) ViewGame.QDList(Textures[_object], Char2[i], _object);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+
                 if (CurrentFrame == 3)
                     CurrentFrame = 0;
                 else
                     CurrentFrame++;
-
-                enviView(_subject, _object);
-                ViewGame.QDList(Textures[_object], Char2[i], _object);
-                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
             }
 
-            if (miss)
-            {
-                ViewGame.DrawPoint(-1, _object);
-            }
-            else
-            {
+            for (int i = 0; i < 4; i++)
                 ViewGame.DrawPoint(poin, _object);
-                if (CurrentFrame == 4)
-                {
-                    UpdateHealth(_object, poin);
-                    CurrentFrame = 0;
-                }
-            }
+
         }
 
         public void UseItem(int _subject, int _object, Item _item, int poin, bool miss)
@@ -326,43 +283,34 @@ namespace ModulUtama.Class
             for (int i = 1; i < 5; i++)
             {
                 if (_item == Item.potion)
-                    Char1[i] = new Rectangle(i * 50, 560, 50, 80);
+                    Char1[i] = new Rectangle((i % 4) * 50, 560, 50, 80);
                 else
-                    Char1[i] = new Rectangle(i * 50, 640, 50, 80);
+                    Char1[i] = new Rectangle((i % 4) * 50, 640, 50, 80);
                 if (miss)
                     Char2[i] = new Rectangle((i % 4) * 50, 0, 50, 80);
                 else
                     if (_item == Item.potion)
-                        Char2[i] = new Rectangle((i - 1) * 50, 320, 50, 80);
+                        Char2[i] = new Rectangle((i - 1) % 4 * 50, 320, 50, 80);
                     else
-                        Char2[i] = new Rectangle((i - 1) * 50, 400, 50, 80);
+                        Char2[i] = new Rectangle((i - 1) % 4 * 50, 400, 50, 80);
             }
 
             for (int i = 0; i < 5; i++)
             {
+                enviView(_subject, _object);
+                if (_subject != _object) ViewGame.QDList(Textures[_object], Char2[i], _object);
+                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
+
                 if (CurrentFrame == 3)
                     CurrentFrame = 0;
                 else
                     CurrentFrame++;
 
-                enviView(_subject, _object);
-                ViewGame.QDList(Textures[_object], Char2[i], _object);
-                ViewGame.QDList(Textures[_subject], Char1[i], _subject);
             }
 
-            if (miss)
-            {
-                ViewGame.DrawPoint(-1, _object);
-            }
-            else
-            {
+            for (int i = 0; i < 5; i++)
                 ViewGame.DrawPoint(poin, _object);
-                if (CurrentFrame == 4)
-                {
-                    UpdateHealth(_object, poin);
-                    CurrentFrame = 0;
-                }
-            }
+
         }
 
         public void UpdateHealth(int index, int poin)
@@ -378,12 +326,14 @@ namespace ModulUtama.Class
                 {
                     for (int i = 0; i <= 3; i++)
                         CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
+                    //enviView(unit.index, unit.index);
                     ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame],unit.index);
                 }
                 foreach (var unit in Team2.listUnit)
                 {
                     for (int i = 0; i <= 3; i++)
                         CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
+                    //enviView(unit.index, unit.index);
                     ViewGame.QDList(Textures[unit.index+11], CharEnvi[CurrentFrame], unit.index+11);
                 } 
             }
@@ -393,12 +343,14 @@ namespace ModulUtama.Class
                 {
                     for (int i = 0; i <= 3; i++)
                         CharEnvi[i] = new Rectangle(CurrentFrame * 50, 800, 50, 80);
+                    //enviView(unit.index, unit.index);
                     ViewGame.QDList(Textures[unit.index], CharEnvi[CurrentFrame], unit.index);
                 }
                 foreach (var unit in Team2.listUnit)
                 {
                     for (int i = 0; i <= 3; i++)
                         CharEnvi[i] = new Rectangle(CurrentFrame * 50, 720, 50, 80);
+                    //enviView(unit.index, unit.index);
                     ViewGame.QDList(Textures[unit.index + 11], CharEnvi[CurrentFrame], unit.index + 11);
                 }
             }
