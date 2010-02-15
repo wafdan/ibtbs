@@ -46,6 +46,10 @@ namespace ModulUtama
         bool dll_p1_hovered, komp_p1_hovered, dll_p2_hovered, komp_p2_hovered, go_hovered, slide_finished;
         bool start_hovered, help_hovered, exit_hovered;
         bool dll_p1_selected, dll_p2_selected;
+        bool udahpilih = false;
+
+        int algorithm_p1;
+        int algorithm_p2;
 
         Texture2D spriteSheet;
         float timer = 0f;
@@ -90,6 +94,8 @@ namespace ModulUtama
             char_index = 1;
             composition_p1 = new int[11];
             composition_p2 = new int[11];
+            algorithm_p1 = 0;
+            algorithm_p2 = 0;
             for (int i = 0; i < 11; i++)
             {
                 composition_p1[i] = 0;
@@ -101,6 +107,7 @@ namespace ModulUtama
             //GAMBAR PAGE AWAL
             Screen = new Texture2D[6];
             Screen[0] = Content.Load<Texture2D>("Resource\\mainmenu");
+            Screen[1] = Content.Load<Texture2D>("Resource\\metalbg");
             Screen[2] = Content.Load<Texture2D>("Resource\\player1deck");
             Screen[3] = Content.Load<Texture2D>("Resource\\player2deck");
             Screen[4] = Content.Load<Texture2D>("Resource\\player1mask");
@@ -110,7 +117,7 @@ namespace ModulUtama
             Symbol[0] = Content.Load<Texture2D>("Resource\\unit-sprite");
             Symbol[1] = Content.Load<Texture2D>("Resource\\cursor");
 
-            Button = new Texture2D[19];
+            Button = new Texture2D[25];
             Button[0] = Content.Load<Texture2D>("Resource\\StartButton");
             Button[1] = Content.Load<Texture2D>("Resource\\arrow-up");
             Button[2] = Content.Load<Texture2D>("Resource\\arrow-down");
@@ -130,6 +137,12 @@ namespace ModulUtama
             Button[16] = Content.Load<Texture2D>("Resource\\mainmenu_help2");
             Button[17] = Content.Load<Texture2D>("Resource\\mainmenu_exit1");
             Button[18] = Content.Load<Texture2D>("Resource\\mainmenu_exit2");
+            Button[19] = Content.Load<Texture2D>("Resource\\button_bfs");
+            Button[20] = Content.Load<Texture2D>("Resource\\button_dfs");
+            Button[21] = Content.Load<Texture2D>("Resource\\button_ucs");
+            Button[22] = Content.Load<Texture2D>("Resource\\button_greedy");
+            Button[23] = Content.Load<Texture2D>("Resource\\button_a");
+            Button[24] = Content.Load<Texture2D>("Resource\\button_csp");
 
             spriteSheet = Content.Load<Texture2D>(@"Resource\coin-flip");
             //*** yang lama *** destinationRect = new Rectangle(300, 200, spriteWidth, spriteHeight);
@@ -420,7 +433,85 @@ namespace ModulUtama
                     elapsedtime = 0;
                 }
             }
-            else if (ScreenState == 2)
+            else if (ScreenState == 2) // memilih algoritma
+            {
+                if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed && !pressed)
+                {
+                    pressed = true;
+                    if (absis >= 100 && absis <= 350)
+                    {
+                        if (ordinat >= 200 && ordinat <= 300)
+                        {
+                            // klik BFS
+                            if (!udahpilih)
+                            {
+                                algorithm_p1 = 1;
+                                udahpilih = true;
+                            }
+                            else algorithm_p2 = 1;
+                        }
+                        else if (ordinat >= 325 && ordinat <= 425)
+                        {
+                            // klik DFS
+                            if (!udahpilih)
+                            {
+                                algorithm_p1 = 2;
+                                udahpilih = true;
+                            }
+                            else algorithm_p2 = 2;
+                        }
+                        else if (ordinat >= 450 && ordinat <= 550)
+                        {
+                            // klik UCS
+                            if (!udahpilih)
+                            {
+                                algorithm_p1 = 3;
+                                udahpilih = true;
+                            }
+                            else algorithm_p2 = 3;
+                        }
+                    }
+                    else if (absis >= 450 && absis <= 700)
+                    {
+                        if (ordinat >= 200 && ordinat <= 300)
+                        {
+                            // klik Greedy
+                            if (!udahpilih)
+                            {
+                                algorithm_p1 = 4;
+                                udahpilih = true;
+                            }
+                            else algorithm_p2 = 4;
+                        }
+                        else if (ordinat >= 325 && ordinat <= 425)
+                        {
+                            // klik A*
+                            if (!udahpilih)
+                            {
+                                algorithm_p1 = 5;
+                                udahpilih = true;
+                            }
+                            else algorithm_p2 = 5;
+                        }
+                        else if (ordinat >= 450 && ordinat <= 550)
+                        {
+                            // klik CSP
+                            if (!udahpilih)
+                            {
+                                algorithm_p1 = 6;
+                                udahpilih = true;
+                            }
+                            else algorithm_p2 = 6;
+                        }
+                        if(udahpilih)ScreenState = 3;
+                    }
+                }
+                else if (Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
+                {
+                    pressed = false;
+                }
+            }
+            else if (ScreenState == 3)
             {
                 // Tes flip-coin
                 timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -441,14 +532,14 @@ namespace ModulUtama
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
                 {
                     // aksi flip coin
-                    ScreenState = 3;
+                    ScreenState = 4;
                     MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll"//ViewMenu.DLL_P1
                         , @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll"//ViewMenu.DLL_P2
                         , composition_p1, composition_p2, "BFS", "BFS");
                     // tentukan player mana yang jalan terlebih dahulu
                 }
             }
-            else if (ScreenState == 3)
+            else if (ScreenState == 4)
             {
                 MC.GC.GameLoop();
             }
@@ -585,7 +676,20 @@ namespace ModulUtama
                         }
                     }*/
                 }
+
                 else if (ScreenState == 2)
+                {
+                    spriteBatch.Draw(Screen[1], new Rectangle(0, 0, Screen[1].Width, Screen[1].Height), Color.White);
+
+                    spriteBatch.Draw(Button[19], new Rectangle(100, 200, 300, 100), Color.White);
+                    spriteBatch.Draw(Button[20], new Rectangle(100, 325, 300, 100), Color.White);
+                    spriteBatch.Draw(Button[21], new Rectangle(100, 450, 300, 100), Color.White);
+                    spriteBatch.Draw(Button[22], new Rectangle(450, 200, 300, 100), Color.White);
+                    spriteBatch.Draw(Button[23], new Rectangle(450, 325, 300, 100), Color.White);
+                    spriteBatch.Draw(Button[24], new Rectangle(450, 450, 300, 100), Color.White);
+                }
+
+                else if (ScreenState == 3)
                 {
                     GraphicsDevice.Clear(Color.TransparentWhite);
                     // Tes flip-coin
@@ -604,7 +708,7 @@ namespace ModulUtama
                     }
 
                 }
-                else if (ScreenState == 3)
+                else if (ScreenState == 4)
                 {
                     if (isGameOver == 0 || ViewGame.drawcount > 40)
                     {
