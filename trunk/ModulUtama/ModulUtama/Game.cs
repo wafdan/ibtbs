@@ -877,7 +877,7 @@ namespace ModulUtama
                     if (isGameOver == 0 || ViewGame.drawcount > 40)
                     {
                         // TODO: Add your drawing code here
-                        if (drawingdelay > 100)
+                        if (drawingdelay > 1)
                         {
                             GraphicsDevice.Clear(Color.CornflowerBlue);
                             spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);

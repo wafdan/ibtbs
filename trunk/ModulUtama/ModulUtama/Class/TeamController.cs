@@ -202,8 +202,19 @@ namespace ModulUtama.Class
                 if (!((Medic)satu).isTidakBisaCuring())
                 {
                     dua.setHP(dua.getCurrentHP() + Heal);
-                    if (dua.getCurrentHP() > dua.getMaxHP()) dua.setHP(dua.getMaxHP());
+                    if (dua.getCurrentHP() > dua.getMaxHP())
+                    {
+                        dua.setHP(dua.getMaxHP());
+                    }
                     ((Medic)satu).decreaseAvalCuring();
+                }
+            }
+            else
+            {
+                dua.setHP(dua.getCurrentHP() + Heal);
+                if (dua.getCurrentHP() > dua.getMaxHP())
+                {
+                    dua.setHP(dua.getMaxHP());
                 }
             }
         }
@@ -215,7 +226,7 @@ namespace ModulUtama.Class
         /// <param name="dua">Unit yang diberi life potion</param>
         public void CalculationLife(Unit satu,Unit dua)
         {
-            dua.setHP((int)(0.5 * dua.getMaxHP()));
+            dua.setHP(dua.getMaxHP() / 2);
             if (dua is Medic)
                 ((Medic)dua).resetAvalCuring();
         }
@@ -231,6 +242,7 @@ namespace ModulUtama.Class
                     {
                         //Aksi dijalankan!
                         //unit yang diserang belum mati
+                        //Console.WriteLine("From Controller, Index: " + _object + "    HP: " + defender.getCurrentHP());
                         if (!defender.isDead())
                         {
                             int Damage = CalculationDamage(attacker, defender);
@@ -267,32 +279,38 @@ namespace ModulUtama.Class
                         {
                             case Item.potion:
                                 {
-                                    if (!defender.isDead() && team.isPotionRunOut())
+                                    if (!team.isPotionRunOut())
                                     {
-                                        CalculationHeal(attacker, defender);
-                                        AC.UseItem(_subject, _object, Item.potion, Heal, false);
-                                        team.usePotion();
-                                    }
-                                    else
-                                    {
-                                        AC.UseItem(_subject, _object, Item.potion, 0, true);
-                                        team.usePotion();
+                                        if (!defender.isDead())
+                                        {
+                                            CalculationHeal(attacker, defender);
+                                            AC.UseItem(_subject, _object, Item.potion, Heal, false);
+                                            team.usePotion();
+                                        }
+                                        else
+                                        {
+                                            AC.UseItem(_subject, _object, Item.potion, 0, true);
+                                            team.usePotion();
+                                        }
                                     }
                                     attacker.isBertahan = false;
                                     break;
                                 }
                             case Item.life_potion:
                                 {
-                                    if (!defender.isDead() && team.isLifePotionRunOut())
+                                    if (!team.isLifePotionRunOut())
                                     {
-                                        CalculationLife(attacker, defender);
-                                        AC.UseItem(_subject, _object, Item.life_potion, (defender.getMaxHP() / 2), false);
-                                        team.useLifePotion();
-                                    }
-                                    else
-                                    {
-                                        AC.UseItem(_subject, _object, Item.life_potion, 0, true);
-                                        team.useLifePotion();
+                                        if (defender.isDead())
+                                        {
+                                            CalculationLife(attacker, defender);
+                                            AC.UseItem(_subject, _object, Item.life_potion, (defender.getMaxHP() / 2), false);
+                                            team.useLifePotion();
+                                        }
+                                        else
+                                        {
+                                            AC.UseItem(_subject, _object, Item.life_potion, 0, true);
+                                            team.useLifePotion();
+                                        }
                                     }
                                     attacker.isBertahan = false;
                                     break;

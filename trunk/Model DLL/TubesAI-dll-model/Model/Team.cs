@@ -34,32 +34,31 @@ namespace TubesAI.Model
             index = copyTeam.index;
             listUnit = new List<Unit>();
 
-            n_lifePotion = jumlahLifePotion;
-            n_potion = jumlahPotion;
+            n_lifePotion = copyTeam.n_lifePotion;
+            n_potion = copyTeam.n_potion;
 
             foreach (var unit in copyTeam.listUnit)
             {
                 if (unit is Archer)
                 {
-                    listUnit.Add(new Archer((Archer)unit));
+                    listUnit.Add(new Archer(unit.index,unit.getCurrentHP()));
                 }
                 else if (unit is Swordsman)
                 {
-                    listUnit.Add(new Swordsman((Swordsman)unit));
+                    listUnit.Add(new Swordsman(unit.index, unit.getCurrentHP()));
                 }
                 else if (unit is Spearman)
                 {
-                    listUnit.Add(new Spearman((Spearman)unit));
+                    listUnit.Add(new Spearman(unit.index, unit.getCurrentHP()));
                 }
                 else if (unit is Medic)
                 {
-                    listUnit.Add(new Medic((Medic)unit));
+                    listUnit.Add(new Medic(unit.index, unit.getCurrentHP()));
                 }
                 else if (unit is Rider)
                 {
-                    listUnit.Add(new Rider((Rider)unit));
+                    listUnit.Add(new Rider(unit.index, unit.getCurrentHP()));
                 }
-                listUnit.Add(unit);
             }
         }
 
@@ -111,12 +110,12 @@ namespace TubesAI.Model
 
         public bool isLifePotionRunOut()
         {
-           return n_lifePotion > 0;
+           return n_lifePotion <= 0;
         }
 
         public bool isPotionRunOut()
         {
-            return n_potion > 0;
+            return n_potion <= 0;
         }
 
         public void ResetPotion()

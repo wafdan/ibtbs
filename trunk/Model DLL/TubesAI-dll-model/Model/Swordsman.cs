@@ -20,6 +20,15 @@ namespace TubesAI.Model
             isBertahan = false;
         }
 
+        public Swordsman(int _index, int curHP)
+        {
+            index = _index;
+            this.maxHP = 2000;
+            this.currentHP = curHP;
+            this.urutan = 2;
+            isBertahan = false;
+        }
+
         public Swordsman(Swordsman _swordsman)
         {
             this.index = _swordsman.index;
