@@ -8,3 +8,8 @@ D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Model DLL\TubesAI-dll-model
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Model DLL\TubesAI-dll-model\obj\Debug\ResolveAssemblyReference.cache
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Model DLL\TubesAI-dll-model\obj\Debug\TubesAI-dll-model.dll
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Model DLL\TubesAI-dll-model\obj\Debug\TubesAI-dll-model.pdb
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Model DLL\TubesAI-dll-model\bin\Debug\TubesAI-dll-model.dll
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Model DLL\TubesAI-dll-model\bin\Debug\TubesAI-dll-model.pdb
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Model DLL\TubesAI-dll-model\obj\Debug\ResolveAssemblyReference.cache
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Model DLL\TubesAI-dll-model\obj\Debug\TubesAI-dll-model.dll
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Model DLL\TubesAI-dll-model\obj\Debug\TubesAI-dll-model.pdb

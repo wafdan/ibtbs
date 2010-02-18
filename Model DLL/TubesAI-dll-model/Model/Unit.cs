@@ -6,9 +6,12 @@ namespace TubesAI.Model
 {
     public abstract class Unit
     {
+        /// <summary>
+        /// Index Unit pada Team
+        /// </summary>
         public int index { get; protected set; }
         /// <summary>
-        /// HP
+        /// Current HP
         /// </summary>
         protected int currentHP;
         /// <summary>
@@ -16,9 +19,12 @@ namespace TubesAI.Model
         /// </summary>
         protected int maxHP;
         /// <summary>
-        /// Urutan penyerangan masing-masing unit
+        /// Urutan penyerangan masing-masing Unit
         /// </summary>
         protected int urutan;
+        /// <summary>
+        /// bernilai true jika Unit sedang bertahan, dan sebaliknya
+        /// </summary>
         public bool isBertahan { get; set; }
 
         public void setHP(int newHP)

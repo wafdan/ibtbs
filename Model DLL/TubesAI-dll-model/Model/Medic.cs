@@ -14,6 +14,7 @@ namespace TubesAI.Model
         /// Angka maksinal si medic masih bisa melakukan healing
         /// </summary>
         private int avalaibleCuring;
+        private const int available = 10;
 
         public Medic(int _index)
         {
@@ -22,7 +23,7 @@ namespace TubesAI.Model
             this.maxHP = 2000;
             this.currentHP = this.maxHP;
             this.urutan = 4;
-            this.avalaibleCuring = 10;
+            this.avalaibleCuring = available;
             isBertahan = false;
         }
 
@@ -31,9 +32,15 @@ namespace TubesAI.Model
             this.avalaibleCuring--;
         }
 
+        public void resetAvalCuring()
+        {
+            this.avalaibleCuring = available;
+        }
+
         public bool isTidakBisaCuring()
         {
             return this.avalaibleCuring == 0;
         }
+
     }
 }

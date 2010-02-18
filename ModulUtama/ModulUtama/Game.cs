@@ -20,51 +20,68 @@ namespace ModulUtama
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
+        // Graphics Device Manager 
+        GraphicsDeviceManager graphics;       
+        
+        // Controller
         MenuController MC;
+        
+        // Texture2D
         Texture2D BG;
         Texture2D Bar;
-        int drawingdelay = 0;
-        int elapsedtime = 0;
-        public static int isGameOver = 0;
-        public static Sound sound = new Sound();
-        bool play = false;
-
-        /* PAGE AWAL
-         */
         Texture2D[] Screen;
         Texture2D[] Button;
         Texture2D[] Symbol;
-        int ScreenState;
-        int player_index, char_index;
-        int[] composition_p1;
-        int[] composition_p2;
-        int absis, ordinat;
-        bool pressed, up_pressed, down_pressed;
-        bool dll_p1_hovered, komp_p1_hovered, dll_p2_hovered, komp_p2_hovered, go_hovered, slide_finished;
-        bool start_hovered, help_hovered, exit_hovered;
-        bool dll_p1_selected, dll_p2_selected;
-        bool udahpilih = false;
-
-        String algorithm_p1;
-        String algorithm_p2;
-
         Texture2D spriteSheet;
+
+        // Sprite
+        SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
+        int spriteWidth = 100;
+        int spriteHeight = 100;
+        
+        // Sound
+        public static Sound sound = new Sound();
+
+        // Delay
+        int drawingdelay = 0;
+        int elapsedtime = 0;
         float timer = 0f;
         float interval = 1000f / 25f;
         int frameCount = 22;
         int currentFrame = 0;
-        int spriteWidth = 100;
-        int spriteHeight = 100;
+
+        // Mouse State
+        int absis, ordinat;
+
+        // Variabel for State of Game
+        int ScreenState;
+        public static int isGameOver = 0;
+        bool pressed, up_pressed, down_pressed;
+        bool dll_p1_hovered, komp_p1_hovered, dll_p2_hovered, komp_p2_hovered, go_hovered, slide_finished;
+        bool start_hovered, help_hovered, exit_hovered;
+        bool dll_p1_selected, dll_p2_selected;
+        bool play;         
+        bool udahpilih;
+        int countFlip;
+        bool Hasilflipcoin;
+        
+        // Composition
+        int player_index, char_index;
+        int[] composition_p1;
+        int[] composition_p2;
+
+        // Algoritm File Path
+        String algorithm_p1;
+        String algorithm_p2;
+
+        // Rectangle
         Rectangle sourceRect;
         Rectangle destinationRect;
 
-        /** Coin Flip **/
-        int countFlip = 0;
-        /** Coin Flip **/
-
+        /// <summary>
+        /// Game constructors
+        /// </summary>
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -72,39 +89,13 @@ namespace ModulUtama
         }
 
         /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
+        /// Load Picture Content
         /// </summary>
-        protected override void Initialize()
+        private void LoadPictureContent()
         {
-            // Inisialisai page awal
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = false;
-            IsMouseVisible = true;
-            graphics.ApplyChanges();
-            ScreenState = 0;
-            pressed = false; up_pressed = false; down_pressed = false;
-            start_hovered = false; help_hovered = false; exit_hovered = false;
-            slide_finished = false;
-            dll_p1_selected = false; dll_p2_selected = false;
-            player_index = 1;
-            char_index = 1;
-            composition_p1 = new int[11];
-            composition_p2 = new int[11];
-            algorithm_p1 = null;
-            algorithm_p2 = null;
-            for (int i = 0; i < 11; i++)
-            {
-                composition_p1[i] = 0;
-                composition_p2[i] = 0;
-            }
+            BG = Content.Load<Texture2D>(@"Images/bg_battle");
+            Bar = Content.Load<Texture2D>(@"Resource/load-p2");
 
-            // Inisialisasi gambar
-
-            //GAMBAR PAGE AWAL
             Screen = new Texture2D[6];
             Screen[0] = Content.Load<Texture2D>("Resource\\mainmenu");
             Screen[1] = Content.Load<Texture2D>("Resource\\metalbg");
@@ -117,7 +108,7 @@ namespace ModulUtama
             Symbol[0] = Content.Load<Texture2D>("Resource\\unit-sprite");
             Symbol[1] = Content.Load<Texture2D>("Resource\\cursor");
 
-            Button = new Texture2D[25];
+            Button = new Texture2D[27];
             Button[0] = Content.Load<Texture2D>("Resource\\StartButton");
             Button[1] = Content.Load<Texture2D>("Resource\\arrow-up");
             Button[2] = Content.Load<Texture2D>("Resource\\arrow-down");
@@ -143,9 +134,10 @@ namespace ModulUtama
             Button[22] = Content.Load<Texture2D>("Resource\\button_greedy");
             Button[23] = Content.Load<Texture2D>("Resource\\button_a");
             Button[24] = Content.Load<Texture2D>("Resource\\button_csp");
+            Button[25] = Content.Load<Texture2D>("Resource\\coin-blue");
+            Button[26] = Content.Load<Texture2D>("Resource\\coin-red");
 
             spriteSheet = Content.Load<Texture2D>(@"Resource\coin-flip");
-            //*** yang lama *** destinationRect = new Rectangle(300, 200, spriteWidth, spriteHeight);
             destinationRect = new Rectangle(400 - (spriteWidth / 2), 300 - (spriteHeight / 2), spriteWidth, spriteHeight);
 
             //GAMBAR UNIT
@@ -159,10 +151,14 @@ namespace ModulUtama
             Rider.textureR = Content.Load<Texture2D>(@"Images/S-RiderR");
             Medic.textureL = Content.Load<Texture2D>(@"Images/S-MedicL");
             Medic.textureR = Content.Load<Texture2D>(@"Images/S-MedicR");
-            BG = Content.Load<Texture2D>(@"Images/bg_battle");
-            Bar = Content.Load<Texture2D>(@"Resource/load-p2");
+        }
 
-            /* Inisialisasi letak karakter
+        /// <summary>
+        /// Inisialisasi letak karakter
+        /// </summary>
+        private void InitializePlaceUnit()
+        {
+            /* 
              * Letak KARAKTER berdasarkan index:
              * Tim 1        Tim 2
              * 7 |3 |        |14|18       
@@ -196,7 +192,68 @@ namespace ModulUtama
             ViewGame.places[19] = new Vector2(650, 200);
             ViewGame.places[20] = new Vector2(670, 300);
             ViewGame.places[21] = new Vector2(690, 400);
+        }
 
+        /// <summary>
+        /// Inisialisasi variabel untuk awal game
+        /// </summary>
+        private void InitializeVariable()
+        {
+            pressed = false; up_pressed = false; down_pressed = false;
+            start_hovered = false; help_hovered = false; exit_hovered = false;
+            slide_finished = false;
+            dll_p1_selected = false; dll_p2_selected = false;
+            ScreenState = 0;
+            udahpilih = false;
+            play = false;
+            player_index = 1;
+            char_index = 1;
+            countFlip = 0;
+            Hasilflipcoin = false;
+            isGameOver = 0;
+
+
+            algorithm_p1 = null;
+            algorithm_p2 = null;
+
+            composition_p1 = new int[11];
+            composition_p2 = new int[11];
+            for (int i = 0; i < 11; i++)
+            {
+                composition_p1[i] = 0;
+                composition_p2[i] = 0;
+            }
+        }
+
+        /// <summary>
+        /// Reset variabel untuk memulai game baru
+        /// </summary>
+        private void ResetGame()
+        {
+            udahpilih = false;
+            play = false;
+            countFlip = 0;
+            isGameOver = 0;
+        }
+
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
+        {
+            // Inisialisai page awal
+            graphics.PreferredBackBufferWidth = 800; // 800 * 600
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.IsFullScreen = false;
+            IsMouseVisible = true;
+            graphics.ApplyChanges();
+
+            InitializeVariable();
+            LoadPictureContent();
+            InitializePlaceUnit();
             sound.BGM_simulate(this);
 
             // TODO: Add your initialization logic here
@@ -212,10 +269,7 @@ namespace ModulUtama
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteFont = Content.Load<SpriteFont>("Info");
-            /*MC = new MenuController(@"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
-                                    @"D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Debug\Algoritma.dll",
-                                    ViewMenu.kload(), ViewMenu.kload(), "BFS", "BFS");
-            */
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -228,6 +282,7 @@ namespace ModulUtama
             // TODO: Unload any non ContentManager content here
         }
 
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -239,6 +294,7 @@ namespace ModulUtama
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             // TODO: Add your update logic here
+
             absis = Mouse.GetState().X;
             ordinat = Mouse.GetState().Y;
 
@@ -248,16 +304,19 @@ namespace ModulUtama
                 if (absis >= 400 - (Button[13].Width / 2) && absis <= 400 + (Button[13].Width / 2) && ordinat >= 350 && ordinat <= 350 + Button[13].Height)
                 {
                     start_hovered = true;
+                    help_hovered = false; exit_hovered = false;
                 }
                 // Help
                 else if (absis >= 400 - (Button[15].Width / 2) && absis <= 400 + (Button[15].Width / 2) && ordinat >= (350 + Button[15].Height + 10) && ordinat <= (350 + Button[15].Height + 10) + Button[15].Height)
                 {
                     help_hovered = true;
+                    start_hovered = false; exit_hovered = false;
                 }
                 // Exit
                 else if (absis >= 400 - (Button[17].Width / 2) && absis <= 400 + (Button[17].Width / 2) && ordinat >= (350 + 2 * (Button[17].Height + 10)) && ordinat <= (350 + 2 * (Button[17].Height + 10)) + Button[17].Height)
                 {
                     exit_hovered = true;
+                    start_hovered = false; help_hovered = false;
                 }
                 else
                 {
@@ -294,27 +353,44 @@ namespace ModulUtama
                 // Go
                 if (absis >= 360 && absis <= 440 && ordinat >= 260 && ordinat <= 340)
                 {
-                    go_hovered = true;
+                    if (dll_p1_selected && dll_p2_selected)
+                        go_hovered = true;
+                    else
+                        go_hovered = false;
+                    komp_p1_hovered = false; dll_p1_hovered = false;
+                    komp_p2_hovered = false; dll_p2_hovered = false;
                 }
                 // Load DLL P1
                 else if (absis >= 25 && absis <= 25 + Button[8].Width && ordinat >= 260 && ordinat <= 260 + Button[8].Height)
                 {
                     dll_p1_hovered = true;
+                    komp_p1_hovered = false;
+                    komp_p2_hovered = false; dll_p2_hovered = false;
+                    go_hovered = false;
                 }
                 // Load Komposisi P1
                 else if (absis >= 25 + Button[8].Width + 10 && absis <= 25 + 2 * Button[8].Width + 10 && ordinat >= 260 && ordinat <= 260 + Button[8].Height)
                 {
                     komp_p1_hovered = true;
+                    dll_p1_hovered = false;
+                    komp_p2_hovered = false; dll_p2_hovered = false;
+                    go_hovered = false;
                 }
                 // Load DLL P2
                 else if (absis >= 475 && absis <= 475 + Button[9].Width && ordinat >= 310 && ordinat <= 310 + Button[9].Height)
                 {
                     dll_p2_hovered = true;
+                    komp_p1_hovered = false; dll_p1_hovered = false;
+                    komp_p2_hovered = false;
+                    go_hovered = false;
                 }
                 // Load Komposisi P2
                 else if (absis >= 475 + Button[9].Width + 10 && absis <= 475 + 2 * Button[9].Width + 10 && ordinat >= 310 && ordinat <= 310 + Button[9].Height)
                 {
                     komp_p2_hovered = true;
+                    komp_p1_hovered = false; dll_p1_hovered = false;
+                    dll_p2_hovered = false;
+                    go_hovered = false;
                 }
                 else
                 {
@@ -332,14 +408,19 @@ namespace ModulUtama
                     if (absis >= 360 && absis <= 440 && ordinat >= 260 && ordinat <= 340)
                     {
                         // go_hovered = true;
-                        ScreenState = 2;
+                        if (dll_p1_selected && dll_p2_selected)
+                            ScreenState = 2;
                     }
                     // Load DLL P1
                     else if (absis >= 25 && absis <= 25 + Button[8].Width && ordinat >= 260 && ordinat <= 260 + Button[8].Height)
                     {
-                        ViewMenu.DLL_P1 = ViewMenu.dload();
-                        System.Console.Out.WriteLine(ViewMenu.DLL_P1);
-                        if (String.Compare(ViewMenu.DLL_P1, "") == 0) dll_p1_selected = true;
+                        algorithm_p1 = ViewMenu.dload();
+                        if (!String.IsNullOrEmpty(algorithm_p1))
+                            ViewMenu.DLL_P1 = algorithm_p1;
+                        if (!String.IsNullOrEmpty(ViewMenu.DLL_P1))
+                            dll_p1_selected = true; //??
+                        else
+                            dll_p1_selected = false;
                         // dll_p1_hovered = true;
                     }
                     // Load Komposisi P1
@@ -353,9 +434,13 @@ namespace ModulUtama
                     // Load DLL P2
                     else if (absis >= 475 && absis <= 475 + Button[9].Width && ordinat >= 310 && ordinat <= 310 + Button[9].Height)
                     {
-                        ViewMenu.DLL_P2 = ViewMenu.dload();
-                        System.Console.Out.WriteLine(ViewMenu.DLL_P2);
-                        if (String.Compare(ViewMenu.DLL_P2, "") == 0) dll_p2_selected = true;
+                        algorithm_p2 = ViewMenu.dload();
+                        if (!String.IsNullOrEmpty(algorithm_p2))
+                            ViewMenu.DLL_P2 = algorithm_p2;
+                        if (!String.IsNullOrEmpty(ViewMenu.DLL_P2))
+                            dll_p2_selected = true; //??
+                        else
+                            dll_p2_selected = false;
                         // dll_p2_hovered = true;
                     }
                     // Load Komposisi P2
@@ -526,18 +611,23 @@ namespace ModulUtama
                     }
                     timer = 0f;
                 }
-                // untuk Flip Coin
-                sourceRect = new Rectangle((currentFrame % 11)* spriteWidth, (currentFrame / 11) * spriteHeight, spriteWidth, spriteHeight);
-                //
-                //
-                if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
+                if (countFlip == 0)
                 {
-                    // aksi flip coin
-                    ScreenState = 4;
-                    MC = new MenuController(ViewMenu.DLL_P1
-                        , ViewMenu.DLL_P2
-                        , composition_p1, composition_p2, algorithm_p1, algorithm_p2);
-                    // tentukan player mana yang jalan terlebih dahulu
+                    sourceRect = new Rectangle((currentFrame % 11) * spriteWidth, (currentFrame / 11) * spriteHeight, spriteWidth, spriteHeight);
+                    if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
+                    {
+                        MC = new MenuController(ViewMenu.DLL_P1
+                            , ViewMenu.DLL_P2
+                            , composition_p1, composition_p2, algorithm_p1, algorithm_p2);
+                        Hasilflipcoin = MC.hasilFlipCoin;
+                        countFlip = 1;
+                        elapsedtime = 0;
+                    }
+                }
+                else if (countFlip == 1)
+                {
+                    if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
+                        ScreenState = 4;
                 }
             }
             else if (ScreenState == 4)
@@ -550,7 +640,8 @@ namespace ModulUtama
                 if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter) && elapsedtime >= 150)
                 {
                     ScreenState = 0;
-                    play = false;
+                    sound.BGM_simulate(this);
+                    ResetGame();
                 }
             }
 
@@ -568,7 +659,6 @@ namespace ModulUtama
                 //GraphicsDevice.Clear(Color.CornflowerBlue);
                 spriteBatch.Begin();
                 // spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
-                ViewGame.draw(spriteBatch, spriteFont, this);
                 if (ScreenState == 0)
                 {
                     spriteBatch.Draw(Screen[0], new Rectangle(0, 0, Screen[0].Width, Screen[0].Height), Color.White);
@@ -652,10 +742,18 @@ namespace ModulUtama
                     if (player_index == 1)
                     {
                         spriteBatch.Draw(Screen[5], new Rectangle(0, 600 - Screen[2].Height, Screen[2].Width, Screen[2].Height), Color.White);
+                        if (dll_p1_selected)
+                            spriteBatch.DrawString(spriteFont, "Player 1 has loaded algorithm", new Vector2(50, 220), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                        else
+                            spriteBatch.DrawString(spriteFont, "Please load algorithm", new Vector2(50, 220), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                     }
                     else if (player_index == 2)
                     {
                         spriteBatch.Draw(Screen[4], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
+                        if (dll_p2_selected)
+                            spriteBatch.DrawString(spriteFont, "Player 2 has loaded algorithm", new Vector2(470, 360), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                        else
+                            spriteBatch.DrawString(spriteFont, "Please load algorithm", new Vector2(550, 360), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                     }
 
                     // tombol go
@@ -666,8 +764,6 @@ namespace ModulUtama
                     }
                     else spriteBatch.Draw(Button[3], new Rectangle(360, 260, Button[3].Width, Button[3].Height), Color.White);
                     
-                    // WOIIIIIIIIIIIIIIIII
-                    // WOIIIIIIIIIIIIIIIIII
                     if (player_index == 1)
                     {
                         for (int i = 0; i < 11; i++)
@@ -720,6 +816,7 @@ namespace ModulUtama
                             }
                         }
                     }
+
                 }
 
                 else if (ScreenState == 2)
@@ -750,19 +847,29 @@ namespace ModulUtama
                 {
                     GraphicsDevice.Clear(Color.TransparentWhite);
                     // Tes flip-coin
-                    /*if (countFlip < 10)
-                    {*/
-                        spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
-                        countFlip++;
-                    //}
-                    //
-                    if (slide_finished == false)
+                    if (countFlip == 0)
                     {
-                        // layar bagian atas
-                        spriteBatch.Draw(Screen[2], new Rectangle(0, 0 - (currentFrame * 15), Screen[2].Width, Screen[2].Height), Color.White);
-                        // layar bagian bawah
-                        spriteBatch.Draw(Screen[3], new Rectangle(0, 600 - Screen[3].Height + (currentFrame * 15), Screen[3].Width, Screen[3].Height), Color.White);
+                        spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
+                        if (slide_finished == false)
+                        {
+                            // layar bagian atas
+                            spriteBatch.Draw(Screen[2], new Rectangle(0, 0 - (currentFrame * 15), Screen[2].Width, Screen[2].Height), Color.White);
+                            // layar bagian bawah
+                            spriteBatch.Draw(Screen[3], new Rectangle(0, 600 - Screen[3].Height + (currentFrame * 15), Screen[3].Width, Screen[3].Height), Color.White);
+                        }
                     }
+                    else if (countFlip == 1)
+                    {
+                        if (Hasilflipcoin)
+                        {
+                            spriteBatch.Draw(Button[25], new Vector2(300, 200), Color.White);
+                        }
+                        else if (!Hasilflipcoin)
+                        {
+                            spriteBatch.Draw(Button[26], new Vector2(300, 200), Color.White);
+                        }
+                    }
+
 
                 }
                 else if (ScreenState == 4)
@@ -770,7 +877,7 @@ namespace ModulUtama
                     if (isGameOver == 0 || ViewGame.drawcount > 40)
                     {
                         // TODO: Add your drawing code here
-                        if (drawingdelay > 150)
+                        if (drawingdelay > 100)
                         {
                             GraphicsDevice.Clear(Color.CornflowerBlue);
                             spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
@@ -778,8 +885,6 @@ namespace ModulUtama
                             ViewGame.draw(spriteBatch, spriteFont, this);
                             drawingdelay = 0;
                         }
-
-                        drawingdelay += gameTime.ElapsedGameTime.Milliseconds;
                     }
                     else
                     {
@@ -792,7 +897,7 @@ namespace ModulUtama
                             spriteBatch.DrawString(spriteFont, "TEAM 1 WINS!", new Vector2(100, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
                         else if (isGameOver == 2)
                             spriteBatch.DrawString(spriteFont, "TEAM 2 WINS!", new Vector2(500, 300), Color.Yellow, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
-                        spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(100, 450), Color.SteelBlue, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(80, 500), Color.SteelBlue, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
                     }
                 }
 

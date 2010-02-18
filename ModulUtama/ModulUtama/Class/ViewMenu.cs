@@ -23,6 +23,7 @@ namespace ModulUtama.Class
             try
             {
                 file.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+                file.Filter = "DLL files|*.dll";
                 file.ShowDialog();
             }
             catch (Exception ex)
@@ -44,6 +45,7 @@ namespace ModulUtama.Class
             try
             {
                 file.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+                file.Filter = "Text files|*.txt";
                 file.ShowDialog();
             }
             catch (Exception ex)
