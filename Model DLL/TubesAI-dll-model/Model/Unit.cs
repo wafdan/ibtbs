@@ -47,7 +47,7 @@ namespace TubesAI.Model
             return this.maxHP;
         }
 
-        public Boolean isDead()
+        public bool isDead()
         {
             return this.currentHP <= 0;
         }

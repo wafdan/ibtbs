@@ -20,6 +20,15 @@ namespace TubesAI.Model
             isBertahan = false;
         }
 
+        public Archer(int _index, int curHP)
+        {
+            index = _index;
+            this.maxHP = 1500;
+            this.currentHP = curHP;
+            this.urutan = 1;
+            isBertahan = false;
+        }
+
         public Archer(Archer _archer)
         {
             this.index = _archer.index;

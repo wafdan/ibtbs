@@ -20,6 +20,15 @@ namespace TubesAI.Model
             isBertahan = false;
         }
 
+        public Rider(int _index, int curHP)
+        {
+            index = _index;
+            this.maxHP = 3000;
+            this.currentHP = curHP;
+            this.urutan = 5;
+            isBertahan = false;
+        }
+
         public Rider(Rider _rider)
         {
             this.index = _rider.index;

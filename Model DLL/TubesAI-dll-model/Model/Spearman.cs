@@ -20,6 +20,15 @@ namespace TubesAI.Model
             isBertahan = false;
         }
 
+        public Spearman(int _index, int curHP)
+        {
+            index = _index;
+            this.maxHP = 2000;
+            this.currentHP = curHP;
+            this.urutan = 3;
+            isBertahan = false;
+        }
+
         public Spearman(Spearman _spearman)
         {
             this.index = _spearman.index;
