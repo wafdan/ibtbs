@@ -19,5 +19,14 @@ namespace TubesAI.Model
             this.urutan = 3;
             isBertahan = false;
         }
+
+        public Spearman(Spearman _spearman)
+        {
+            this.index = _spearman.index;
+            this.maxHP = _spearman.maxHP;
+            this.currentHP = _spearman.currentHP;
+            this.urutan = _spearman.urutan;
+            this.isBertahan = false;
+        }
     }
 }

@@ -19,5 +19,15 @@ namespace TubesAI.Model
             this.urutan = 2;
             isBertahan = false;
         }
+
+        public Swordsman(Swordsman _swordsman)
+        {
+            this.index = _swordsman.index;
+            this.maxHP = _swordsman.maxHP;
+            this.currentHP = _swordsman.currentHP;
+            this.urutan = _swordsman.urutan;
+            this.isBertahan = false;
+        }
+
     }
 }

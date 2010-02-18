@@ -39,6 +39,26 @@ namespace TubesAI.Model
 
             foreach (var unit in copyTeam.listUnit)
             {
+                if (unit is Archer)
+                {
+                    listUnit.Add(new Archer((Archer)unit));
+                }
+                else if (unit is Swordsman)
+                {
+                    listUnit.Add(new Swordsman((Swordsman)unit));
+                }
+                else if (unit is Spearman)
+                {
+                    listUnit.Add(new Spearman((Spearman)unit));
+                }
+                else if (unit is Medic)
+                {
+                    listUnit.Add(new Medic((Medic)unit));
+                }
+                else if (unit is Rider)
+                {
+                    listUnit.Add(new Rider((Rider)unit));
+                }
                 listUnit.Add(unit);
             }
         }
