@@ -34,7 +34,7 @@ namespace ModulUtama.Class
             Assembly asm1 = Assembly.LoadFile(dllpath1);
             Agent1 = (AgentInterface)asm1.CreateInstance("Algoritma." + typeAgent1);
             Assembly asm2 = Assembly.LoadFile(dllpath2);
-            Agent2 = (AgentInterface)asm1.CreateInstance("Algoritma." + typeAgent2);
+            Agent2 = (AgentInterface)asm2.CreateInstance("Algoritma." + typeAgent2);
         }
 
         /*

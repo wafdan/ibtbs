@@ -241,6 +241,7 @@ namespace ModulUtama.Class
                         {
                             AC.Attack(_subject, _object, 0, true);
                         }
+                        attacker.isBertahan = false;
                         break;
                     }
                 case Aksi.heal:
@@ -257,6 +258,7 @@ namespace ModulUtama.Class
                         {
                             AC.Heal(_subject, _object, 0, true);
                         }
+                        attacker.isBertahan = false;
                         break;
                     }
                 case Aksi.use_item:
@@ -276,6 +278,7 @@ namespace ModulUtama.Class
                                         AC.UseItem(_subject, _object, Item.potion, 0, true);
                                         team.usePotion();
                                     }
+                                    attacker.isBertahan = false;
                                     break;
                                 }
                             case Item.life_potion:
@@ -291,6 +294,7 @@ namespace ModulUtama.Class
                                         AC.UseItem(_subject, _object, Item.life_potion, 0, true);
                                         team.useLifePotion();
                                     }
+                                    attacker.isBertahan = false;
                                     break;
                                 }
                         }

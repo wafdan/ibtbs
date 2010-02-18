@@ -19,5 +19,14 @@ namespace TubesAI.Model
             this.urutan = 1;
             isBertahan = false;
         }
+
+        public Archer(Archer _archer)
+        {
+            this.index = _archer.index;
+            this.maxHP = _archer.maxHP;
+            this.currentHP = _archer.currentHP;
+            this.urutan = _archer.urutan;
+            this.isBertahan = false;
+        }
     }
 }

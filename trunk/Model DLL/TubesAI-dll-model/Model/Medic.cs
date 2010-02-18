@@ -27,6 +27,16 @@ namespace TubesAI.Model
             isBertahan = false;
         }
 
+        public Medic(Medic _medic)
+        {
+            this.index = _medic.index;
+            this.maxHP = _medic.maxHP;
+            this.currentHP = _medic.currentHP;
+            this.urutan = _medic.urutan;
+            this.avalaibleCuring = available;
+            this.isBertahan = false;
+        }
+
         public void decreaseAvalCuring()
         {
             this.avalaibleCuring--;

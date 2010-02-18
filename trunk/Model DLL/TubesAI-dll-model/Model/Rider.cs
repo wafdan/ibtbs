@@ -19,5 +19,14 @@ namespace TubesAI.Model
             this.urutan = 5;
             isBertahan = false;
         }
+
+        public Rider(Rider _rider)
+        {
+            this.index = _rider.index;
+            this.maxHP = _rider.maxHP;
+            this.currentHP = _rider.currentHP;
+            this.urutan = _rider.urutan;
+            this.isBertahan = false;
+        }
     }
 }
