@@ -9,6 +9,16 @@ using TubesAI.Model;
 
 namespace ModulUtama.Class
 {
+    /*
+       Jenis2 Set image:
+        AC.Attack(ElemenAksi A,int poin,bool miss);
+        AC.Kill(ElemenAksi A,int poin);
+        AC.Defend(ElemenAksi A);
+        AC.Heal(ElemenAksi A,int poin,int miss);
+        AC.UseItem(ElemenAksi A,int poin,int miss);
+        AC.Win(int Team);
+    */
+
     /// <summary>
     /// Controller yang menentukan gambar-gambar yang diperlukan
     /// untuk menampilkan animasi aksi unit dalam battle

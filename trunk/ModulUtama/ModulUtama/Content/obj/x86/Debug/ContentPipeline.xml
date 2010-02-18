@@ -2,52 +2,586 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Images\Aris.png</Source>
-      <Name>Images\Aris</Name>
+      <Source>Images\templategambar.jpg</Source>
+      <Name>Images\templategambar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\Aris.xnb</Output>
-      <Time>2010-02-12T11:36:48.765625+07:00</Time>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\templategambar.xnb</Output>
+      <Time>2010-02-13T20:47:48-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\template.png</Source>
+      <Name>Images\template</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\template.xnb</Output>
+      <Time>2010-02-13T21:16:00-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-ArcherR.png</Source>
+      <Name>Images\S-ArcherR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-ArcherR.xnb</Output>
+      <Time>2010-02-14T21:02:10-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-ArcherL.png</Source>
+      <Name>Images\S-ArcherL</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-ArcherL.xnb</Output>
+      <Time>2010-02-14T21:08:52-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-SpearmanL.png</Source>
+      <Name>Images\S-SpearmanL</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-SpearmanL.xnb</Output>
+      <Time>2010-02-15T07:58:08-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-SpearmanR.png</Source>
+      <Name>Images\S-SpearmanR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-SpearmanR.xnb</Output>
+      <Time>2010-02-15T07:54:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-SwordsmanL.png</Source>
+      <Name>Images\S-SwordsmanL</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-SwordsmanL.xnb</Output>
+      <Time>2010-02-14T21:35:32-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-SwordsmanR.png</Source>
+      <Name>Images\S-SwordsmanR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-SwordsmanR.xnb</Output>
+      <Time>2010-02-14T21:32:28-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-MedicL.png</Source>
+      <Name>Images\S-MedicL</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-MedicL.xnb</Output>
+      <Time>2010-02-15T16:23:52-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-MedicR.png</Source>
+      <Name>Images\S-MedicR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-MedicR.xnb</Output>
+      <Time>2010-02-15T16:25:34-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-RiderL.png</Source>
+      <Name>Images\S-RiderL</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-RiderL.xnb</Output>
+      <Time>2010-02-15T16:26:28-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\S-RiderR.png</Source>
+      <Name>Images\S-RiderR</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\S-RiderR.xnb</Output>
+      <Time>2010-02-15T16:27:06-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\bg_battle.png</Source>
+      <Name>Images\bg_battle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Images\bg_battle.xnb</Output>
+      <Time>2010-02-11T09:56:08-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\arrow-down-pressed.png</Source>
+      <Name>Resource\arrow-down-pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\arrow-down-pressed.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\arrow-down.png</Source>
+      <Name>Resource\arrow-down</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\arrow-down.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\arrow-up-pressed.png</Source>
+      <Name>Resource\arrow-up-pressed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\arrow-up-pressed.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\arrow-up.png</Source>
+      <Name>Resource\arrow-up</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\arrow-up.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\coin-blue.png</Source>
+      <Name>Resource\coin-blue</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\coin-blue.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\coin-flip.png</Source>
+      <Name>Resource\coin-flip</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\coin-flip.xnb</Output>
+      <Time>2010-02-15T16:09:42-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\coin-red.png</Source>
+      <Name>Resource\coin-red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\coin-red.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\cursor.png</Source>
+      <Name>Resource\cursor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\cursor.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\go-hover.png</Source>
+      <Name>Resource\go-hover</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\go-hover.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\go.png</Source>
+      <Name>Resource\go</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\go.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-comp-p1.png</Source>
+      <Name>Resource\load-comp-p1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-comp-p1.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-comp-p2.png</Source>
+      <Name>Resource\load-comp-p2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-comp-p2.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-dll-p1.png</Source>
+      <Name>Resource\load-dll-p1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-dll-p1.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-dll-p2.png</Source>
+      <Name>Resource\load-dll-p2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-dll-p2.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-dll.png</Source>
+      <Name>Resource\load-dll</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-dll.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-komp.png</Source>
+      <Name>Resource\load-komp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-komp.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-p1.png</Source>
+      <Name>Resource\load-p1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-p1.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\load-p2.png</Source>
+      <Name>Resource\load-p2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\load-p2.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu.png</Source>
+      <Name>Resource\mainmenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu.xnb</Output>
+      <Time>2010-02-15T17:32:38-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu_exit1.png</Source>
+      <Name>Resource\mainmenu_exit1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu_exit1.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu_exit2.png</Source>
+      <Name>Resource\mainmenu_exit2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu_exit2.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu_help1.png</Source>
+      <Name>Resource\mainmenu_help1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu_help1.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu_help2.png</Source>
+      <Name>Resource\mainmenu_help2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu_help2.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu_start1.png</Source>
+      <Name>Resource\mainmenu_start1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu_start1.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\mainmenu_start2.png</Source>
+      <Name>Resource\mainmenu_start2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\mainmenu_start2.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\player1deck.png</Source>
+      <Name>Resource\player1deck</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\player1deck.xnb</Output>
+      <Time>2010-02-17T14:30:36-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\player1mask.png</Source>
+      <Name>Resource\player1mask</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\player1mask.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\player2deck.png</Source>
+      <Name>Resource\player2deck</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\player2deck.xnb</Output>
+      <Time>2010-02-17T14:28:32-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\player2mask.png</Source>
+      <Name>Resource\player2mask</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\player2mask.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\unit-sprite.png</Source>
+      <Name>Resource\unit-sprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\unit-sprite.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\button_a.png</Source>
+      <Name>Resource\button_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\button_a.xnb</Output>
+      <Time>2010-02-15T15:00:12-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\button_bfs.png</Source>
+      <Name>Resource\button_bfs</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\button_bfs.xnb</Output>
+      <Time>2010-02-15T14:54:48-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\button_csp.png</Source>
+      <Name>Resource\button_csp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\button_csp.xnb</Output>
+      <Time>2010-02-15T14:58:18-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\button_dfs.png</Source>
+      <Name>Resource\button_dfs</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\button_dfs.xnb</Output>
+      <Time>2010-02-15T14:55:34-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\button_greedy.png</Source>
+      <Name>Resource\button_greedy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\button_greedy.xnb</Output>
+      <Time>2010-02-15T15:00:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\button_ucs.png</Source>
+      <Name>Resource\button_ucs</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\button_ucs.xnb</Output>
+      <Time>2010-02-15T14:59:10-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\metalbg.png</Source>
+      <Name>Resource\metalbg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\metalbg.xnb</Output>
+      <Time>2010-02-15T16:26:06-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Info.spritefont</Source>
+      <Name>Info</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Info.xnb</Output>
+      <Time>2010-02-14T17:06:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>SFX\found.wav</Source>
+      <Name>SFX\found</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\SFX\found.xnb</Output>
+      <Time>2010-02-15T09:01:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>SFX\notfound.wav</Source>
+      <Name>SFX\notfound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\SFX\notfound.xnb</Output>
+      <Time>2010-02-15T09:01:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>SFX\ok.wav</Source>
+      <Name>SFX\ok</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\SFX\ok.xnb</Output>
+      <Time>2010-02-15T09:01:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>SFX\search.wav</Source>
+      <Name>SFX\search</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\SFX\search.xnb</Output>
+      <Time>2010-02-15T09:01:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>SFX\start.wav</Source>
+      <Name>SFX\start</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\SFX\start.xnb</Output>
+      <Time>2010-02-15T09:01:54-08:00</Time>
+    </Item>
+    <Item>
+      <Source>BGM\main.mp3</Source>
+      <Name>BGM\main</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\BGM\main.xnb</Output>
+      <Extra>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\BGM\main.wma</Extra>
+      <Time>2010-02-15T09:02:06-08:00</Time>
+    </Item>
+    <Item>
+      <Source>BGM\make.wma</Source>
+      <Name>BGM\make</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\BGM\make.xnb</Output>
+      <Extra>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\BGM\make.wma</Extra>
+      <Time>2010-02-15T09:02:06-08:00</Time>
+    </Item>
+    <Item>
+      <Source>BGM\simulate.wma</Source>
+      <Name>BGM\simulate</Name>
+      <Importer>WmaImporter</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\BGM\simulate.xnb</Output>
+      <Extra>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\BGM\simulate.wma</Extra>
+      <Time>2010-02-15T09:02:06-08:00</Time>
+    </Item>
+    <Item>
+      <Source>Resource\StartButton.png</Source>
+      <Name>Resource\StartButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\Resource\StartButton.xnb</Output>
+      <Time>2010-02-15T13:55:56-08:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\Content\</RootDirectory>
+      <LoggerRootDirectory>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\</LoggerRootDirectory>
+      <IntermediateDirectory>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2009-05-28T00:16:14+07:00</Value>
+        <Value>2009-05-28T01:16:14-07:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2009-05-28T00:16:06+07:00</Value>
+        <Value>2009-05-28T01:16:06-07:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2009-05-28T00:16:16+07:00</Value>
+        <Value>2009-05-28T01:16:16-07:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2009-05-28T00:16:26+07:00</Value>
+        <Value>2009-05-28T01:16:26-07:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2009-05-28T00:16:12+07:00</Value>
+        <Value>2009-05-28T01:16:12-07:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v3.1\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2009-05-28T00:16:06+07:00</Value>
+        <Value>2009-05-28T01:16:06-07:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\WINDOWS\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2009-11-11T10:32:46.96875+07:00</Value>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.1.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2009-11-04T08:58:04.308-08:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

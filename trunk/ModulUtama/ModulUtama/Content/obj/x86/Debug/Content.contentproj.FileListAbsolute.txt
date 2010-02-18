@@ -1,2 +1,3 @@
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\ModulUtama\ModulUtama\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Christian\Desktop\IB\ModulUtama\ModulUtama\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\ModulUtama\ModulUtama\Content\obj\x86\Debug\ResolveAssemblyReference.cache

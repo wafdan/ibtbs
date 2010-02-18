@@ -11,6 +11,7 @@ namespace ModulUtama.Class
     class MenuController
     {
         public GameController GC{ get; private set; }
+        public bool hasilFlipCoin;
 
         /*
          * Input: dllpath1(jelas), dllpath2(jelas), komposisi1(jelas), komposisi2(jelas)
@@ -18,7 +19,8 @@ namespace ModulUtama.Class
          */
         public MenuController(String dllPath1, String dllPath2, int[] komposisi1, int[] komposisi2, String typeAgent1, String typeAgent2)
         {
-            GC = new GameController(dllPath1, dllPath2, flipcoin(), countTeam(komposisi1), countTeam(komposisi2), typeAgent1, typeAgent2);
+            hasilFlipCoin = flipcoin();
+            GC = new GameController(dllPath1, dllPath2, hasilFlipCoin, countTeam(komposisi1), countTeam(komposisi2), typeAgent1, typeAgent2);
         }
 
         /*

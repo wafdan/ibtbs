@@ -9,7 +9,10 @@ namespace TubesAI.Model
         public int index { get; private set; }
         private int n_lifePotion;
         private int n_potion;
+        private const int jumlahPotion = 10;
+        private const int jumlahLifePotion = 5;
         public List<Unit> listUnit;
+
 
         /// <summary>
         /// Memberikan Unit pada Team team dengan index ke-index
@@ -31,8 +34,8 @@ namespace TubesAI.Model
             index = copyTeam.index;
             listUnit = new List<Unit>();
 
-            n_lifePotion = 10;
-            n_potion = 10;
+            n_lifePotion = jumlahLifePotion;
+            n_potion = jumlahPotion;
 
             foreach (var unit in copyTeam.listUnit)
             {
@@ -46,8 +49,8 @@ namespace TubesAI.Model
             int iter = 0;
             listUnit=new List<Unit>();
 
-            n_lifePotion=10;
-            n_potion=10;
+            n_lifePotion = jumlahLifePotion;
+            n_potion = jumlahPotion;
 
             for (int i = 0; i < n_archer; i++)
             {
@@ -96,14 +99,14 @@ namespace TubesAI.Model
             return n_potion > 0;
         }
 
-        public void givePotion(int num)
+        public void ResetPotion()
         {
-            n_potion = num;
+            n_potion = jumlahPotion;
         }
 
-        public void giveLifePotion(int num)
+        public void ResetLifePotion()
         {
-            n_lifePotion = num;
+            n_lifePotion = jumlahLifePotion;
         }
     }
 }

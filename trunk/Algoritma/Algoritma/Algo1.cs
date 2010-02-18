@@ -47,6 +47,9 @@ namespace Algoritma
 
     public class DFS : AgentInterface
     {
+        public DFS()
+        {
+        }
 
         public bool firstTurn
         {
@@ -70,6 +73,9 @@ namespace Algoritma
 
     public class UCS : AgentInterface
     {
+        public UCS()
+        {
+        }
 
         public bool firstTurn
         {
@@ -93,6 +99,9 @@ namespace Algoritma
 
     public class Greedy : AgentInterface
     {
+        public Greedy()
+        {
+        }
 
         public bool firstTurn
         {
@@ -116,6 +125,10 @@ namespace Algoritma
 
     public class Astar : AgentInterface
     {
+        public Astar()
+        { 
+        }
+
         public bool firstTurn
         {
             get
@@ -138,6 +151,10 @@ namespace Algoritma
 
     public class CSP : AgentInterface
     {
+        public CSP()
+        {
+        }
+
         public bool firstTurn
         {
             get

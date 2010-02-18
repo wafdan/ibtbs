@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="TubesAI-dll-model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ModulUtama\ModulUtama\bin\x86\Debug\TubesAI-dll-model.dll</HintPath>
+      <HintPath>..\..\Model DLL\TubesAI-dll-model\bin\Debug\TubesAI-dll-model.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

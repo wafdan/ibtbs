@@ -5,3 +5,10 @@ D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\bin\Deb
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\obj\Debug\ResolveAssemblyReference.cache
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\obj\Debug\Algoritma.dll
 D:\Study\6th-Semester\IF3054 - AI\Tubes\Tubes1\IBTBS\Algoritma\Algoritma\obj\Debug\Algoritma.pdb
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\bin\Debug\Algoritma.dll
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\bin\Debug\Algoritma.pdb
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\bin\Debug\TubesAI-dll-model.dll
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\bin\Debug\TubesAI-dll-model.pdb
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\obj\Debug\ResolveAssemblyReference.cache
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\obj\Debug\Algoritma.dll
+E:\IF3054_AI\Tubes 1\source\repo\IBTBS-Working Dir\Algoritma\Algoritma\obj\Debug\Algoritma.pdb

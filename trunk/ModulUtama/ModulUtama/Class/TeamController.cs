@@ -6,15 +6,6 @@ using TubesAI.Model;
 
 namespace ModulUtama.Class
 {
-    /*
-       Jenis2 Set image:
-        AC.Attack(ElemenAksi A,int poin,bool miss);
-        AC.Kill(ElemenAksi A,int poin);
-        AC.Defend(ElemenAksi A);
-        AC.Heal(ElemenAksi A,int poin,int miss);
-        AC.UseItem(ElemenAksi A,int poin,int miss);
-        AC.Win(int Team);
-    */
 
     /// <summary>
     /// Controller yang mengatur giliran unit untuk melakukan aksi,
@@ -48,10 +39,6 @@ namespace ModulUtama.Class
         /// Heal normal = 500 poin
         /// </summary>
         private const int Heal = 500;
-        /// <summary>
-        /// Jumlah item normal = 10 item
-        /// </summary>
-        private const int numitem = 10;
         #endregion
 
         #region constructors
@@ -109,7 +96,7 @@ namespace ModulUtama.Class
 
         /// <summary>
         /// Me-restore semua Unit pada masing-masing Team.
-        /// Membekali masing-masing Team dengan 10 potion dan 10 life Potion.
+        /// Membekali masing-masing Team dengan 10 potion dan 5 life Potion.
         /// </summary>
         public void ResetTeam()
         {
@@ -123,10 +110,10 @@ namespace ModulUtama.Class
                 un.setHP(un.getMaxHP());
             }
             // beri 10 potion dan 10 life potion
-            Team1.giveLifePotion(numitem);
-            Team1.givePotion(numitem);
-            Team2.giveLifePotion(numitem);
-            Team2.givePotion(numitem);
+            Team1.ResetPotion();
+            Team1.ResetLifePotion();
+            Team2.ResetPotion();
+            Team2.ResetLifePotion();
         }
         
         /// <summary>
@@ -210,8 +197,15 @@ namespace ModulUtama.Class
         /// <param name="dua">Unit yang diheal</param>
         public void CalculationHeal(Unit satu,Unit dua)
         {
-            dua.setHP(dua.getCurrentHP() + Heal);
-            if (dua.getCurrentHP() > dua.getMaxHP()) dua.setHP(dua.getMaxHP());
+            if (satu is Medic)
+            {
+                if (!((Medic)satu).isTidakBisaCuring())
+                {
+                    dua.setHP(dua.getCurrentHP() + Heal);
+                    if (dua.getCurrentHP() > dua.getMaxHP()) dua.setHP(dua.getMaxHP());
+                    ((Medic)satu).decreaseAvalCuring();
+                }
+            }
         }
         
         /// <summary>
@@ -222,6 +216,8 @@ namespace ModulUtama.Class
         public void CalculationLife(Unit satu,Unit dua)
         {
             dua.setHP((int)(0.5 * dua.getMaxHP()));
+            if (dua is Medic)
+                ((Medic)dua).resetAvalCuring();
         }
 
         private void AddAction(Unit attacker, Unit defender, ElemenAksi action, Team team)
