@@ -108,9 +108,19 @@ namespace ModulUtama.Class
          */
         private void buangAksi(Team team, List<ElemenAksi> act)
         {
-            foreach (var iter_act in act)
+            if (act.Count() < 12)
             {
-                if (!isActionValid(team.FindUnit(iter_act.index_pelaku), iter_act))
+                foreach (var iter_act in act)
+                {
+                    if (!isActionValid(team.FindUnit(iter_act.index_pelaku), iter_act))
+                    {
+                        iter_act.aksi = Aksi.nothing;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var iter_act in act)
                 {
                     iter_act.aksi = Aksi.nothing;
                 }
