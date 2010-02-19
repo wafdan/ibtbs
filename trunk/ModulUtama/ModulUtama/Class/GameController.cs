@@ -108,13 +108,25 @@ namespace ModulUtama.Class
          */
         private void buangAksi(Team team, List<ElemenAksi> act)
         {
+            bool[] isMove = new bool[11];
+            for (int i = 0; i < 11; i++)
+                isMove[i] = false;
+
             if (act.Count() < 12)
             {
                 foreach (var iter_act in act)
                 {
-                    if (!isActionValid(team.FindUnit(iter_act.index_pelaku), iter_act))
+                    if (!isActionValid(team.FindUnit(iter_act.index_pelaku), iter_act) ||
+                        (isMove[iter_act.index_pelaku] == true) ||
+                        iter_act.index_pelaku < 0 || iter_act.index_pelaku > 10 ||
+                        iter_act.index_sasaran < 0 || iter_act.index_sasaran > 10 ||
+                        iter_act.tim_sasaran < 0 || iter_act.tim_sasaran > 1)
                     {
                         iter_act.aksi = Aksi.nothing;
+                    }
+                    else
+                    {
+                        isMove[iter_act.index_pelaku] = true;
                     }
                 }
             }
