@@ -57,6 +57,7 @@ namespace ModulUtama.Class
                         || DList.First().sourceDraw.Y == 6 * 80 //Dead
                         || DList.First().sourceDraw.Y == 3 * 80 //Attacked
                         || DList.First().sourceDraw.Y == 4 * 80 //Healed
+                        || DList.First().sourceDraw.Y == 5 * 80 //RES
                         || DList.First().sourceDraw.Y == 1 * 80) //Defend
                         )
                 {
