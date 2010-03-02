@@ -68,12 +68,19 @@ namespace ModulUtama.Class
                     FList = DList.Dequeue();
                     CurrPoint = PList.Dequeue();
                     spritebatch.Draw(FList.textDraw, places[FList.indexDraw], FList.sourceDraw, Color.White);
-                    if (CurrPoint.point > 0)
+                    if (CurrPoint.point != 0)
                     {
-                        spritebatch.DrawString(spritefont, "-" + CurrPoint.point, places[CurrPoint.indexDraw], Color.Red);
+                        if(CurrPoint.point > 0)
+                            spritebatch.DrawString(spritefont, CurrPoint.point.ToString(), places[CurrPoint.indexDraw], Color.Green);
+                        else
+                            spritebatch.DrawString(spritefont, CurrPoint.point.ToString(), places[CurrPoint.indexDraw], Color.Red);
                         if (DList.Count % 4 == 1)
                             Game.sound.SFX_ok(game);
-                        health[CurrPoint.indexDraw] -= CurrPoint.point / 4;
+                        var buffHealth = health[CurrPoint.indexDraw] + CurrPoint.point / 4;
+                        if (buffHealth > maxhealth[CurrPoint.indexDraw])
+                            health[CurrPoint.indexDraw] = maxhealth[CurrPoint.indexDraw];
+                        else
+                            health[CurrPoint.indexDraw] = buffHealth;
                     }
                     else
                     {

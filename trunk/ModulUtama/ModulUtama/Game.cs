@@ -65,6 +65,7 @@ namespace ModulUtama
         bool udahpilih;
         int countFlip;
         bool Hasilflipcoin;
+        bool firstMove = false;
         
         // Composition
         int player_index, char_index;
@@ -632,6 +633,7 @@ namespace ModulUtama
             }
             else if (ScreenState == 4)
             {
+
                 MC.GC.GameLoop();
             }
 
@@ -656,225 +658,232 @@ namespace ModulUtama
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-                //GraphicsDevice.Clear(Color.CornflowerBlue);
-                spriteBatch.Begin();
-                // spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
-                if (ScreenState == 0)
-                {
-                    spriteBatch.Draw(Screen[0], new Rectangle(0, 0, Screen[0].Width, Screen[0].Height), Color.White);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
+            // spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
+            if (ScreenState == 0)
+            {
+                spriteBatch.Draw(Screen[0], new Rectangle(0, 0, Screen[0].Width, Screen[0].Height), Color.White);
 
-                    // Start Button
-                    if (start_hovered)
-                    {
-                        spriteBatch.Draw(Button[14], new Rectangle(400 - (Button[14].Width / 2), 350, Button[14].Width, Button[14].Height), Color.White);
-                    }
-                    else spriteBatch.Draw(Button[13], new Rectangle(400 - (Button[13].Width / 2), 350, Button[13].Width, Button[13].Height), Color.White);
-                    // Help Button
-                    if (help_hovered)
-                    {
-                        spriteBatch.Draw(Button[16], new Rectangle(400 - (Button[16].Width / 2), 350 + Button[16].Height + 10, Button[16].Width, Button[16].Height), Color.White);
-                    }
-                    else spriteBatch.Draw(Button[15], new Rectangle(400 - (Button[15].Width / 2), 350 + Button[15].Height + 10, Button[15].Width, Button[15].Height), Color.White);
-                    // Exit Button
-                    if (exit_hovered)
-                    {
-                        spriteBatch.Draw(Button[18], new Rectangle(400 - (Button[18].Width / 2), 350 + 2 * (Button[18].Height + 10), Button[18].Width, Button[18].Height), Color.White);
-                    }
-                    else spriteBatch.Draw(Button[17], new Rectangle(400 - (Button[17].Width / 2), 350 + 2 * (Button[17].Height + 10), Button[17].Width, Button[17].Height), Color.White);
-                }
-                else if (ScreenState == 1)
+                // Start Button
+                if (start_hovered)
                 {
-                    // layar bagian atas
-                    spriteBatch.Draw(Screen[2], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
-                    // layar bagian bawah
-                    spriteBatch.Draw(Screen[3], new Rectangle(0, 600 - Screen[3].Height, Screen[3].Width, Screen[3].Height), Color.White);
-                    // kolom sprite unit
+                    spriteBatch.Draw(Button[14], new Rectangle(400 - (Button[14].Width / 2), 350, Button[14].Width, Button[14].Height), Color.White);
+                }
+                else spriteBatch.Draw(Button[13], new Rectangle(400 - (Button[13].Width / 2), 350, Button[13].Width, Button[13].Height), Color.White);
+                // Help Button
+                if (help_hovered)
+                {
+                    spriteBatch.Draw(Button[16], new Rectangle(400 - (Button[16].Width / 2), 350 + Button[16].Height + 10, Button[16].Width, Button[16].Height), Color.White);
+                }
+                else spriteBatch.Draw(Button[15], new Rectangle(400 - (Button[15].Width / 2), 350 + Button[15].Height + 10, Button[15].Width, Button[15].Height), Color.White);
+                // Exit Button
+                if (exit_hovered)
+                {
+                    spriteBatch.Draw(Button[18], new Rectangle(400 - (Button[18].Width / 2), 350 + 2 * (Button[18].Height + 10), Button[18].Width, Button[18].Height), Color.White);
+                }
+                else spriteBatch.Draw(Button[17], new Rectangle(400 - (Button[17].Width / 2), 350 + 2 * (Button[17].Height + 10), Button[17].Width, Button[17].Height), Color.White);
+            }
+            else if (ScreenState == 1)
+            {
+                // layar bagian atas
+                spriteBatch.Draw(Screen[2], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
+                // layar bagian bawah
+                spriteBatch.Draw(Screen[3], new Rectangle(0, 600 - Screen[3].Height, Screen[3].Width, Screen[3].Height), Color.White);
+                // kolom sprite unit
+                for (int i = 0; i < 11; i++)
+                {
+                    spriteBatch.Draw(Symbol[0], new Rectangle(43 + i * (11 + Symbol[0].Width), 55, Symbol[0].Width, Symbol[0].Height), Color.White);
+                    spriteBatch.Draw(Symbol[0], new Rectangle(43 + i * (11 + Symbol[0].Width), 435, Symbol[0].Width, Symbol[0].Height), Color.White);
+                }
+                // panah atas
+                if (up_pressed)
+                {
+                    spriteBatch.Draw(Button[4], new Rectangle(43 + (char_index - 1) * (11 + Button[4].Width), 20 + (player_index - 1) * 379, Button[4].Width, Button[4].Height), Color.White);
+                    up_pressed = false;
+                }
+                else spriteBatch.Draw(Button[1], new Rectangle(43 + (char_index - 1) * (11 + Button[1].Width), 20 + (player_index - 1) * 379, Button[1].Width, Button[1].Height), Color.White);
+                // panah bawah
+                if (down_pressed)
+                {
+                    spriteBatch.Draw(Button[5], new Rectangle(43 + (char_index - 1) * (11 + Button[5].Width), 179 + (player_index - 1) * 379, Button[5].Width, Button[5].Height), Color.White);
+                    down_pressed = false;
+                }
+                else spriteBatch.Draw(Button[2], new Rectangle(43 + (char_index - 1) * (11 + Button[2].Width), 179 + (player_index - 1) * 379, Button[2].Width, Button[2].Height), Color.White);
+                // kursor
+                spriteBatch.Draw(Symbol[1], new Rectangle(43 + (char_index - 1) * (11 + Symbol[1].Width), 55 + (player_index - 1) * 380, Symbol[1].Width, Symbol[1].Height), Color.White);
+                // load P1 - DLL
+                if (dll_p1_hovered)
+                {
+                    spriteBatch.Draw(Button[8], new Rectangle(25, 260, Button[8].Width, Button[8].Height), Color.White);
+                    // dll_p1_hovered = false;
+                }
+                else spriteBatch.Draw(Button[6], new Rectangle(25, 260, Button[6].Width, Button[6].Height), Color.White);
+                // load P1 - Komposisi
+                if (komp_p1_hovered)
+                {
+                    spriteBatch.Draw(Button[9], new Rectangle(25 + Button[7].Width + 10, 260, Button[9].Width, Button[9].Height), Color.White);
+                    // komp_p1_hovered = false;
+                }
+                else spriteBatch.Draw(Button[7], new Rectangle(25 + Button[7].Width + 10, 260, Button[7].Width, Button[7].Height), Color.White);
+                // load P2 - DLL
+                if (dll_p2_hovered)
+                {
+                    spriteBatch.Draw(Button[10], new Rectangle(475, 310, Button[10].Width, Button[10].Height), Color.White);
+                    // dll_p2_hovered = false;
+                }
+                else spriteBatch.Draw(Button[6], new Rectangle(475, 310, Button[6].Width, Button[6].Height), Color.White);
+                // load P2 - Komposisi
+                if (komp_p2_hovered)
+                {
+                    spriteBatch.Draw(Button[11], new Rectangle(475 + Button[11].Width + 10, 310, Button[11].Width, Button[11].Height), Color.White);
+                    // komp_p2_hovered = false;
+                }
+                else spriteBatch.Draw(Button[7], new Rectangle(475 + Button[7].Width + 10, 310, Button[7].Width, Button[7].Height), Color.White);
+
+                if (player_index == 1)
+                {
+                    spriteBatch.Draw(Screen[5], new Rectangle(0, 600 - Screen[2].Height, Screen[2].Width, Screen[2].Height), Color.White);
+                    if (dll_p1_selected)
+                        spriteBatch.DrawString(spriteFont, "Player 1 has loaded algorithm", new Vector2(50, 220), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    else
+                        spriteBatch.DrawString(spriteFont, "Please load algorithm", new Vector2(50, 220), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                }
+                else if (player_index == 2)
+                {
+                    spriteBatch.Draw(Screen[4], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
+                    if (dll_p2_selected)
+                        spriteBatch.DrawString(spriteFont, "Player 2 has loaded algorithm", new Vector2(470, 360), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                    else
+                        spriteBatch.DrawString(spriteFont, "Please load algorithm", new Vector2(550, 360), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                }
+
+                // tombol go
+                if (go_hovered)
+                {
+                    spriteBatch.Draw(Button[12], new Rectangle(360, 260, Button[12].Width, Button[12].Height), Color.White);
+                    // go_hovered = false;
+                }
+                else spriteBatch.Draw(Button[3], new Rectangle(360, 260, Button[3].Width, Button[3].Height), Color.White);
+                
+                if (player_index == 1)
+                {
                     for (int i = 0; i < 11; i++)
                     {
-                        spriteBatch.Draw(Symbol[0], new Rectangle(43 + i * (11 + Symbol[0].Width), 55, Symbol[0].Width, Symbol[0].Height), Color.White);
-                        spriteBatch.Draw(Symbol[0], new Rectangle(43 + i * (11 + Symbol[0].Width), 435, Symbol[0].Width, Symbol[0].Height), Color.White);
-                    }
-                    // panah atas
-                    if (up_pressed)
-                    {
-                        spriteBatch.Draw(Button[4], new Rectangle(43 + (char_index - 1) * (11 + Button[4].Width), 20 + (player_index - 1) * 379, Button[4].Width, Button[4].Height), Color.White);
-                        up_pressed = false;
-                    }
-                    else spriteBatch.Draw(Button[1], new Rectangle(43 + (char_index - 1) * (11 + Button[1].Width), 20 + (player_index - 1) * 379, Button[1].Width, Button[1].Height), Color.White);
-                    // panah bawah
-                    if (down_pressed)
-                    {
-                        spriteBatch.Draw(Button[5], new Rectangle(43 + (char_index - 1) * (11 + Button[5].Width), 179 + (player_index - 1) * 379, Button[5].Width, Button[5].Height), Color.White);
-                        down_pressed = false;
-                    }
-                    else spriteBatch.Draw(Button[2], new Rectangle(43 + (char_index - 1) * (11 + Button[2].Width), 179 + (player_index - 1) * 379, Button[2].Width, Button[2].Height), Color.White);
-                    // kursor
-                    spriteBatch.Draw(Symbol[1], new Rectangle(43 + (char_index - 1) * (11 + Symbol[1].Width), 55 + (player_index - 1) * 380, Symbol[1].Width, Symbol[1].Height), Color.White);
-                    // load P1 - DLL
-                    if (dll_p1_hovered)
-                    {
-                        spriteBatch.Draw(Button[8], new Rectangle(25, 260, Button[8].Width, Button[8].Height), Color.White);
-                        // dll_p1_hovered = false;
-                    }
-                    else spriteBatch.Draw(Button[6], new Rectangle(25, 260, Button[6].Width, Button[6].Height), Color.White);
-                    // load P1 - Komposisi
-                    if (komp_p1_hovered)
-                    {
-                        spriteBatch.Draw(Button[9], new Rectangle(25 + Button[7].Width + 10, 260, Button[9].Width, Button[9].Height), Color.White);
-                        // komp_p1_hovered = false;
-                    }
-                    else spriteBatch.Draw(Button[7], new Rectangle(25 + Button[7].Width + 10, 260, Button[7].Width, Button[7].Height), Color.White);
-                    // load P2 - DLL
-                    if (dll_p2_hovered)
-                    {
-                        spriteBatch.Draw(Button[10], new Rectangle(475, 310, Button[10].Width, Button[10].Height), Color.White);
-                        // dll_p2_hovered = false;
-                    }
-                    else spriteBatch.Draw(Button[6], new Rectangle(475, 310, Button[6].Width, Button[6].Height), Color.White);
-                    // load P2 - Komposisi
-                    if (komp_p2_hovered)
-                    {
-                        spriteBatch.Draw(Button[11], new Rectangle(475 + Button[11].Width + 10, 310, Button[11].Width, Button[11].Height), Color.White);
-                        // komp_p2_hovered = false;
-                    }
-                    else spriteBatch.Draw(Button[7], new Rectangle(475 + Button[7].Width + 10, 310, Button[7].Width, Button[7].Height), Color.White);
-
-                    if (player_index == 1)
-                    {
-                        spriteBatch.Draw(Screen[5], new Rectangle(0, 600 - Screen[2].Height, Screen[2].Width, Screen[2].Height), Color.White);
-                        if (dll_p1_selected)
-                            spriteBatch.DrawString(spriteFont, "Player 1 has loaded algorithm", new Vector2(50, 220), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-                        else
-                            spriteBatch.DrawString(spriteFont, "Please load algorithm", new Vector2(50, 220), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-                    }
-                    else if (player_index == 2)
-                    {
-                        spriteBatch.Draw(Screen[4], new Rectangle(0, 0, Screen[2].Width, Screen[2].Height), Color.White);
-                        if (dll_p2_selected)
-                            spriteBatch.DrawString(spriteFont, "Player 2 has loaded algorithm", new Vector2(470, 360), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-                        else
-                            spriteBatch.DrawString(spriteFont, "Please load algorithm", new Vector2(550, 360), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
-                    }
-
-                    // tombol go
-                    if (go_hovered)
-                    {
-                        spriteBatch.Draw(Button[12], new Rectangle(360, 260, Button[12].Width, Button[12].Height), Color.White);
-                        // go_hovered = false;
-                    }
-                    else spriteBatch.Draw(Button[3], new Rectangle(360, 260, Button[3].Width, Button[3].Height), Color.White);
-                    
-                    if (player_index == 1)
-                    {
-                        for (int i = 0; i < 11; i++)
+                        if (composition_p1[i] == 0)
                         {
-                            if (composition_p1[i] == 0)
-                            {
-                                spriteBatch.Draw(Archer.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p1[i] == 1)
-                            {
-                                spriteBatch.Draw(Medic.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p1[i] == 2)
-                            {
-                                spriteBatch.Draw(Spearman.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p1[i] == 3)
-                            {
-                                spriteBatch.Draw(Rider.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p1[i] == 4)
-                            {
-                                spriteBatch.Draw(Swordsman.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
+                            spriteBatch.Draw(Archer.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p1[i] == 1)
+                        {
+                            spriteBatch.Draw(Medic.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p1[i] == 2)
+                        {
+                            spriteBatch.Draw(Spearman.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p1[i] == 3)
+                        {
+                            spriteBatch.Draw(Rider.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p1[i] == 4)
+                        {
+                            spriteBatch.Draw(Swordsman.textureL, new Vector2((i * 66) + 50, 50), new Rectangle(0, 0, 50, 80), Color.White);
                         }
                     }
-                    else
+                }
+                else
+                {
+                    for (int i = 0; i < 11; i++)
                     {
-                        for (int i = 0; i < 11; i++)
+                        if (composition_p2[i] == 0)
                         {
-                            if (composition_p2[i] == 0)
-                            {
-                                spriteBatch.Draw(Archer.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p2[i] == 1)
-                            {
-                                spriteBatch.Draw(Medic.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p2[i] == 2)
-                            {
-                                spriteBatch.Draw(Spearman.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p2[i] == 3)
-                            {
-                                spriteBatch.Draw(Rider.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
-                            else if (composition_p2[i] == 4)
-                            {
-                                spriteBatch.Draw(Swordsman.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
-                            }
+                            spriteBatch.Draw(Archer.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p2[i] == 1)
+                        {
+                            spriteBatch.Draw(Medic.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p2[i] == 2)
+                        {
+                            spriteBatch.Draw(Spearman.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p2[i] == 3)
+                        {
+                            spriteBatch.Draw(Rider.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
+                        }
+                        else if (composition_p2[i] == 4)
+                        {
+                            spriteBatch.Draw(Swordsman.textureL, new Vector2((i * 66) + 50, 425), new Rectangle(0, 0, 50, 80), Color.White);
                         }
                     }
-
                 }
 
-                else if (ScreenState == 2)
+            }
+
+            else if (ScreenState == 2)
+            {
+                spriteBatch.Draw(Screen[1], new Rectangle(0, 0, Screen[1].Width, Screen[1].Height), Color.White);
+
+                spriteBatch.Draw(Button[19], new Rectangle(100, 200, 300, 100), Color.White);
+                spriteBatch.Draw(Button[20], new Rectangle(100, 325, 300, 100), Color.White);
+                spriteBatch.Draw(Button[21], new Rectangle(100, 450, 300, 100), Color.White);
+                spriteBatch.Draw(Button[22], new Rectangle(450, 200, 300, 100), Color.White);
+                spriteBatch.Draw(Button[23], new Rectangle(450, 325, 300, 100), Color.White);
+                spriteBatch.Draw(Button[24], new Rectangle(450, 450, 300, 100), Color.White);
+
+                if (udahpilih)
                 {
-                    spriteBatch.Draw(Screen[1], new Rectangle(0, 0, Screen[1].Width, Screen[1].Height), Color.White);
-
-                    spriteBatch.Draw(Button[19], new Rectangle(100, 200, 300, 100), Color.White);
-                    spriteBatch.Draw(Button[20], new Rectangle(100, 325, 300, 100), Color.White);
-                    spriteBatch.Draw(Button[21], new Rectangle(100, 450, 300, 100), Color.White);
-                    spriteBatch.Draw(Button[22], new Rectangle(450, 200, 300, 100), Color.White);
-                    spriteBatch.Draw(Button[23], new Rectangle(450, 325, 300, 100), Color.White);
-                    spriteBatch.Draw(Button[24], new Rectangle(450, 450, 300, 100), Color.White);
-
-                    if (udahpilih)
-                    {
-                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 2", new Vector2(102, 52), Color.Black, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
-                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 2", new Vector2(100, 50), Color.Yellow, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
-                    }
-                    else
-                    {
-                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 1", new Vector2(102, 52), Color.Black, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
-                        spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 1", new Vector2(100, 50), Color.Green, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
-                    }
-
+                    spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 2", new Vector2(102, 52), Color.Black, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 2", new Vector2(100, 50), Color.Yellow, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                }
+                else
+                {
+                    spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 1", new Vector2(102, 52), Color.Black, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(spriteFont, "PILIH ALGORITMA 1", new Vector2(100, 50), Color.Green, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
                 }
 
-                else if (ScreenState == 3)
+            }
+
+            else if (ScreenState == 3)
+            {
+                GraphicsDevice.Clear(Color.TransparentWhite);
+                // Tes flip-coin
+                if (countFlip == 0)
                 {
-                    GraphicsDevice.Clear(Color.TransparentWhite);
-                    // Tes flip-coin
-                    if (countFlip == 0)
+                    spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
+                    if (slide_finished == false)
                     {
-                        spriteBatch.Draw(spriteSheet, destinationRect, sourceRect, Color.White);
-                        if (slide_finished == false)
-                        {
-                            // layar bagian atas
-                            spriteBatch.Draw(Screen[2], new Rectangle(0, 0 - (currentFrame * 15), Screen[2].Width, Screen[2].Height), Color.White);
-                            // layar bagian bawah
-                            spriteBatch.Draw(Screen[3], new Rectangle(0, 600 - Screen[3].Height + (currentFrame * 15), Screen[3].Width, Screen[3].Height), Color.White);
-                        }
+                        // layar bagian atas
+                        spriteBatch.Draw(Screen[2], new Rectangle(0, 0 - (currentFrame * 15), Screen[2].Width, Screen[2].Height), Color.White);
+                        // layar bagian bawah
+                        spriteBatch.Draw(Screen[3], new Rectangle(0, 600 - Screen[3].Height + (currentFrame * 15), Screen[3].Width, Screen[3].Height), Color.White);
                     }
-                    else if (countFlip == 1)
-                    {
-                        if (Hasilflipcoin)
-                        {
-                            spriteBatch.Draw(Button[25], new Vector2(300, 200), Color.White);
-                        }
-                        else if (!Hasilflipcoin)
-                        {
-                            spriteBatch.Draw(Button[26], new Vector2(300, 200), Color.White);
-                        }
-                    }
-
-
                 }
-                else if (ScreenState == 4)
+                else if (countFlip == 1)
                 {
-                    if (isGameOver == 0 || ViewGame.drawcount > 40)
+                    if (Hasilflipcoin)
+                    {
+                        spriteBatch.Draw(Button[25], new Vector2(300, 200), Color.White);
+                    }
+                    else if (!Hasilflipcoin)
+                    {
+                        spriteBatch.Draw(Button[26], new Vector2(300, 200), Color.White);
+                    }
+                }
+
+
+            }
+            else if (ScreenState == 4)
+            {
+                if (!firstMove)
+                {
+                    ViewGame.draw(spriteBatch, spriteFont, this);
+                    firstMove = true;
+                }
+                else
+                {
+                    if (isGameOver == 0 || ViewGame.drawcount > 1)
                     {
                         // TODO: Add your drawing code here
                         if (drawingdelay > 100)
@@ -893,15 +902,16 @@ namespace ModulUtama
                             sound.BGM_main(this);
                             play = true;
                         }
-                        if (isGameOver == 1)                        
+                        if (isGameOver == 1)
                             spriteBatch.DrawString(spriteFont, "TEAM 1 WINS!", new Vector2(100, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
                         else if (isGameOver == 2)
                             spriteBatch.DrawString(spriteFont, "TEAM 2 WINS!", new Vector2(500, 300), Color.Yellow, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
                         spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(80, 500), Color.SteelBlue, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
                     }
                 }
+            }
 
-                spriteBatch.End();
+            spriteBatch.End();
             drawingdelay += gameTime.ElapsedGameTime.Milliseconds;
             base.Draw(gameTime);
         }
