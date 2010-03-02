@@ -86,11 +86,20 @@ namespace ModulUtama.Class
         /// <returns></returns>
         private static ElemenAksi FindElemenAksi(List<ElemenAksi> listelemenaksi,int index)
         {
+            /*
             foreach (ElemenAksi el in listelemenaksi)
             {
                 if (listelemenaksi.FindIndex(re => re == el) == index) return el;
             }
-            return null;
+            */
+            if (index >= 0 && index < (listelemenaksi.Count -1))
+            {
+                return listelemenaksi[index];
+            }
+            else
+            {
+                return null;
+            }
         }
 
 
@@ -109,7 +118,7 @@ namespace ModulUtama.Class
             {
                 un.setHP(un.getMaxHP());
             }
-            // beri 10 potion dan 10 life potion
+            // beri 10 potion dan 5 life potion
             Team1.ResetPotion();
             Team1.ResetLifePotion();
             Team2.ResetPotion();
