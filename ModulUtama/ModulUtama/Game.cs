@@ -883,10 +883,10 @@ namespace ModulUtama
                 }
                 else
                 {
-                    if (isGameOver == 0 || ViewGame.drawcount > 1)
+                    if (isGameOver == 0 || ViewGame.drawcount > 22)
                     {
                         // TODO: Add your drawing code here
-                        if (drawingdelay > 100)
+                        if (drawingdelay > 1)
                         {
                             GraphicsDevice.Clear(Color.CornflowerBlue);
                             spriteBatch.Draw(BG, new Rectangle(0, 0, 800, 600), Color.White);
@@ -906,6 +906,7 @@ namespace ModulUtama
                             spriteBatch.DrawString(spriteFont, "TEAM 1 WINS!", new Vector2(100, 300), Color.Green, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
                         else if (isGameOver == 2)
                             spriteBatch.DrawString(spriteFont, "TEAM 2 WINS!", new Vector2(500, 300), Color.Yellow, 0f, Vector2.Zero, 2f, SpriteEffects.None, 1f);
+                        firstMove = false;
                         spriteBatch.DrawString(spriteFont, "PRESS ENTER TO GO BACK TO MAIN SCREEN", new Vector2(80, 500), Color.SteelBlue, 0f, Vector2.Zero, 1.5f, SpriteEffects.None, 1f);
                     }
                 }
