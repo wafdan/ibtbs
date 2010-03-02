@@ -27,13 +27,13 @@ namespace TubesAI.Model
             isBertahan = false;
         }
 
-        public Medic(int _index, int curHP)
+        public Medic(int _index, int curHP,int availablecuring)
         {
             index = _index;
             this.maxHP = 2000;
             this.currentHP = curHP;
             this.urutan = 4;
-            this.avalaibleCuring = available;
+            this.avalaibleCuring = availablecuring;
             isBertahan = false;
         }
 
@@ -43,7 +43,7 @@ namespace TubesAI.Model
             this.maxHP = _medic.maxHP;
             this.currentHP = _medic.currentHP;
             this.urutan = _medic.urutan;
-            this.avalaibleCuring = available;
+            this.avalaibleCuring = _medic.avalaibleCuring;
             this.isBertahan = false;
         }
 
@@ -60,6 +60,11 @@ namespace TubesAI.Model
         public bool isTidakBisaCuring()
         {
             return this.avalaibleCuring == 0;
+        }
+
+        public int getAvailableCuring()
+        {
+            return this.avalaibleCuring;
         }
 
     }
