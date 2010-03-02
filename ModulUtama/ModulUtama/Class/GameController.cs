@@ -163,7 +163,7 @@ namespace ModulUtama.Class
                 count = 0;
                 do
                 {
-                    Agent2Action = Agent2.Execute(bufTeam2_1, bufTeam2_2);
+                    Agent2Action = Agent2.Execute(bufTeam2_2, bufTeam2_1);
                     count++;
                 } while (!isListActionValid(TC.Team2, Agent2Action) && count < 3);
                 buangAksi(TC.Team2, Agent2Action);
