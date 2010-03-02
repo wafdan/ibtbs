@@ -53,7 +53,7 @@ namespace TubesAI.Model
                 }
                 else if (unit is Medic)
                 {
-                    listUnit.Add(new Medic(unit.index, unit.getCurrentHP()));
+                    listUnit.Add(new Medic(unit.index, unit.getCurrentHP(), ((Medic)unit).getAvailableCuring()));
                 }
                 else if (unit is Rider)
                 {
@@ -95,7 +95,6 @@ namespace TubesAI.Model
             {
                 listUnit.Add(new Rider(iter++));
             }
-
         }
 
         public void useLifePotion()
