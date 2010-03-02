@@ -146,12 +146,16 @@ namespace ModulUtama.Class
         {
             if (!TC.isEndGame())
             {
-                Team bufTeam1 = new Team(TC.Team1);
-                Team bufTeam2 = new Team(TC.Team2);
+                // Untuk Agent 1
+                Team bufTeam1_1 = new Team(TC.Team1);
+                Team bufTeam1_2 = new Team(TC.Team2);
+                // Untuk Agent 2
+                Team bufTeam2_1 = new Team(TC.Team1);
+                Team bufTeam2_2 = new Team(TC.Team2);
                 count = 0;
                 do
                 {
-                    Agent1Action = Agent1.Execute(bufTeam1, bufTeam2);
+                    Agent1Action = Agent1.Execute(bufTeam1_1, bufTeam1_2);
                     count++;
                 } while (!isListActionValid(TC.Team1, Agent1Action) && count < 3);
                 buangAksi(TC.Team1, Agent1Action);
@@ -159,7 +163,7 @@ namespace ModulUtama.Class
                 count = 0;
                 do
                 {
-                    Agent2Action = Agent2.Execute(bufTeam2, bufTeam1);
+                    Agent2Action = Agent2.Execute(bufTeam2_1, bufTeam2_2);
                     count++;
                 } while (!isListActionValid(TC.Team2, Agent2Action) && count < 3);
                 buangAksi(TC.Team2, Agent2Action);
