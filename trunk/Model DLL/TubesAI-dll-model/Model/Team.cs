@@ -22,11 +22,20 @@ namespace TubesAI.Model
         /// <returns></returns>
         public Unit FindUnit(int index)
         {
+            /*
             foreach (Unit un in listUnit)
             {
-                if (listUnit.FindIndex(re => re == un) == index) return un;
+              if (listUnit.FindIndex(re => re == un) == index) return un;
             }
-            return null;
+             */
+            if (index >= 0 && index < listUnit.Count)
+            {
+                return listUnit[index];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public Team(Team copyTeam)
