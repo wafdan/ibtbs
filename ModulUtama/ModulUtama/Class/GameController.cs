@@ -42,36 +42,41 @@ namespace ModulUtama.Class
          */
         private bool isActionValid(Unit unit, ElemenAksi act)
         {
-            if (unit is Archer)
+            if (!unit.isDead())
             {
-                if (act.aksi == Aksi.heal)
-                    return false;
-            }
-            else if (unit is Swordsman)
-            {
-                if (act.aksi == Aksi.heal)
-                    return false;
-            }
-            else if (unit is Spearman)
-            {
-                if (act.aksi == Aksi.heal)
-                    return false;
-            }
-            else if (unit is Rider)
-            {
-                if (act.aksi == Aksi.heal || act.aksi == Aksi.use_item)
+                if (unit is Archer)
                 {
-                    return false;
+                    if (act.aksi == Aksi.heal)
+                        return false;
                 }
-            }
-            else if (unit is Medic)
-            {
-                if (act.aksi == Aksi.menyerang)
+                else if (unit is Swordsman)
                 {
-                    return false;
+                    if (act.aksi == Aksi.heal)
+                        return false;
                 }
+                else if (unit is Spearman)
+                {
+                    if (act.aksi == Aksi.heal)
+                        return false;
+                }
+                else if (unit is Rider)
+                {
+                    if (act.aksi == Aksi.heal || act.aksi == Aksi.use_item)
+                    {
+                        return false;
+                    }
+                }
+                else if (unit is Medic)
+                {
+                    if (act.aksi == Aksi.menyerang)
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
-            return true;
+            else
+                return false;
         }
 
         /*

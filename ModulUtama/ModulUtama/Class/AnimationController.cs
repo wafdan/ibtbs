@@ -210,7 +210,7 @@ namespace ModulUtama.Class
             }
 
             for (int i = 0; i < 4; i++ )
-                ViewGame.DrawPoint(poin, _object);
+                ViewGame.DrawPoint(-1 * poin, _object);
 
         }
 
